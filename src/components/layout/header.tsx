@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container, Grid, Mark } from "@/components/swiss/layout";
 import { siteConfig } from "@/config/site";
+import { SearchTrigger } from "@/components/search/search-trigger";
 import { MobileNav } from "./mobile-nav";
 import { NavLink } from "./nav-link";
 import { ThemeToggle } from "./theme-toggle";
@@ -31,9 +32,21 @@ export function Header() {
           </nav>
           <div className="hidden justify-end gap-4 md:col-span-3 md:flex lg:col-span-3">
             <NavLink href="/resume">{siteConfig.ui.resume} ↓</NavLink>
+            {siteConfig.features.search && (
+              <SearchTrigger className="hover:text-accent">
+                Search <kbd className="font-sans text-muted">⌘K</kbd>
+              </SearchTrigger>
+            )}
             <ThemeToggle className="hover:text-accent" />
           </div>
-          <MobileNav className="col-span-2 justify-self-end md:hidden" />
+          <div className="col-span-2 flex justify-end gap-4 md:hidden">
+            {siteConfig.features.search && (
+              <SearchTrigger className="underline underline-offset-4">
+                Search
+              </SearchTrigger>
+            )}
+            <MobileNav />
+          </div>
         </Grid>
       </Container>
     </header>
