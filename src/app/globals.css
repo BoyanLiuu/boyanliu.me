@@ -79,3 +79,163 @@
     }
   }
 }
+
+/* Long-form content (posts, case studies). Elements come from Markdown, so they are styled here, not per component. */
+@layer components {
+  .prose-swiss {
+    counter-reset: h2;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+  .prose-swiss > * + * {
+    margin-top: 1.25rem;
+  }
+  .prose-swiss h2 {
+    counter-increment: h2;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    letter-spacing: var(--text-h2--letter-spacing);
+    margin-top: 3rem;
+    padding-top: 0.875rem;
+    border-top: 2px solid var(--color-rule);
+    scroll-margin-top: 5rem;
+  }
+  .prose-swiss h2::before {
+    content: counter(h2, decimal-leading-zero);
+    color: var(--color-accent);
+    margin-right: 0.75rem;
+  }
+  .prose-swiss h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    letter-spacing: var(--text-h3--letter-spacing);
+    margin-top: 2rem;
+    scroll-margin-top: 5rem;
+  }
+  .prose-swiss :is(h2, h3) a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .prose-swiss a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .prose-swiss a:hover {
+    color: var(--color-accent);
+  }
+  .prose-swiss strong {
+    font-weight: 700;
+  }
+  .prose-swiss :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--color-wash);
+    padding: 0.1em 0.35em;
+  }
+  .prose-swiss ul {
+    list-style: square;
+    padding-left: 1.25rem;
+  }
+  .prose-swiss ol {
+    list-style: decimal-leading-zero;
+    padding-left: 2.25rem;
+  }
+  .prose-swiss li::marker {
+    color: var(--color-accent);
+  }
+  .prose-swiss li + li {
+    margin-top: 0.5rem;
+  }
+  .prose-swiss li.task-list-item {
+    list-style: none;
+    margin-left: -1.25rem;
+  }
+  .prose-swiss input[type="checkbox"] {
+    accent-color: var(--color-accent);
+    margin-right: 0.5rem;
+  }
+  .prose-swiss blockquote {
+    border-left: 2px solid var(--color-rule);
+    padding-left: 1.25rem;
+    color: var(--color-muted);
+  }
+  .prose-swiss table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-variant-numeric: tabular-nums;
+  }
+  .prose-swiss th {
+    text-align: left;
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-rule);
+    padding: 0.5rem 1rem 0.5rem 0;
+  }
+  .prose-swiss td {
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--color-rule) 20%, transparent);
+    padding: 0.625rem 1rem 0.625rem 0;
+  }
+  .prose-swiss hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .prose-swiss img {
+    border: 1px solid var(--color-rule);
+  }
+
+  /* Code blocks from rehype-pretty-code (Shiki dual themes). */
+  .prose-swiss [data-rehype-pretty-code-figure] {
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+  .prose-swiss [data-rehype-pretty-code-title] {
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .prose-swiss pre {
+    background: var(--color-wash);
+    border-left: 2px solid var(--color-rule);
+    padding: 1.125rem 1.25rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .prose-swiss code[data-theme] span {
+    color: var(--shiki-light);
+  }
+  .dark .prose-swiss code[data-theme] span {
+    color: var(--shiki-dark);
+  }
+  .prose-swiss [data-highlighted-line] {
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+  .prose-swiss .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25rem 0;
+  }
+  .prose-swiss section.footnotes {
+    margin-top: 3rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-rule);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    color: var(--color-muted);
+  }
+  .prose-swiss section.footnotes h2 {
+    display: none;
+  }
+}

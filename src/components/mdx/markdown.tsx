@@ -1,15 +1,18 @@
 import { MDXContent } from "@content-collections/mdx/react";
-import type { ComponentProps } from "react";
+import { cn } from "@/lib/cn";
+import { mdxComponents } from "./components";
 
-type Components = ComponentProps<typeof MDXContent>["components"];
-
-/** Renders MDX compiled at build time by content-collections. Styled components arrive in checkpoint 2.3. */
+/** Renders MDX compiled at build time, with Swiss prose styles and custom components. */
 export function Markdown({
   code,
-  components,
+  className,
 }: {
   code: string;
-  components?: Components;
+  className?: string;
 }) {
-  return <MDXContent code={code} components={components} />;
+  return (
+    <div className={cn("prose-swiss", className)}>
+      <MDXContent code={code} components={mdxComponents} />
+    </div>
+  );
 }

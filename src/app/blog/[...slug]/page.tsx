@@ -32,15 +32,15 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main>
+    <main className="mx-auto max-w-3xl px-5 py-10">
       <Link href="/blog">← Writing</Link>
       <article>
-        <h1>{post.title}</h1>
+        <h1 className="mt-6 font-display text-h1 font-bold">{post.title}</h1>
         <p>
           <time dateTime={isoDate(post.date)}>{formatDate(post.date)}</time> ·{" "}
           {post.readingMinutes} min read
         </p>
-        <Markdown code={post.mdx} />
+        <Markdown code={post.mdx} className="mt-10" />
       </article>
     </main>
   );
