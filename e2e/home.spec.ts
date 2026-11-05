@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import site from "../content/site.json";
 
 /**
  * The recruiter "5-second test" (docs: guide §13.4): on a 1440×900 screen, before scrolling,
@@ -19,7 +20,8 @@ test("home passes the 5-second test above the fold", async ({ page }) => {
   };
 
   await fold(main.getByRole("heading", { level: 1 }));
-  await fold(main.getByText("Open to new roles"));
+  if (site.author.availability !== "hidden")
+    await fold(main.getByText(site.author.availabilityNote));
   await fold(
     main
       .getByRole("navigation", { name: "Contact" })
@@ -28,7 +30,7 @@ test("home passes the 5-second test above the fold", async ({ page }) => {
   await fold(
     main
       .getByRole("navigation", { name: "Contact" })
-      .getByRole("link", { name: /hello@|Email/ }),
+      .getByRole("link", { name: /@|Email/ }),
   );
   await fold(main.locator("#work article").first());
 });

@@ -5,8 +5,8 @@
       "startServerReadyPattern": "Ready",
       "url": [
         "http://127.0.0.1:3000/",
-        "http://127.0.0.1:3000/blog/markdown-style-guide",
-        "http://127.0.0.1:3000/projects/ledgerline"
+        "http://127.0.0.1:3000/blog",
+        "http://127.0.0.1:3000/projects"
       ],
       "numberOfRuns": 3
     },

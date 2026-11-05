@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { siteConfig } from "@/config/site";
 import {
   Container,
   Display,
@@ -30,7 +31,7 @@ export default function UiGallery() {
       </div>
       <Rule weight={2} className="mt-3" />
       <Display className="mt-10">
-        Shawn Liu
+        {siteConfig.name}
         <Mark />
       </Display>
       <Sections className="mt-10">
