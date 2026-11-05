@@ -4,7 +4,11 @@ import { cn } from "@/lib/cn";
 import { formatDate, isoDate } from "@/lib/date";
 import type { Post } from "@/lib/posts";
 
-/** Writing row: title · summary · reading time and date. `wide` gives the title more room (blog index). */
+/**
+ * Writing row: title · summary · reading time and date.
+ * Tablets: title and date share the first line, the summary takes the full second line.
+ * `wide` gives the title more room (blog index).
+ */
 export function PostRow({
   post,
   wide = false,
@@ -15,11 +19,10 @@ export function PostRow({
   return (
     <Row className="items-baseline gap-y-1">
       <h3
-        className={
-          wide
-            ? "col-span-4 md:col-span-4 lg:col-span-6"
-            : "col-span-4 md:col-span-4 lg:col-span-5"
-        }
+        className={cn(
+          "col-span-4 md:col-span-5",
+          wide ? "lg:col-span-6" : "lg:col-span-5",
+        )}
       >
         <Link
           href={`/blog/${post.slug}`}
@@ -30,13 +33,13 @@ export function PostRow({
       </h3>
       <p
         className={cn(
-          "col-span-4 text-body text-muted md:col-span-2",
+          "col-span-4 text-body text-muted md:order-last md:col-span-8 lg:order-none",
           wide ? "lg:col-span-4" : "lg:col-span-5",
         )}
       >
         {post.summary}
       </p>
-      <Label className="col-span-4 md:col-span-2 md:text-right lg:col-span-2">
+      <Label className="col-span-4 md:col-span-3 md:text-right lg:col-span-2">
         {post.readingMinutes} min ·{" "}
         <time dateTime={isoDate(post.date)}>{formatDate(post.date)}</time>
       </Label>

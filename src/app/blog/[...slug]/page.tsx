@@ -75,7 +75,7 @@ export default async function PostPage({ params }: Props) {
           )}
         </aside>
 
-        <div className="col-span-4 md:col-span-8 lg:col-span-7 lg:col-start-3">
+        <div className="col-span-4 md:col-span-8 lg:col-span-10 lg:col-start-3 xl:col-span-7">
           {post.toc.length > 0 && (
             <details className="mb-8 border-y border-rule xl:hidden">
               <summary className="flex cursor-pointer justify-between py-3 text-small font-bold">

@@ -213,6 +213,12 @@
     font-size: 0.875rem;
     line-height: 1.6;
   }
+  /* Phones: the copy button sits in a reserved strip above the first line instead of over it. */
+  @media (width < 48rem) {
+    .prose-swiss pre {
+      padding-top: 2.75rem;
+    }
+  }
   .prose-swiss code[data-theme] span {
     color: var(--shiki-light);
   }
