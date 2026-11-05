@@ -5,6 +5,17 @@ import { siteConfig } from "./src/config/site";
 const resumeFile = `${siteConfig.author.name.replace(/\s+/g, "-")}-Resume.pdf`;
 
 const nextConfig: NextConfig = {
+  // Résumé short links: /r and /p/<slug> carry ?ref=resume so analytics can tell résumé traffic apart.
+  async redirects() {
+    return [
+      { source: "/r", destination: "/?ref=resume", permanent: false },
+      {
+        source: "/p/:slug",
+        destination: "/projects/:slug?ref=resume",
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {
