@@ -1,6 +1,6 @@
-import { cn } from "@/lib/cn";
+import { MediaFrame } from "@/components/media/media-frame";
 
-/** 16:10 image frame with a 1px ink border. `muted` = greyscale that turns to colour on hover. */
+/** Project cover: a MediaFrame for an image or SVG. Kept as a small wrapper for the card components. */
 export function Frame({
   src,
   alt,
@@ -15,22 +15,12 @@ export function Frame({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "group relative aspect-[16/10] overflow-hidden border border-rule bg-wash",
-        className,
-      )}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element -- covers are SVG; MediaFrame (4.2) adds next/image for raster media */}
-      <img
-        src={src}
-        alt={alt}
-        loading={priority ? "eager" : "lazy"}
-        className={cn(
-          "size-full object-cover object-top-left transition-[filter] duration-150",
-          muted && "grayscale group-hover:grayscale-0",
-        )}
-      />
-    </div>
+    <MediaFrame
+      item={{ type: "image", src, alt }}
+      muted={muted}
+      priority={priority}
+      sizes="(min-width: 1024px) 50vw, 100vw"
+      className={className}
+    />
   );
 }

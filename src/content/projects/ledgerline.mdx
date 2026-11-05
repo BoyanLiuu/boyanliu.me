@@ -13,6 +13,11 @@ coverAlt: Architecture diagram of the settlement flow, with the idempotency key 
 problem: Client retries during network blips occasionally settled the same payment twice.
 approach: Idempotency keys stored with the ledger write in one transaction, plus a replay-safe consumer.
 result: Zero double-charges across 1.2M transactions; settlement p99 down 38%.
+media:
+  - type: svg
+    src: /projects/ledgerline/sequence.svg
+    alt: Sequence diagram showing a retried payment answered from the stored idempotency key.
+    caption: Fig. 2 — A retry is answered from the stored key
 links:
   repo: https://github.com/BoyanLiuu
 ---

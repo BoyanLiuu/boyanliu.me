@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { MediaFrame } from "@/components/media/media-frame";
 import { Markdown } from "@/components/mdx/markdown";
 import { Frame } from "@/components/swiss/frame";
 import {
@@ -143,6 +144,17 @@ export default async function CaseStudy({ params }: Props) {
             </figcaption>
           </figure>
           <Markdown code={project.mdx} className="mt-10 max-w-[68ch]" />
+          {project.media.length > 0 && (
+            <div className="mt-12 grid gap-8 border-t-2 border-rule pt-6 md:grid-cols-2">
+              {project.media.map((item) => (
+                <MediaFrame
+                  key={item.src}
+                  item={item}
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                />
+              ))}
+            </div>
+          )}
         </div>
       </Grid>
     </Container>
