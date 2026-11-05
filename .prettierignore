@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+.next
+.content-collections
+coverage
+test-results
+playwright-report
