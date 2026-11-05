@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MediaFrame } from "@/components/media/media-frame";
 import { Markdown } from "@/components/mdx/markdown";
+import { PostRow } from "@/components/blog/post-row";
 import { Frame } from "@/components/swiss/frame";
 import {
   Container,
@@ -13,7 +14,9 @@ import {
   Label,
   Mark,
 } from "@/components/swiss/layout";
+import { getPosts } from "@/lib/posts";
 import { getProjectBySlug, getProjects } from "@/lib/projects";
+import { postsForProject } from "@/lib/relations";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -62,6 +65,7 @@ export default async function CaseStudy({ params }: Props) {
   if (!project) notFound();
   const index = projects.findIndex((p) => p.slug === slug);
   const links = Object.entries(project.links).filter(([, href]) => href);
+  const related = postsForProject(getPosts(), project.slug);
 
   return (
     <Container>
@@ -154,6 +158,16 @@ export default async function CaseStudy({ params }: Props) {
                 />
               ))}
             </div>
+          )}
+          {related.length > 0 && (
+            <section aria-label="Related writing" className="mt-12">
+              <h2 className="border-t-2 border-rule pt-3 text-label font-medium uppercase">
+                Related writing
+              </h2>
+              {related.map((post) => (
+                <PostRow key={post.slug} post={post} />
+              ))}
+            </section>
           )}
         </div>
       </Grid>

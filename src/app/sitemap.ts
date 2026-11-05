@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
+import { allTopics } from "@/lib/relations";
 import { buildSitemap } from "@/lib/sitemap";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return buildSitemap({ posts: getPosts(), projects: getProjects() });
+  const posts = getPosts();
+  const projects = getProjects();
+  return buildSitemap({ posts, projects, tags: allTopics(posts, projects) });
 }

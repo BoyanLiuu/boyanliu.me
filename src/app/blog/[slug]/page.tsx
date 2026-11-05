@@ -8,6 +8,8 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { Container, Grid, Label, Mark } from "@/components/swiss/layout";
 import { formatDate, isoDate } from "@/lib/date";
 import { getPostBySlug, getPosts } from "@/lib/posts";
+import { getProjects } from "@/lib/projects";
+import { projectsForPost } from "@/lib/relations";
 import { blogPostingJsonLd, pageAlternates, pageOpenGraph } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -45,6 +47,7 @@ export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) notFound();
+  const relatedProjects = projectsForPost(getProjects(), post);
 
   return (
     <Container>
@@ -81,6 +84,23 @@ export default async function PostPage({ params }: Props) {
                       className="underline underline-offset-4 hover:text-accent"
                     >
                       {tag}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {relatedProjects.length > 0 && (
+            <div>
+              <Label className="block text-muted">Related project</Label>
+              <ul className="mt-1 text-small">
+                {relatedProjects.map((project) => (
+                  <li key={project.slug}>
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="underline underline-offset-4 hover:text-accent"
+                    >
+                      {project.title} →
                     </Link>
                   </li>
                 ))}
