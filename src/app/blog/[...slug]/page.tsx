@@ -4,9 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Toc } from "@/components/blog/toc";
 import { Markdown } from "@/components/mdx/markdown";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Container, Grid, Label, Mark } from "@/components/swiss/layout";
 import { formatDate, isoDate } from "@/lib/date";
 import { getPostBySlug, getPosts } from "@/lib/posts";
+import { blogPostingJsonLd, pageAlternates, pageOpenGraph } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string[] }> };
 
@@ -21,10 +23,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug.join("/"));
   if (!post) return {};
+  const url = `/blog/${post.slug}`;
   return {
     title: post.title,
     description: post.summary,
     keywords: post.keywords ?? post.tags,
+    alternates: pageAlternates(url),
+    openGraph: pageOpenGraph({
+      type: "article",
+      url,
+      title: post.title,
+      description: post.summary,
+      publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
+      tags: post.tags,
+    }),
   };
 }
 
@@ -35,6 +48,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <Container>
+      <JsonLd data={blogPostingJsonLd(post)} />
       <div className="flex justify-between border-b border-rule py-3.5 text-small">
         <Link href="/blog" className="hover:text-accent">
           ← Writing

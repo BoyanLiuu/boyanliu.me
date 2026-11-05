@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { GridOverlay } from "@/components/swiss/grid-overlay";
 import { siteConfig } from "@/config/site";
+import { feedTypes } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -20,8 +21,19 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: { default: siteConfig.title, template: `%s · ${siteConfig.name}` },
   description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
+  alternates: { types: feedTypes },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    locale: siteConfig.locale.replace("-", "_"),
+    url: "/",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

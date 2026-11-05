@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
 import { roleDates } from "@/components/about/experience-row";
 import { Container, Label, Mark } from "@/components/swiss/layout";
 import { siteConfig } from "@/config/site";
@@ -6,6 +7,7 @@ import { education, experience } from "@/data/experience";
 import { getSkillCounts } from "@/lib/projects";
 
 export const metadata: Metadata = {
+  alternates: pageAlternates("/resume"),
   title: "Résumé",
   description: `Résumé of ${siteConfig.author.name}.`,
 };

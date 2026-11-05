@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Frame } from "@/components/swiss/frame";
@@ -21,7 +22,19 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getProjectBySlug((await params).slug);
-  return project ? { title: project.title, description: project.summary } : {};
+  return project
+    ? {
+        title: project.title,
+        description: project.summary,
+        alternates: pageAlternates(`/projects/${project.slug}`),
+        openGraph: pageOpenGraph({
+          type: "article",
+          url: `/projects/${project.slug}`,
+          title: project.title,
+          description: project.summary,
+        }),
+      }
+    : {};
 }
 
 function Fact({

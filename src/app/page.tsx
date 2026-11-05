@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ExperienceRow } from "@/components/about/experience-row";
 import { PostRow } from "@/components/blog/post-row";
 import { Hero } from "@/components/home/hero";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ProjectFeature } from "@/components/projects/project-feature";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Container, Section, Sections } from "@/components/swiss/layout";
 import { LinkBar } from "@/components/swiss/link-bar";
 import { contactCells } from "@/config/links";
@@ -11,6 +13,9 @@ import { siteConfig } from "@/config/site";
 import { experience } from "@/data/experience";
 import { getPosts } from "@/lib/posts";
 import { getFeaturedProjects } from "@/lib/projects";
+import { pageAlternates, personJsonLd } from "@/lib/seo";
+
+export const metadata: Metadata = { alternates: pageAlternates("/") };
 
 export default function Home() {
   const [feature, ...rest] = getFeaturedProjects(3);
@@ -18,6 +23,7 @@ export default function Home() {
 
   return (
     <Container>
+      <JsonLd data={personJsonLd()} />
       <Hero />
       <LinkBar cells={contactCells} label="Contact" className="border-t-0" />
       <Sections>

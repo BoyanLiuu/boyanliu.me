@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
 import Link from "next/link";
 import { ProjectRow } from "@/components/projects/project-row";
 import { Container, Display, Mark } from "@/components/swiss/layout";
 import { getProjects, getSkillCounts } from "@/lib/projects";
 
 export const metadata: Metadata = {
+  alternates: pageAlternates("/projects"),
   title: "Work",
   description: "Selected projects and case studies.",
 };

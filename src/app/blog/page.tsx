@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
 import { PostRow } from "@/components/blog/post-row";
 import { Container, Display, Label, Mark } from "@/components/swiss/layout";
 import { getPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
+  alternates: pageAlternates("/blog"),
   title: "Writing",
   description:
     "Posts on building software: case studies, debugging stories and design trade-offs.",

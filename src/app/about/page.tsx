@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/seo";
 import Link from "next/link";
 import { ExperienceRow } from "@/components/about/experience-row";
 import {
@@ -13,6 +14,7 @@ import { experience } from "@/data/experience";
 import { getSkillCounts } from "@/lib/projects";
 
 export const metadata: Metadata = {
+  alternates: pageAlternates("/about"),
   title: "About",
   description: `About ${siteConfig.author.name}.`,
 };
