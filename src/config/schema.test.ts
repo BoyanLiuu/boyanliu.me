@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import experience from "../../content/experience.json";
 import site from "../../content/site.json";
 import { jsonSchemas } from "./json-schemas";
-import { siteSchema } from "./schema";
+import { experienceSchema, siteSchema } from "./schema";
 
 describe("content/site.json", () => {
   it("matches the site schema", () => {
@@ -19,6 +20,24 @@ describe("content/site.json", () => {
       social: { ...site.social, linkdin: "https://example.com" },
     };
     expect(siteSchema.safeParse(typo).success).toBe(false);
+  });
+});
+
+describe("content/experience.json", () => {
+  it("matches the experience schema", () => {
+    const result = experienceSchema.safeParse(experience);
+    expect(
+      result.success,
+      result.success ? "" : JSON.stringify(result.error.issues, null, 2),
+    ).toBe(true);
+  });
+
+  it("rejects malformed months", () => {
+    const bad = {
+      ...experience,
+      roles: [{ ...experience.roles[0], start: "Jan 2023" }],
+    };
+    expect(experienceSchema.safeParse(bad).success).toBe(false);
   });
 });
 

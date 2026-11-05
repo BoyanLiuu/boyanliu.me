@@ -109,3 +109,40 @@ export const siteSchema = z
   .describe("Site settings for this portfolio");
 
 export type SiteData = z.infer<typeof siteSchema>;
+
+const yearMonth = z
+  .string()
+  .regex(/^\d{4}-(0[1-9]|1[0-2])$/, "must be YYYY-MM, e.g. 2023-04");
+
+export const experienceSchema = z
+  .strictObject({
+    $schema: z.string().optional(),
+    roles: z
+      .array(
+        z.strictObject({
+          company: z.string().min(1),
+          title: z.string().min(1),
+          start: yearMonth.describe("Start month, YYYY-MM"),
+          end: yearMonth
+            .optional()
+            .describe("End month, YYYY-MM; omit for your current role"),
+          location: z.string().optional(),
+          highlights: z
+            .array(z.string().min(1))
+            .min(1)
+            .describe("Impact bullets, ideally with numbers"),
+          stack: z.array(z.string()).optional(),
+        }),
+      )
+      .describe("Most recent first. The home page shows the first three"),
+    education: z.array(
+      z.strictObject({
+        school: z.string().min(1),
+        degree: z.string().min(1),
+        year: z.string(),
+      }),
+    ),
+  })
+  .describe("Work history and education for /about and /resume");
+
+export type ExperienceData = z.infer<typeof experienceSchema>;

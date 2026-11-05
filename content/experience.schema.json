@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+            "description": "Start month, YYYY-MM"
+          },
+          "end": {
+            "description": "End month, YYYY-MM; omit for your current role",
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          },
+          "location": {
+            "type": "string"
+          },
+          "highlights": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Impact bullets, ideally with numbers"
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "company",
+          "title",
+          "start",
+          "highlights"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Most recent first. The home page shows the first three"
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "school": {
+            "type": "string",
+            "minLength": 1
+          },
+          "degree": {
+            "type": "string",
+            "minLength": 1
+          },
+          "year": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "school",
+          "degree",
+          "year"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "roles",
+    "education"
+  ],
+  "additionalProperties": false,
+  "description": "Work history and education for /about and /resume"
+}
