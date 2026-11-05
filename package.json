@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
     "test:e2e": "playwright test",
-    "media:video": "node scripts/media-video.mjs"
+    "media:video": "node scripts/media-video.mjs",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "@content-collections/mdx": "^0.2.2",

@@ -23,3 +23,18 @@ test("an unknown page returns 404", async ({ page }) => {
   expect(response?.status()).toBe(404);
   await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
 });
+
+test("résumé page and PDF are available", async ({ page, request }) => {
+  const response = await page.goto("/resume");
+  expect(response?.status()).toBe(200);
+  await expect(
+    page.getByRole("link", { name: /Download PDF/ }),
+  ).toHaveAttribute("href", "/resume.pdf");
+
+  const pdf = await request.get("/resume.pdf");
+  expect(pdf.status()).toBe(200);
+  expect(pdf.headers()["content-type"]).toContain("application/pdf");
+  expect(pdf.headers()["content-disposition"]).toMatch(
+    /filename=".+-Resume\.pdf"/,
+  );
+});
