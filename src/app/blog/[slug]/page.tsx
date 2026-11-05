@@ -10,18 +10,18 @@ import { formatDate, isoDate } from "@/lib/date";
 import { getPostBySlug, getPosts } from "@/lib/posts";
 import { blogPostingJsonLd, pageAlternates, pageOpenGraph } from "@/lib/seo";
 
-type Props = { params: Promise<{ slug: string[] }> };
+type Props = { params: Promise<{ slug: string }> };
 
 // Only prerendered posts exist; any other slug is a real 404.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getPosts().map((post) => ({ slug: post.slug.split("/") }));
+  return getPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug.join("/"));
+  const post = getPostBySlug(slug);
   if (!post) return {};
   const url = `/blog/${post.slug}`;
   return {
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPostBySlug(slug.join("/"));
+  const post = getPostBySlug(slug);
   if (!post) notFound();
 
   return (

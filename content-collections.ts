@@ -49,6 +49,11 @@ const posts = defineCollection({
     content: z.string(),
   }),
   transform: async (document, context) => {
+    if (document._meta.path.includes("/")) {
+      throw new Error(
+        `Posts must live directly in src/content/posts (found ${document._meta.filePath}).`,
+      );
+    }
     const mdx = await compileMDX(context, document, markdownOptions);
     const words = document.content.split(/\s+/).filter(Boolean).length;
     return {
