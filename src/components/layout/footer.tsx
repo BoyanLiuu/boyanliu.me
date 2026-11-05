@@ -13,6 +13,8 @@ export function Footer() {
           <span>
             © 2026 {siteConfig.author.name}. Code MIT · content all rights
             reserved.
+            {siteConfig.features.analytics &&
+              " Cookie-free analytics by Plausible."}
           </span>
           <span className="flex gap-4">
             <a

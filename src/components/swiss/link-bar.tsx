@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { eventClass } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 export type LinkCell = {
@@ -6,6 +7,8 @@ export type LinkCell = {
   detail?: string;
   href: string;
   primary?: boolean;
+  /** Plausible tagged-event name recorded on click (when analytics is on). */
+  event?: string;
 };
 
 const lgCols: Record<number, string> = {
@@ -43,6 +46,7 @@ export function LinkBar({
           index === visible.length - 1 &&
             visible.length % 2 === 1 &&
             "col-span-2 lg:col-span-1",
+          cell.event && eventClass(cell.event),
         );
         const content = cell.detail ? (
           <>

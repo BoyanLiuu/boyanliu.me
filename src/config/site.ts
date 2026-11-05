@@ -33,6 +33,8 @@ export type SiteConfig = {
     search: boolean;
     analytics: boolean;
   };
+  /** Plausible (cookie-free). Only loaded when features.analytics is true. */
+  analytics: { domain: string; scriptSrc: string };
   ui: {
     selectedWork: string;
     writing: string;
@@ -74,6 +76,10 @@ export const siteConfig = {
     comments: false,
     search: true,
     analytics: false,
+  },
+  analytics: {
+    domain: "boyanliu.me",
+    scriptSrc: "https://plausible.io/js/script.outbound-links.tagged-events.js",
   },
   ui: {
     selectedWork: "Selected work",

@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { SearchDialog } from "@/components/search/search-dialog";
+import { Analytics } from "@/components/seo/analytics";
 import { GridOverlay } from "@/components/swiss/grid-overlay";
 import { siteConfig } from "@/config/site";
 import { feedTypes } from "@/lib/seo";
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main">{children}</main>
           <Footer />
           {siteConfig.features.search && <SearchDialog />}
+          <Analytics />
           {process.env.NODE_ENV === "development" && <GridOverlay />}
         </ThemeProvider>
       </body>

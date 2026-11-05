@@ -3,6 +3,8 @@ import { pageAlternates } from "@/lib/seo";
 import { roleDates } from "@/components/about/experience-row";
 import { Container, Label, Mark } from "@/components/swiss/layout";
 import { siteConfig } from "@/config/site";
+import { eventClass, events } from "@/lib/analytics";
+import { cn } from "@/lib/cn";
 import { education, experience } from "@/data/experience";
 import { getSkillCounts } from "@/lib/projects";
 
@@ -50,7 +52,10 @@ export default function Resume() {
       </div>
       <a
         href="/resume.pdf"
-        className="mt-4 inline-block bg-accent px-4 py-2 font-display font-bold text-paper print:hidden"
+        className={cn(
+          "mt-4 inline-block bg-accent px-4 py-2 font-display font-bold text-paper print:hidden",
+          eventClass(events.resumeDownload),
+        )}
       >
         Download PDF ↓
       </a>
