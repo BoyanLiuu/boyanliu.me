@@ -87,12 +87,12 @@ export default async function PostPage({ params }: Props) {
           {post.tags.length > 0 && (
             <div>
               <Label className="block text-muted">Tags</Label>
-              <ul className="mt-1 flex flex-wrap gap-x-3 text-small lg:block">
+              <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-2 text-small lg:block lg:space-y-2">
                 {post.tags.map((tag) => (
                   <li key={tag}>
                     <Link
                       href={`/tags/${tag}`}
-                      className="underline underline-offset-4 hover:text-accent"
+                      className="inline-block py-0.5 underline underline-offset-4 hover:text-accent"
                     >
                       {tag}
                     </Link>

@@ -7,6 +7,8 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import { z } from "zod";
+import rehypeLabelCheckboxes from "./src/lib/markdown/rehype-label-checkboxes";
+import { swissDark, swissLight } from "./src/lib/markdown/swiss-code-theme";
 import { extractToc } from "./src/lib/toc";
 
 /** Shared Markdown pipeline for posts and (later) projects. */
@@ -14,12 +16,13 @@ export const markdownOptions = {
   remarkPlugins: [remarkGfm, remarkMath],
   rehypePlugins: [
     rehypeSlug,
+    rehypeLabelCheckboxes,
     [rehypeAutolinkHeadings, { behavior: "wrap" }],
     rehypeKatex,
     [
       rehypePrettyCode,
       {
-        theme: { light: "min-light", dark: "min-dark" },
+        theme: { light: swissLight, dark: swissDark },
         keepBackground: false,
         defaultLang: "plaintext",
       },
