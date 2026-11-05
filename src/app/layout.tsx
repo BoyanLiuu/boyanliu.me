@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { GridOverlay } from "@/components/swiss/grid-overlay";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           disableTransitionOnChange
         >
           {children}
+          {process.env.NODE_ENV === "development" && <GridOverlay />}
         </ThemeProvider>
       </body>
     </html>
