@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short site name, used in titles and the header"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical site URL. NEXT_PUBLIC_SITE_URL overrides it at build time"
+    },
+    "locale": {
+      "type": "string",
+      "minLength": 2,
+      "description": "BCP 47 locale for dates and <html lang>, e.g. en-US"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Default <title> and share title"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Default meta description (about 150 characters)"
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "jobTitle": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Role shown in the hero, résumé and share cards"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+        },
+        "location": {
+          "type": "string",
+          "description": "Shown in the hero and résumé; empty to hide"
+        },
+        "bio": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One or two sentences: specialty plus a concrete result"
+        },
+        "availability": {
+          "type": "string",
+          "enum": [
+            "open",
+            "busy",
+            "hidden"
+          ],
+          "description": "Hero badge: open, busy or hidden"
+        },
+        "availabilityNote": {
+          "type": "string",
+          "description": "Text next to the badge, e.g. 'Open to new roles'"
+        },
+        "copyrightStart": {
+          "type": "integer",
+          "minimum": 1990,
+          "maximum": 9007199254740991,
+          "description": "First year in the © line"
+        }
+      },
+      "required": [
+        "name",
+        "jobTitle",
+        "email",
+        "location",
+        "bio",
+        "availability",
+        "availabilityNote",
+        "copyrightStart"
+      ],
+      "additionalProperties": false
+    },
+    "social": {
+      "type": "object",
+      "properties": {
+        "github": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ],
+          "description": "Absolute URL, or empty string to hide"
+        },
+        "linkedin": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ],
+          "description": "Absolute URL, or empty string to hide"
+        },
+        "x": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ],
+          "description": "Absolute URL, or empty string to hide"
+        }
+      },
+      "required": [
+        "github",
+        "linkedin",
+        "x"
+      ],
+      "additionalProperties": false
+    },
+    "nav": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "href": {
+            "type": "string",
+            "format": "starts_with",
+            "pattern": "^\\/.*"
+          }
+        },
+        "required": [
+          "title",
+          "href"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Header navigation, in order"
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "comments": {
+          "type": "boolean",
+          "description": "Reserved for Giscus comments (not built yet)"
+        },
+        "search": {
+          "type": "boolean",
+          "description": "⌘K search palette"
+        },
+        "analytics": {
+          "type": "boolean",
+          "description": "Load Plausible analytics (needs a Plausible site)"
+        }
+      },
+      "required": [
+        "comments",
+        "search",
+        "analytics"
+      ],
+      "additionalProperties": false
+    },
+    "analytics": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Plausible site domain"
+        },
+        "scriptSrc": {
+          "type": "string",
+          "format": "uri",
+          "description": "Plausible script URL"
+        }
+      },
+      "required": [
+        "domain",
+        "scriptSrc"
+      ],
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "accent": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Accent on white; needs ≥ 4.5:1 contrast (checked at build)"
+        },
+        "accentDark": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Accent on black in dark mode; needs ≥ 4.5:1 contrast"
+        }
+      },
+      "required": [
+        "accent",
+        "accentDark"
+      ],
+      "additionalProperties": false
+    },
+    "ui": {
+      "type": "object",
+      "properties": {
+        "selectedWork": {
+          "type": "string"
+        },
+        "writing": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        },
+        "readMore": {
+          "type": "string"
+        },
+        "minRead": {
+          "type": "string"
+        },
+        "resume": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "selectedWork",
+        "writing",
+        "experience",
+        "contact",
+        "readMore",
+        "minRead",
+        "resume"
+      ],
+      "additionalProperties": false,
+      "description": "Interface labels"
+    }
+  },
+  "required": [
+    "name",
+    "url",
+    "locale",
+    "title",
+    "description",
+    "author",
+    "social",
+    "nav",
+    "features",
+    "analytics",
+    "theme",
+    "ui"
+  ],
+  "additionalProperties": false,
+  "description": "Site settings for this portfolio"
+}

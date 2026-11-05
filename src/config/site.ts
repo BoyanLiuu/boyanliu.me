@@ -1,93 +1,19 @@
 /**
- * Single source of truth for site-wide settings.
- * Items marked TODO are placeholders to replace with real details before launch.
+ * Site settings, loaded from content/site.json (the only place to edit them).
+ * The JSON is validated against src/config/schema.ts at build time (see next.config.ts),
+ * so this module only types it and applies the NEXT_PUBLIC_SITE_URL override.
+ * It deliberately does not import zod at runtime, keeping it out of client bundles.
  */
+import data from "../../content/site.json";
+import type { SiteData } from "./schema";
 
-export type Availability = "open" | "busy" | "hidden";
+export type SiteConfig = Omit<SiteData, "$schema">;
+export type Availability = SiteConfig["author"]["availability"];
+export type NavItem = SiteConfig["nav"][number];
 
-export type NavItem = { title: string; href: string };
+const site = data as unknown as SiteConfig; // validated at build; JSON imports widen literal types
 
-export type SiteConfig = {
-  name: string;
-  url: string;
-  locale: string;
-  title: string;
-  description: string;
-  author: {
-    name: string;
-    jobTitle: string;
-    email: string;
-    location: string;
-    bio: string;
-    availability: Availability;
-    availabilityNote: string;
-  };
-  social: {
-    github: string;
-    linkedin: string;
-    x: string;
-  };
-  nav: NavItem[];
-  features: {
-    comments: boolean;
-    search: boolean;
-    analytics: boolean;
-  };
-  /** Plausible (cookie-free). Only loaded when features.analytics is true. */
-  analytics: { domain: string; scriptSrc: string };
-  ui: {
-    selectedWork: string;
-    writing: string;
-    experience: string;
-    contact: string;
-    readMore: string;
-    minRead: string;
-    resume: string;
-  };
+export const siteConfig: SiteConfig = {
+  ...site,
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? site.url,
 };
-
-export const siteConfig = {
-  name: "Shawn Liu",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://boyanliu.me",
-  locale: "en-US",
-  title: "Shawn Liu — Software Engineer",
-  description:
-    "Portfolio and writing by Shawn Liu: projects, case studies and notes on building software.",
-  author: {
-    name: "Shawn Liu",
-    jobTitle: "Software Engineer", // TODO: your target role and level
-    email: "hello@boyanliu.me", // TODO: a real inbox on your domain
-    location: "Seattle — Remote", // TODO
-    bio: "TODO: one or two sentences with your specialty and a concrete result.",
-    availability: "open" as Availability,
-    availabilityNote: "Open to new roles",
-  },
-  social: {
-    github: "https://github.com/BoyanLiuu",
-    linkedin: "", // TODO: https://www.linkedin.com/in/<you>
-    x: "",
-  },
-  nav: [
-    { title: "Work", href: "/projects" },
-    { title: "Writing", href: "/blog" },
-    { title: "About", href: "/about" },
-  ],
-  features: {
-    comments: false,
-    search: true,
-    analytics: false,
-  },
-  analytics: {
-    domain: "boyanliu.me",
-    scriptSrc: "https://plausible.io/js/script.outbound-links.tagged-events.js",
-  },
-  ui: {
-    selectedWork: "Selected work",
-    writing: "Writing",
-    experience: "Experience",
-    contact: "Contact",
-    readMore: "Read more",
-    minRead: "min read",
-    resume: "Résumé",
-  },
-} satisfies SiteConfig;

@@ -1,0 +1,59 @@
+{
+  "$schema": "./site.schema.json",
+  "name": "Shawn Liu",
+  "url": "https://boyanliu.me",
+  "locale": "en-US",
+  "title": "Shawn Liu — Software Engineer",
+  "description": "Portfolio and writing by Shawn Liu: projects, case studies and notes on building software.",
+  "author": {
+    "name": "Shawn Liu",
+    "jobTitle": "Software Engineer",
+    "email": "hello@boyanliu.me",
+    "location": "Seattle — Remote",
+    "bio": "TODO: one or two sentences with your specialty and a concrete result.",
+    "availability": "open",
+    "availabilityNote": "Open to new roles",
+    "copyrightStart": 2026
+  },
+  "social": {
+    "github": "https://github.com/BoyanLiuu",
+    "linkedin": "",
+    "x": ""
+  },
+  "nav": [
+    {
+      "title": "Work",
+      "href": "/projects"
+    },
+    {
+      "title": "Writing",
+      "href": "/blog"
+    },
+    {
+      "title": "About",
+      "href": "/about"
+    }
+  ],
+  "features": {
+    "comments": false,
+    "search": true,
+    "analytics": false
+  },
+  "analytics": {
+    "domain": "boyanliu.me",
+    "scriptSrc": "https://plausible.io/js/script.outbound-links.tagged-events.js"
+  },
+  "theme": {
+    "accent": "#e30613",
+    "accentDark": "#ff3b30"
+  },
+  "ui": {
+    "selectedWork": "Selected work",
+    "writing": "Writing",
+    "experience": "Experience",
+    "contact": "Contact",
+    "readMore": "Read more",
+    "minRead": "min read",
+    "resume": "Résumé"
+  }
+}

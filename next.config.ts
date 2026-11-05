@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 import { withContentCollections } from "@content-collections/next";
 import { siteConfig } from "./src/config/site";
+import { validateContentFiles } from "./src/config/validate";
+
+// Fail fast (dev and build) if content/*.json is invalid.
+validateContentFiles();
 
 const resumeFile = `${siteConfig.author.name.replace(/\s+/g, "-")}-Resume.pdf`;
 
