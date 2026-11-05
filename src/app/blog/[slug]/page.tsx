@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PostRow } from "@/components/blog/post-row";
+import { SeriesBox } from "@/components/blog/series-box";
 import { Toc } from "@/components/blog/toc";
 import { Markdown } from "@/components/mdx/markdown";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -10,7 +11,12 @@ import { Container, Grid, Label, Mark } from "@/components/swiss/layout";
 import { formatDate, isoDate } from "@/lib/date";
 import { getPostBySlug, getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { adjacent, projectsForPost, relatedPosts } from "@/lib/relations";
+import {
+  adjacent,
+  projectsForPost,
+  relatedPosts,
+  seriesParts,
+} from "@/lib/relations";
 import { blogPostingJsonLd, pageAlternates, pageOpenGraph } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -52,6 +58,7 @@ export default async function PostPage({ params }: Props) {
   const posts = getPosts();
   const related = relatedPosts(post, posts);
   const { newer, older } = adjacent(posts, post.slug);
+  const series = post.series ? seriesParts(posts, post.series) : [];
 
   return (
     <Container>
@@ -124,6 +131,9 @@ export default async function PostPage({ params }: Props) {
               </summary>
               <Toc items={post.toc} className="pb-3" />
             </details>
+          )}
+          {post.series && series.length > 1 && (
+            <SeriesBox name={post.series} parts={series} current={post.slug} />
           )}
           <Markdown code={post.mdx} />
         </div>

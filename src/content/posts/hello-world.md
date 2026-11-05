@@ -1,6 +1,8 @@
 ---
 title: Hello, world
 date: "2026-11-04"
+series: Building this site
+seriesOrder: 1
 summary: Why this site exists and what I plan to write about.
 tags: [meta]
 featured: true

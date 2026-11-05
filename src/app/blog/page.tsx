@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Archive, POSTS_PER_PAGE } from "@/components/blog/archive";
+import { StartHere } from "@/components/blog/start-here";
 import { Container, Display, Mark } from "@/components/swiss/layout";
 import { paginate } from "@/lib/content";
-import { getPosts } from "@/lib/posts";
+import { getFeaturedPosts, getPosts } from "@/lib/posts";
 import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function BlogIndex() {
         Writing
         <Mark />
       </Display>
+      <StartHere posts={getFeaturedPosts(3)} />
       <Archive posts={items} page={page} pages={pages} />
     </Container>
   );

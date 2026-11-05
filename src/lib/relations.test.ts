@@ -6,6 +6,7 @@ import {
   postsForProject,
   projectsForPost,
   relatedPosts,
+  seriesParts,
 } from "./relations";
 
 const posts = [
@@ -61,5 +62,17 @@ describe("relatedPosts and adjacent", () => {
       newer: undefined,
       older: undefined,
     });
+  });
+});
+
+describe("seriesParts", () => {
+  it("orders by seriesOrder, then by date", () => {
+    const posts = [
+      { slug: "c", date: "2026-03-01", series: "s" },
+      { slug: "b", date: "2026-01-01", series: "s", seriesOrder: 2 },
+      { slug: "a", date: "2026-02-01", series: "s", seriesOrder: 1 },
+      { slug: "x", date: "2026-01-01", series: "other" },
+    ];
+    expect(seriesParts(posts, "s").map((p) => p.slug)).toEqual(["a", "b", "c"]);
   });
 });

@@ -97,6 +97,8 @@ const posts = defineCollection({
     cover: z.string().optional(),
     keywords: z.array(z.string()).optional(),
     projects: z.array(z.string()).default([]),
+    series: z.string().optional(),
+    seriesOrder: z.number().int().positive().optional(),
     content: z.string(),
   }),
   transform: async (document, context) => {

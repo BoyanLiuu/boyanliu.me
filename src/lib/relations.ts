@@ -73,3 +73,25 @@ export function adjacent<P extends { slug: string }>(
     older: i >= 0 && i < posts.length - 1 ? posts[i + 1] : undefined,
   };
 }
+
+type Serial = {
+  slug: string;
+  date: string;
+  series?: string;
+  seriesOrder?: number;
+};
+
+/** All parts of a series in reading order (seriesOrder, then oldest first). */
+export function seriesParts<P extends Serial>(
+  posts: readonly P[],
+  series: string,
+): P[] {
+  return posts
+    .filter((post) => post.series === series)
+    .sort(
+      (a, b) =>
+        (a.seriesOrder ?? Number.MAX_SAFE_INTEGER) -
+          (b.seriesOrder ?? Number.MAX_SAFE_INTEGER) ||
+        Date.parse(a.date) - Date.parse(b.date),
+    );
+}
