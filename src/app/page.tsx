@@ -1,15 +1,63 @@
-import { ThemeToggle } from "@/components/layout/theme-toggle";
+import Link from "next/link";
+import { ExperienceRow } from "@/components/about/experience-row";
+import { PostRow } from "@/components/blog/post-row";
+import { Hero } from "@/components/home/hero";
+import { ProjectCard } from "@/components/projects/project-card";
+import { ProjectFeature } from "@/components/projects/project-feature";
+import { Container, Section, Sections } from "@/components/swiss/layout";
+import { LinkBar } from "@/components/swiss/link-bar";
+import { contactCells } from "@/config/links";
+import { siteConfig } from "@/config/site";
+import { experience } from "@/data/experience";
+import { getPosts } from "@/lib/posts";
+import { getFeaturedProjects } from "@/lib/projects";
 
 export default function Home() {
+  const [feature, ...rest] = getFeaturedProjects(3);
+  const posts = getPosts().slice(0, 3);
+
   return (
-    <div className="p-16">
-      <h1 className="font-display text-display font-bold">
-        Shawn Liu<span className="text-accent">.</span>
-      </h1>
-      <p className="mt-6 text-body text-muted">
-        Design tokens and themes (checkpoint 2.1).
-      </p>
-      <ThemeToggle className="mt-6 text-small underline underline-offset-4" />
-    </div>
+    <Container>
+      <Hero />
+      <LinkBar cells={contactCells} label="Contact" className="border-t-0" />
+      <Sections>
+        <Section title={siteConfig.ui.selectedWork} id="work">
+          {feature && <ProjectFeature project={feature} />}
+          {rest.length > 0 && (
+            <div className="mt-10 grid gap-x-6 gap-y-10 border-t border-rule pt-5 md:grid-cols-2">
+              {rest.map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+            </div>
+          )}
+          <p className="mt-6 text-small">
+            <Link
+              href="/projects"
+              className="underline underline-offset-4 hover:text-accent"
+            >
+              All work →
+            </Link>
+          </p>
+        </Section>
+        <Section title={siteConfig.ui.writing} id="writing">
+          {posts.map((post) => (
+            <PostRow key={post.slug} post={post} />
+          ))}
+          <p className="mt-6 text-small">
+            <Link
+              href="/blog"
+              className="underline underline-offset-4 hover:text-accent"
+            >
+              All writing →
+            </Link>
+          </p>
+        </Section>
+        <Section title={siteConfig.ui.experience} id="experience">
+          {experience.map((role) => (
+            <ExperienceRow key={`${role.company}-${role.start}`} role={role} />
+          ))}
+        </Section>
+      </Sections>
+    </Container>
   );
 }

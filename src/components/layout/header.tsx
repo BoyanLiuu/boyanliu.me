@@ -8,7 +8,7 @@ import { ThemeToggle } from "./theme-toggle";
 /** Top bar on the grid: name · nav · résumé and theme. Phones get a Menu button instead of the nav. */
 export function Header() {
   return (
-    <header className="pt-5 lg:pt-10">
+    <header className="pt-5 lg:pt-10 print:hidden">
       <Container>
         <Grid className="items-baseline border-b-2 border-rule pb-3 text-small">
           <Link

@@ -239,3 +239,23 @@
     display: none;
   }
 }
+
+/* Print (résumé): A4, no site chrome, ink on white regardless of theme. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  html,
+  .dark {
+    --color-paper: #ffffff;
+    --color-ink: #000000;
+    --color-muted: #444444;
+    --color-rule: #000000;
+    --color-accent: #e30613;
+    font-size: 13px;
+  }
+  a {
+    text-decoration: none;
+  }
+}

@@ -24,4 +24,16 @@ export function collectTags<T extends Tagged>(items: readonly T[]): string[] {
   );
 }
 
+/** Counts values across items, most common first (ties alphabetical). */
+export function countValues<T>(
+  items: readonly T[],
+  pick: (item: T) => string[],
+): [string, number][] {
+  const counts = new Map<string, number>();
+  for (const item of items)
+    for (const value of pick(item))
+      counts.set(value, (counts.get(value) ?? 0) + 1);
+  return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+
 export const includeDrafts = process.env.NODE_ENV !== "production";

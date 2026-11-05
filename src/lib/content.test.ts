@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { collectTags, sortByDateDesc, visible } from "./content";
+import { collectTags, countValues, sortByDateDesc, visible } from "./content";
 
 const fixtures = [
   { slug: "old", date: "2025-01-10", draft: false, tags: ["go", "kafka"] },
@@ -21,5 +21,14 @@ describe("content helpers", () => {
 
   it("collects unique, sorted tags", () => {
     expect(collectTags(fixtures)).toEqual(["aws", "go", "kafka", "rust"]);
+  });
+
+  it("counts values, most common first", () => {
+    expect(countValues(fixtures, (p) => p.tags)).toEqual([
+      ["go", 2],
+      ["aws", 1],
+      ["kafka", 1],
+      ["rust", 1],
+    ]);
   });
 });

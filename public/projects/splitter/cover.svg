@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1600" height="1000" fill="#f2f2f2"/>
+  <g fill="#fff" stroke="#000" stroke-width="6"><rect x="440" y="120" width="320" height="640" rx="44"/><rect x="840" y="120" width="320" height="640" rx="44"/></g>
+  <g fill="#000"><rect x="480" y="210" width="200" height="22"/><rect x="480" y="250" width="140" height="14" opacity=".4"/>
+  <rect x="880" y="210" width="200" height="22"/></g>
+  <rect x="480" y="300" width="240" height="90" fill="#e30613"/>
+  <g stroke="#000" stroke-width="3" opacity=".5"><path d="M480 440 H720 M480 500 H720 M480 560 H720 M880 330 H1120 M880 400 H1120 M880 470 H1120"/></g>
+  <rect x="880" y="660" width="240" height="56" fill="#000"/>
+  <text x="880" y="290" font-size="30" fill="#e30613" font-weight="700">● Offline · will sync</text>
+  <text x="440" y="880" font-size="34" letter-spacing="3" fill="#000">FIG. 1 — BALANCES AND OFFLINE EXPENSE ENTRY</text>
+</svg>

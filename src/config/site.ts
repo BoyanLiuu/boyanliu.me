@@ -57,7 +57,7 @@ export const siteConfig = {
     email: "hello@boyanliu.me", // TODO: a real inbox on your domain
     location: "Seattle — Remote", // TODO
     bio: "TODO: one or two sentences with your specialty and a concrete result.",
-    availability: "open",
+    availability: "open" as Availability,
     availabilityNote: "Open to new roles",
   },
   social: {
