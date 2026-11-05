@@ -59,7 +59,7 @@ export default function Home() {
           </p>
         </Section>
         <Section title={siteConfig.ui.experience} id="experience">
-          {experience.map((role) => (
+          {experience.slice(0, 3).map((role) => (
             <ExperienceRow key={`${role.company}-${role.start}`} role={role} />
           ))}
         </Section>
