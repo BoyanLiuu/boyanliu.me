@@ -15,7 +15,9 @@
     "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
     "test:e2e": "playwright test",
     "media:video": "node scripts/media-video.mjs",
-    "resume:pdf": "node scripts/resume-pdf.mjs"
+    "resume:pdf": "node scripts/resume-pdf.mjs",
+    "new:post": "node scripts/new-content.mjs post",
+    "new:project": "node scripts/new-content.mjs project"
   },
   "dependencies": {
     "@content-collections/mdx": "^0.2.2",
