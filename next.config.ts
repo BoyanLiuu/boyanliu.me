@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
+import { withContentCollections } from "@content-collections/next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -14,4 +14,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// withContentCollections must be the outermost plugin.
+export default withContentCollections(nextConfig);

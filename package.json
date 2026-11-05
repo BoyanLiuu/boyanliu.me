@@ -20,6 +20,9 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@content-collections/core": "^0.15.3",
+    "@content-collections/mdx": "^0.2.2",
+    "@content-collections/next": "^0.2.11",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -31,7 +34,8 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.0",
+    "zod": "^4.6.7"
   },
   "packageManager": "pnpm@12.16.1",
   "engines": {
