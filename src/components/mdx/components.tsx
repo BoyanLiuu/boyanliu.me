@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { CodeBlock } from "./code-block";
+import { Playground, YouTube } from "./embeds";
 
 /** Internal links use next/link; external links open normally with safe rel attributes. */
 function Anchor({ href = "", ...props }: ComponentProps<"a">) {
@@ -53,4 +54,6 @@ export const mdxComponents = {
   pre: CodeBlock,
   Callout,
   Figure,
+  YouTube,
+  Playground,
 };

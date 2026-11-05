@@ -38,6 +38,18 @@ Regular paragraphs, **bold**, _italic_, `inline code`, [links](https://example.c
   Callouts highlight something the reader shouldn't miss.
 </Callout>
 
+## Embeds
+
+Embeds are click-to-load (YouTube) or lazy and sandboxed (StackBlitz, CodeSandbox), so they cost nothing until used:
+
+```mdx
+<YouTube id="dQw4w9WgXcQ" title="Talk: Idempotency in practice" />
+<Playground
+  src="https://stackblitz.com/edit/your-demo?embed=1"
+  title="Retry demo"
+/>
+```
+
 ## Code
 
 ```ts title="handler.ts"
