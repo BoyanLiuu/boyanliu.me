@@ -12,18 +12,20 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@content-collections/mdx": "^0.2.2",
     "katex": "^0.19.1",
     "next": "16.4.5",
     "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "@content-collections/mdx": "^0.2.2"
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@content-collections/core": "^0.15.3",
     "@content-collections/next": "^0.2.11",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 import { withContentCollections } from "@content-collections/next";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Cache Components is off: the site is static-first, and it disallows dynamicParams,
+  // which we need for real 404s on unknown post slugs.
   turbopack: {
     rules: {
       "*.css": {
