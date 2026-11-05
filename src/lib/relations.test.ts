@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  adjacent,
   allTopics,
   itemsForTopic,
   postsForProject,
   projectsForPost,
+  relatedPosts,
 } from "./relations";
 
 const posts = [
@@ -37,5 +39,27 @@ describe("relations", () => {
     const go = itemsForTopic("go", posts, projects);
     expect(go.posts.map((p) => p.slug)).toEqual(["p1"]);
     expect(go.projects.map((p) => p.slug)).toEqual(["ledger"]);
+  });
+});
+
+describe("relatedPosts and adjacent", () => {
+  const list = [
+    { slug: "a", tags: ["go", "kafka"] },
+    { slug: "b", tags: ["rust"] },
+    { slug: "c", tags: ["go"] },
+    { slug: "d", tags: ["go", "kafka", "aws"] },
+  ];
+
+  it("ranks by shared tags and excludes the post itself and unrelated posts", () => {
+    expect(relatedPosts(list[0], list).map((p) => p.slug)).toEqual(["d", "c"]);
+  });
+
+  it("finds newer and older neighbours", () => {
+    expect(adjacent(list, "a")).toEqual({ newer: undefined, older: list[1] });
+    expect(adjacent(list, "c")).toEqual({ newer: list[1], older: list[3] });
+    expect(adjacent(list, "zzz")).toEqual({
+      newer: undefined,
+      older: undefined,
+    });
   });
 });

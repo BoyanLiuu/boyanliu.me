@@ -2,6 +2,7 @@ import "katex/dist/katex.min.css";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PostRow } from "@/components/blog/post-row";
 import { Toc } from "@/components/blog/toc";
 import { Markdown } from "@/components/mdx/markdown";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -9,7 +10,7 @@ import { Container, Grid, Label, Mark } from "@/components/swiss/layout";
 import { formatDate, isoDate } from "@/lib/date";
 import { getPostBySlug, getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
-import { projectsForPost } from "@/lib/relations";
+import { adjacent, projectsForPost, relatedPosts } from "@/lib/relations";
 import { blogPostingJsonLd, pageAlternates, pageOpenGraph } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -48,6 +49,9 @@ export default async function PostPage({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
   const relatedProjects = projectsForPost(getProjects(), post);
+  const posts = getPosts();
+  const related = relatedPosts(post, posts);
+  const { newer, older } = adjacent(posts, post.slug);
 
   return (
     <Container>
@@ -136,14 +140,46 @@ export default async function PostPage({ params }: Props) {
         )}
       </Grid>
 
-      <div className="mt-16 border-t-2 border-rule pt-4 text-small">
-        <Link
-          href="/blog"
-          className="underline underline-offset-4 hover:text-accent"
-        >
-          ← All writing
-        </Link>
-      </div>
+      {related.length > 0 && (
+        <section aria-label="Related writing" className="mt-16">
+          <h2 className="border-t-2 border-rule pt-3 text-label font-medium uppercase">
+            Related writing
+          </h2>
+
+          {related.map((p) => (
+            <PostRow key={p.slug} post={p} wide />
+          ))}
+        </section>
+      )}
+
+      <nav
+        aria-label="More posts"
+        className="mt-16 grid grid-cols-2 gap-6 border-t-2 border-rule pt-4"
+      >
+        <div>
+          {newer && (
+            <Link href={`/blog/${newer.slug}`} className="group block">
+              <Label className="text-muted">← Newer</Label>
+
+              <span className="mt-1 block font-display text-h3 font-bold group-hover:text-accent">
+                {newer.title}
+              </span>
+            </Link>
+          )}
+        </div>
+
+        <div className="text-right">
+          {older && (
+            <Link href={`/blog/${older.slug}`} className="group block">
+              <Label className="text-muted">Older →</Label>
+
+              <span className="mt-1 block font-display text-h3 font-bold group-hover:text-accent">
+                {older.title}
+              </span>
+            </Link>
+          )}
+        </div>
+      </nav>
     </Container>
   );
 }

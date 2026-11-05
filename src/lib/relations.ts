@@ -40,3 +40,36 @@ export function itemsForTopic<P extends PostLike, J extends ProjectLike>(
     projects: projects.filter((project) => project.stack.includes(topic)),
   };
 }
+
+type Dated = { slug: string; tags: string[] };
+
+/** Posts sharing the most tags with `post` (ties keep the input order, i.e. newest first). */
+export function relatedPosts<P extends Dated>(
+  post: P,
+  posts: readonly P[],
+  limit = 3,
+): P[] {
+  return posts
+    .filter((other) => other.slug !== post.slug)
+    .map((other, index) => ({
+      other,
+      index,
+      shared: other.tags.filter((t) => post.tags.includes(t)).length,
+    }))
+    .filter(({ shared }) => shared > 0)
+    .sort((a, b) => b.shared - a.shared || a.index - b.index)
+    .slice(0, limit)
+    .map(({ other }) => other);
+}
+
+/** Neighbours in a newest-first list: `newer` is the previous item, `older` the next. */
+export function adjacent<P extends { slug: string }>(
+  posts: readonly P[],
+  slug: string,
+) {
+  const i = posts.findIndex((post) => post.slug === slug);
+  return {
+    newer: i > 0 ? posts[i - 1] : undefined,
+    older: i >= 0 && i < posts.length - 1 ? posts[i + 1] : undefined,
+  };
+}
