@@ -37,3 +37,20 @@ export function countValues<T>(
 }
 
 export const includeDrafts = process.env.NODE_ENV !== "production";
+
+export type Page<T> = { items: T[]; page: number; pages: number };
+
+/** 1-based pagination. Out-of-range pages return no items (callers turn that into a 404). */
+export function paginate<T>(
+  items: readonly T[],
+  page: number,
+  perPage: number,
+): Page<T> {
+  const pages = Math.max(1, Math.ceil(items.length / perPage));
+  const valid = Number.isInteger(page) && page >= 1 && page <= pages;
+  return {
+    items: valid ? items.slice((page - 1) * perPage, page * perPage) : [],
+    page,
+    pages,
+  };
+}

@@ -1,0 +1,76 @@
+import Link from "next/link";
+import { Label } from "@/components/swiss/layout";
+import type { Post } from "@/lib/posts";
+import { PostRow } from "./post-row";
+
+export const POSTS_PER_PAGE = 20;
+
+const pageHref = (page: number) =>
+  page === 1 ? "/blog" : `/blog/page/${page}`;
+
+/** Posts grouped by year (year in columns 1–2), with a pager when there is more than one page. */
+export function Archive({
+  posts,
+  page,
+  pages,
+}: {
+  posts: Post[];
+  page: number;
+  pages: number;
+}) {
+  const years = [
+    ...new Set(posts.map((post) => new Date(post.date).getUTCFullYear())),
+  ];
+  return (
+    <div className="mt-10">
+      {years.map((year) => (
+        <section
+          key={year}
+          aria-label={String(year)}
+          className="grid grid-cols-4 gap-x-4 md:grid-cols-8 md:gap-x-6 lg:grid-cols-12"
+        >
+          <h2 className="col-span-4 border-t-2 border-rule pt-5 font-display text-h2 font-bold md:col-span-8 lg:col-span-2 lg:border-t-0">
+            {year}
+          </h2>
+          <div className="col-span-4 md:col-span-8 lg:col-span-10">
+            {posts
+              .filter((post) => new Date(post.date).getUTCFullYear() === year)
+              .map((post) => (
+                <PostRow key={post.slug} post={post} wide />
+              ))}
+          </div>
+        </section>
+      ))}
+      {pages > 1 && (
+        <nav
+          aria-label="Pagination"
+          className="mt-10 flex items-baseline justify-between border-t-2 border-rule pt-4 text-small"
+        >
+          {page > 1 ? (
+            <Link
+              href={pageHref(page - 1)}
+              className="underline underline-offset-4 hover:text-accent"
+            >
+              ← Newer
+            </Link>
+          ) : (
+            <span />
+          )}
+          <Label>
+            Page {page} of {pages}
+          </Label>
+          {page < pages ? (
+            <Link
+              href={pageHref(page + 1)}
+              className="underline underline-offset-4 hover:text-accent"
+            >
+              Older →
+            </Link>
+          ) : (
+            <span />
+          )}
+        </nav>
+      )}
+    </div>
+  );
+}
