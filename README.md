@@ -23,17 +23,19 @@ pnpm test:e2e     # Playwright smoke tests against the production build (run `pn
 
 ## Make it yours (replace the TODOs)
 
-1. **`src/config/site.ts`**: role, email, location, bio, LinkedIn, availability.
-2. **`src/data/experience.ts`**: real roles with impact bullets and dates; education.
+Everything personal lives in `content/` (see [TEMPLATE.md](TEMPLATE.md)):
+
+1. **`content/site.json`**: role, email, location, bio, LinkedIn, availability, accent colours, feature flags. VS Code autocompletes it from `site.schema.json`.
+2. **`content/experience.json`**: real roles with impact bullets and dates; education.
 3. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
 4. **`content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
 5. Run `pnpm build && pnpm resume:pdf` and commit the new `public/resume.pdf`.
 
-Drafts (`draft: true`) appear in `pnpm dev` only. A post that references an unknown project fails the build with a clear error.
+Invalid JSON or frontmatter stops `pnpm dev`/`pnpm build` with a readable error. Drafts (`draft: true`) appear in `pnpm dev` only.
 
 ## Writing
 
-Posts and projects are Markdown/MDX with validated frontmatter (see `content-collections.ts`). Available in MDX:
+Posts (`content/posts/`) and projects (`content/projects/`) are Markdown/MDX with validated frontmatter (see `content-collections.ts`). Available in MDX:
 
 - GitHub-flavoured Markdown (tables, task lists, footnotes), math (`$…$`, `$$…$$`), highlighted code with a copy button
 - `<Callout title="…">`, `<Figure src alt caption />`
@@ -56,7 +58,7 @@ Swiss design system (12/8/4-column grid, token-locked colours, light and dark th
 3. Add the domain `boyanliu.me` (and `www.boyanliu.me` redirecting to it) and update DNS as Vercel instructs.
 4. Pull requests get preview deployments automatically.
 
-To turn on analytics, create the site in Plausible and set `features.analytics: true` in `src/config/site.ts`.
+To turn on analytics, create the site in Plausible and set `features.analytics` to `true` in `content/site.json`.
 
 ## Licence
 
