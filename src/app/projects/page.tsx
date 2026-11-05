@@ -34,7 +34,7 @@ export default function ProjectsIndex() {
             href={`/tags/${stack}`}
             className="hover:text-accent"
           >
-            {stack}
+            #{stack}
           </Link>
         ))}
       </nav>

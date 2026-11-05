@@ -51,7 +51,7 @@ export default function About() {
                   href={`/tags/${skill}`}
                   className="font-display text-h3 font-bold hover:text-accent"
                 >
-                  {skill}
+                  #{skill}
                 </Link>{" "}
                 <span className="text-small text-muted">×{count}</span>
               </li>
