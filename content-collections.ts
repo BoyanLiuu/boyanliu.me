@@ -45,7 +45,7 @@ const mediaItem = z.object({
 
 const projects = defineCollection({
   name: "projects",
-  directory: "src/content/projects",
+  directory: "content/projects",
   include: "*.{md,mdx}",
   schema: z.object({
     title: z.string().min(1),
@@ -87,7 +87,7 @@ const projects = defineCollection({
 
 const posts = defineCollection({
   name: "posts",
-  directory: "src/content/posts",
+  directory: "content/posts",
   include: "**/*.{md,mdx}",
   schema: z.object({
     title: z.string().min(1),
@@ -116,7 +116,7 @@ const posts = defineCollection({
     }
     if (document._meta.path.includes("/")) {
       throw new Error(
-        `Posts must live directly in src/content/posts (found ${document._meta.filePath}).`,
+        `Posts must live directly in content/posts (found ${document._meta.filePath}).`,
       );
     }
     const mdx = await compileMDX(context, document, markdownOptions);

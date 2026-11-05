@@ -2,7 +2,7 @@ name: Links
 
 on:
   pull_request:
-    paths: ["src/content/**", "README.md", "src/config/**"]
+    paths: ["content/**", "README.md"]
   schedule:
     - cron: "0 7 * * 1" # Mondays 07:00 UTC: catch links that rot over time
   workflow_dispatch:
@@ -23,5 +23,5 @@ jobs:
             --exclude-path node_modules
             --exclude '^https?://(127\.0\.0\.1|localhost)'
             --exclude 'linkedin\.com'
-            'src/content/**/*.md' 'src/content/**/*.mdx' 'src/config/*.ts' README.md
+            'content/**/*.md' 'content/**/*.mdx' 'content/*.json' README.md
           fail: true

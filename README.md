@@ -13,20 +13,20 @@ pnpm check        # typecheck + lint + unit tests + production build
 pnpm test:e2e     # Playwright smoke tests against the production build (run `pnpm build` first)
 ```
 
-| Script                                                | What it does                                                                   |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------ |
-| `pnpm new:post "Title"`                               | Creates `src/content/posts/<slug>.mdx` as a draft with the recommended outline |
-| `pnpm new:project "Title"`                            | Creates `src/content/projects/<slug>.mdx` as a draft                           |
-| `pnpm media:video <in> public/projects/<slug>/<name>` | Converts a screen recording to MP4 + WebM + poster (needs `ffmpeg`)            |
-| `pnpm resume:pdf`                                     | Prints `/resume` to `public/resume.pdf` (run after `pnpm build`)               |
-| `pnpm format`                                         | Prettier with Tailwind class sorting                                           |
+| Script                                                | What it does                                                               |
+| ----------------------------------------------------- | -------------------------------------------------------------------------- |
+| `pnpm new:post "Title"`                               | Creates `content/posts/<slug>.mdx` as a draft with the recommended outline |
+| `pnpm new:project "Title"`                            | Creates `content/projects/<slug>.mdx` as a draft                           |
+| `pnpm media:video <in> public/projects/<slug>/<name>` | Converts a screen recording to MP4 + WebM + poster (needs `ffmpeg`)        |
+| `pnpm resume:pdf`                                     | Prints `/resume` to `public/resume.pdf` (run after `pnpm build`)           |
+| `pnpm format`                                         | Prettier with Tailwind class sorting                                       |
 
 ## Make it yours (replace the TODOs)
 
 1. **`src/config/site.ts`**: role, email, location, bio, LinkedIn, availability.
 2. **`src/data/experience.ts`**: real roles with impact bullets and dates; education.
-3. **`src/content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
-4. **`src/content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
+3. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
+4. **`content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
 5. Run `pnpm build && pnpm resume:pdf` and commit the new `public/resume.pdf`.
 
 Drafts (`draft: true`) appear in `pnpm dev` only. A post that references an unknown project fails the build with a clear error.

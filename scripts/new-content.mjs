@@ -31,7 +31,7 @@ if (!slug) {
 
 const today = new Date().toISOString().slice(0, 10);
 const quote = (s) => JSON.stringify(s);
-const dir = kind === "post" ? "src/content/posts" : "src/content/projects";
+const dir = kind === "post" ? "content/posts" : "content/projects";
 const file = join(dir, `${slug}.mdx`);
 if (existsSync(file)) {
   console.error(`Refusing to overwrite ${file}`);
