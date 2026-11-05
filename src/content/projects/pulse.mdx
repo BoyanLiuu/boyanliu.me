@@ -1,0 +1,29 @@
+---
+title: Pulse
+summary: "SAMPLE — a realtime metrics pipeline on serverless compute. Replace with your own project."
+outcome: p99 3 s → 300 ms
+year: 2025
+role: Solo
+stack: [rust, clickhouse, aws]
+featured: true
+order: 2
+cover: /projects/pulse/cover.svg
+coverAlt: Line chart of ingest p99 latency dropping from 3 seconds to 300 milliseconds after a deploy.
+problem: Ingest latency spiked to 3 seconds at peak, delaying every dashboard downstream.
+approach: Batched writes and rewrote the hot path in Rust; measured cold and warm paths separately.
+result: Ingest p99 from 3 s to 300 ms at the same cost.
+---
+
+TODO: sample case study. Replace with a real project.
+
+## Context
+
+Describe the pipeline, the traffic, and who depended on it.
+
+## Approach
+
+How you measured, what you changed first, and what you deliberately left alone.
+
+## Results
+
+The before/after numbers, ideally with a chart.

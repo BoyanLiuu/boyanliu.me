@@ -8,7 +8,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article>
       <Link href={`/projects/${project.slug}`} className="group block">
-        <Frame src={project.cover} alt={`${project.title} — cover`} muted />
+        <Frame src={project.cover} alt={project.coverAlt} muted />
         <h3 className="mt-3 font-display text-h2 font-bold group-hover:text-accent">
           {project.title}
         </h3>

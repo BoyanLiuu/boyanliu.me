@@ -1,7 +1,9 @@
+import "katex/dist/katex.min.css";
 import type { Metadata } from "next";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Markdown } from "@/components/mdx/markdown";
 import { Frame } from "@/components/swiss/frame";
 import {
   Container,
@@ -135,19 +137,12 @@ export default async function CaseStudy({ params }: Props) {
             ))}
           </div>
           <figure className="mt-8">
-            <Frame
-              src={project.cover}
-              alt={`${project.title} — overview`}
-              priority
-            />
+            <Frame src={project.cover} alt={project.coverAlt} priority />
             <figcaption className="mt-2">
               <Label>Fig. 1 — {project.title} overview</Label>
             </figcaption>
           </figure>
-          <p className="mt-10 text-body text-muted">
-            The full write-up for this project arrives with the projects
-            collection (checkpoint 4.1).
-          </p>
+          <Markdown code={project.mdx} className="mt-10 max-w-[68ch]" />
         </div>
       </Grid>
     </Container>

@@ -67,6 +67,57 @@ const posts = defineCollection({
   },
 });
 
+const mediaItem = z.object({
+  type: z.enum(["image", "video", "svg"]),
+  src: z.string(),
+  alt: z.string().min(1),
+  poster: z.string().optional(),
+  caption: z.string().optional(),
+  theme: z.enum(["light", "dark", "any"]).default("any"),
+});
+
+const projects = defineCollection({
+  name: "projects",
+  directory: "src/content/projects",
+  include: "*.{md,mdx}",
+  schema: z.object({
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    outcome: z.string().min(1),
+    year: z.number().int(),
+    role: z.string().min(1),
+    stack: z.array(z.string()).min(1),
+    status: z.enum(["live", "in-progress", "archived"]).default("live"),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+    order: z.number().optional(),
+    cover: z.string(),
+    coverAlt: z.string().min(1),
+    problem: z.string().min(1),
+    approach: z.string().min(1),
+    result: z.string().min(1),
+    media: z.array(mediaItem).default([]),
+    links: z
+      .object({
+        repo: z.string().url().optional(),
+        demo: z.string().url().optional(),
+        video: z.string().url().optional(),
+      })
+      .default({}),
+    github: z.string().optional(),
+    content: z.string(),
+  }),
+  transform: async (document, context) => {
+    const mdx = await compileMDX(context, document, markdownOptions);
+    return {
+      ...document,
+      slug: document._meta.path,
+      toc: extractToc(document.content),
+      mdx,
+    };
+  },
+});
+
 export default defineConfig({
-  content: [posts],
+  content: [posts, projects],
 });

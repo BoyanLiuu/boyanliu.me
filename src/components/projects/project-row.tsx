@@ -11,7 +11,7 @@ export function ProjectRow({ project }: { project: Project }) {
         href={`/projects/${project.slug}`}
         className="col-span-4 md:col-span-3 lg:col-span-3"
       >
-        <Frame src={project.cover} alt={`${project.title} — cover`} muted />
+        <Frame src={project.cover} alt={project.coverAlt} muted />
       </Link>
       <div className="col-span-4 md:col-span-5 lg:col-span-4">
         <h2 className="font-display text-h2 font-bold">

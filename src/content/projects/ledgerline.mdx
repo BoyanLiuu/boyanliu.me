@@ -1,0 +1,48 @@
+---
+title: Ledgerline
+summary: "SAMPLE — an idempotent payments ledger with exactly-once settlement. Replace with your own project."
+outcome: 0 double-charges / 1.2M
+year: 2026
+role: Tech lead
+stack: [go, postgres, kafka]
+status: live
+featured: true
+order: 1
+cover: /projects/ledgerline/cover.svg
+coverAlt: Architecture diagram of the settlement flow, with the idempotency key store highlighted in red.
+problem: Client retries during network blips occasionally settled the same payment twice.
+approach: Idempotency keys stored with the ledger write in one transaction, plus a replay-safe consumer.
+result: Zero double-charges across 1.2M transactions; settlement p99 down 38%.
+links:
+  repo: https://github.com/BoyanLiuu
+---
+
+TODO: this is a sample case study. Replace it with a real project, keeping the structure below.
+
+## Context
+
+What the system does, who uses it, and the scale it runs at. Include the constraints: team size, timeline and limits you couldn't change.
+
+## Problem
+
+The specific failure or opportunity, with numbers. For example: roughly 1 in 3,000 retries arrived after the original had committed, producing a second settlement.
+
+## Approach
+
+The decisions **you** made, the alternatives you rejected, and why.
+
+<Callout title="Key decision">
+  Write the idempotency key and the ledger entry in the same transaction, so a
+  retry can never observe a half-finished payment.
+</Callout>
+
+## Results
+
+| Metric                 | Before | After  |
+| ---------------------- | ------ | ------ |
+| Double-charges / month | ~12    | 0      |
+| Settlement p99         | 340 ms | 212 ms |
+
+## What I'd do differently
+
+One or two honest lessons. This signals seniority more than anything else on the page.

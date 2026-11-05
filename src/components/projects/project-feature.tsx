@@ -11,7 +11,7 @@ export function ProjectFeature({ project }: { project: Project }) {
         href={`/projects/${project.slug}`}
         className="col-span-4 md:col-span-8 lg:col-span-6"
       >
-        <Frame src={project.cover} alt={`${project.title} — cover`} priority />
+        <Frame src={project.cover} alt={project.coverAlt} priority />
       </Link>
       <div className="col-span-4 mt-5 md:col-span-8 lg:col-span-4 lg:mt-0">
         <Label>

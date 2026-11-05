@@ -1,11 +1,11 @@
-import { sampleProjects, type Project } from "@/data/sample-projects";
-import { countValues } from "./content";
+import { allProjects } from "content-collections";
+import { countValues, includeDrafts, visible } from "./content";
 
-export type { Project };
+export type Project = (typeof allProjects)[number];
 
-/** Ordered by `order`, then newest year. Data source becomes the content collection in 4.1. */
+/** Ordered by `order`, then newest year. Drafts only in development. */
 export function getProjects(): Project[] {
-  return [...sampleProjects].sort(
+  return visible(allProjects, includeDrafts).sort(
     (a, b) => (a.order ?? 99) - (b.order ?? 99) || b.year - a.year,
   );
 }
