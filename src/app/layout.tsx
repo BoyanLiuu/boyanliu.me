@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { GridOverlay } from "@/components/swiss/grid-overlay";
 import { siteConfig } from "@/config/site";
@@ -29,14 +31,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${interTight.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body id="top">
+        <a
+          href="#main"
+          className="sr-only fixed top-2 left-2 z-[60] bg-accent px-3 py-2 text-paper focus:not-sr-only"
+        >
+          Skip to content
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
           {process.env.NODE_ENV === "development" && <GridOverlay />}
         </ThemeProvider>
       </body>

@@ -32,7 +32,7 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main className="mx-auto max-w-3xl px-5 py-10">
+    <div className="mx-auto max-w-3xl px-5 py-10">
       <Link href="/blog">← Writing</Link>
       <article>
         <h1 className="mt-6 font-display text-h1 font-bold">{post.title}</h1>
@@ -42,6 +42,6 @@ export default async function PostPage({ params }: Props) {
         </p>
         <Markdown code={post.mdx} className="mt-10" />
       </article>
-    </main>
+    </div>
   );
 }
