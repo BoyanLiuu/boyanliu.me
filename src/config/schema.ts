@@ -5,6 +5,7 @@
  * Objects are strict, so a typo such as "linkdin" fails validation instead of being ignored.
  */
 import { z } from "zod";
+import { contrast } from "../lib/color.ts";
 
 const url = z.url().describe("Absolute https URL");
 const optionalUrl = z
@@ -86,14 +87,31 @@ export const siteSchema = z
       domain: z.string().min(1).describe("Plausible site domain"),
       scriptSrc: url.describe("Plausible script URL"),
     }),
-    theme: z.strictObject({
-      accent: hex.describe(
-        "Accent on white; needs ≥ 4.5:1 contrast (checked at build)",
-      ),
-      accentDark: hex.describe(
-        "Accent on black in dark mode; needs ≥ 4.5:1 contrast",
-      ),
-    }),
+    theme: z
+      .strictObject({
+        accent: hex.describe(
+          "Accent on white; needs ≥ 4.5:1 contrast (checked at build)",
+        ),
+        accentDark: hex.describe(
+          "Accent on black in dark mode; needs ≥ 4.5:1 contrast",
+        ),
+      })
+      .superRefine((theme, ctx) => {
+        const checks = [
+          ["accent", theme.accent, "#ffffff", "white"],
+          ["accentDark", theme.accentDark, "#000000", "black"],
+        ] as const;
+        for (const [key, colour, background, name] of checks) {
+          const ratio = contrast(colour, background);
+          if (ratio < 4.5) {
+            ctx.addIssue({
+              code: "custom",
+              path: [key],
+              message: `${colour} has ${ratio.toFixed(2)}:1 contrast on ${name}; WCAG AA needs 4.5:1`,
+            });
+          }
+        }
+      }),
     ui: z
       .strictObject({
         selectedWork: z.string(),

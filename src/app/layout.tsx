@@ -45,6 +45,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${interTight.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Accent colours from content/site.json (hex, contrast-checked at build). */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `html:root{--color-accent:${siteConfig.theme.accent}}html.dark{--color-accent:${siteConfig.theme.accentDark}}`,
+          }}
+        />
+      </head>
       <body id="top">
         <a
           href="#main"

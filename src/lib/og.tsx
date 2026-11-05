@@ -67,7 +67,7 @@ export async function ogImage({
             style={{
               width: 11,
               height: 11,
-              background: "#e30613",
+              background: siteConfig.theme.accent,
               marginLeft: 2,
             }}
           />
@@ -109,7 +109,7 @@ export async function ogImage({
                 style={{
                   width: size * 0.16,
                   height: size * 0.16,
-                  background: "#e30613",
+                  background: siteConfig.theme.accent,
                   marginLeft: 3,
                 }}
               />

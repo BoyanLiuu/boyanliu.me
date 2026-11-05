@@ -14,6 +14,13 @@ describe("content/site.json", () => {
     ).toBe(true);
   });
 
+  it("rejects an accent colour with too little contrast", () => {
+    const pale = { ...site, theme: { ...site.theme, accent: "#ff8a80" } };
+    const result = siteSchema.safeParse(pale);
+    expect(result.success).toBe(false);
+    expect(JSON.stringify(result.error?.issues)).toContain("4.5:1");
+  });
+
   it("rejects unknown keys (typos)", () => {
     const typo = {
       ...site,
