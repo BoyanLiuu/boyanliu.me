@@ -35,7 +35,7 @@ The `*.schema.json` files in `content/` are generated from `src/config/schema.ts
 content/site.json
 ✖ Unrecognized key: "linkdin"  → at social
 ✖ Invalid email address         → at author.email
-✖ #ff8a80 has 2.58:1 contrast on white; WCAG AA needs 4.5:1  → at theme.accent
+✖ #ff8a80 has 2.28:1 contrast on white; WCAG AA needs 4.5:1  → at theme.accent
 ```
 
 Other checks: a post that links to an unknown project fails the build; nested post folders are rejected; drafts never reach production. The e2e tests and Lighthouse budgets discover pages from `/search.json`, so they work with any content.
