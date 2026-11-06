@@ -8,6 +8,7 @@ The code is generic; everything specific to one person lives in **`content/`** (
 | ---------------------------------------- | --------- | -------------------------------------------------------------------------- |
 | `content/site.json`                      | **yours** | Name, URL, role, bio, links, nav, feature flags, accent colours, UI labels |
 | `content/experience.json`                | **yours** | Roles (YYYY-MM dates, impact bullets) and education                        |
+| `content/bookmarks.json`                 | **yours** | Saved links (repos, blogs, articles, sites) with a note on why             |
 | `content/posts/*.mdx`                    | **yours** | Blog posts (frontmatter validated by `content-collections.ts`)             |
 | `content/projects/*.mdx`                 | **yours** | Case studies (frontmatter validated by `content-collections.ts`)           |
 | `public/projects/<slug>/`                | **yours** | Covers (16:10), screenshots, videos, diagrams                              |

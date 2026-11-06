@@ -1,5 +1,5 @@
 export type SearchItem = {
-  kind: "project" | "post" | "page" | "topic";
+  kind: "project" | "post" | "bookmark" | "page" | "topic";
   title: string;
   href: string;
   summary?: string;
@@ -11,6 +11,13 @@ type PostLike = {
   title: string;
   summary: string;
   tags: string[];
+};
+type BookmarkLike = {
+  url: string;
+  title: string;
+  note: string;
+  tags: string[];
+  kind: string;
 };
 type ProjectLike = {
   slug: string;
@@ -25,10 +32,12 @@ export function buildSearchIndex({
   posts,
   projects,
   topics,
+  bookmarks = [],
 }: {
   posts: PostLike[];
   projects: ProjectLike[];
   topics: string[];
+  bookmarks?: BookmarkLike[];
 }): SearchItem[] {
   return [
     ...projects.map((p) => ({
@@ -45,9 +54,17 @@ export function buildSearchIndex({
       summary: p.summary,
       keywords: p.tags,
     })),
+    ...bookmarks.map((b) => ({
+      kind: "bookmark" as const,
+      title: b.title,
+      href: b.url,
+      summary: b.note,
+      keywords: [...b.tags, b.kind],
+    })),
     ...[
       { title: "Work", href: "/projects" },
       { title: "Writing", href: "/blog" },
+      { title: "Bookmarks", href: "/bookmarks" },
       { title: "About", href: "/about" },
       { title: "Résumé", href: "/resume" },
     ].map((p) => ({ kind: "page" as const, ...p, keywords: [] })),

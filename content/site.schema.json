@@ -231,6 +231,9 @@
         "selectedWork": {
           "type": "string"
         },
+        "bookmarks": {
+          "type": "string"
+        },
         "writing": {
           "type": "string"
         },
@@ -252,6 +255,7 @@
       },
       "required": [
         "selectedWork",
+        "bookmarks",
         "writing",
         "experience",
         "contact",

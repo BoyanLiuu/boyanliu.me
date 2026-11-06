@@ -24,6 +24,7 @@ describe("buildSearchIndex", () => {
       "page",
       "page",
       "page",
+      "page",
       "topic",
       "topic",
     ]);
@@ -35,5 +36,26 @@ describe("buildSearchIndex", () => {
       "rust",
     );
     expect(index.find((i) => i.href === "/blog/a")?.keywords).toContain("go");
+  });
+
+  it("adds bookmarks with their external URL", () => {
+    const withBookmarks = buildSearchIndex({
+      posts: [],
+      projects: [],
+      topics: [],
+      bookmarks: [
+        {
+          url: "https://example.com",
+          title: "Ex",
+          note: "N",
+          tags: ["web"],
+          kind: "site",
+        },
+      ],
+    });
+    expect(withBookmarks[0]).toMatchObject({
+      kind: "bookmark",
+      href: "https://example.com",
+    });
   });
 });

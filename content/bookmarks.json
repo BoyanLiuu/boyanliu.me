@@ -1,0 +1,95 @@
+{
+  "$schema": "./bookmarks.schema.json",
+  "bookmarks": [
+    {
+      "url": "https://github.com/TanStack/query",
+      "title": "TanStack Query",
+      "kind": "repo",
+      "note": "Data fetching and caching for React and other frameworks: request dedupe, background refetch and retries built in.",
+      "tags": ["react", "typescript"],
+      "added": "2026-11-05",
+      "favorite": true
+    },
+    {
+      "url": "https://excalidraw.com",
+      "title": "Excalidraw",
+      "kind": "tool",
+      "note": "Hand-drawn style whiteboard; the quickest way to sketch an architecture before writing it up.",
+      "tags": ["diagrams"],
+      "added": "2026-11-04",
+      "favorite": true
+    },
+    {
+      "url": "https://mcfunley.com/choose-boring-technology",
+      "title": "Choose Boring Technology",
+      "kind": "article",
+      "note": "Dan McKinley's \"innovation tokens\" essay: spend novelty only where it pays off.",
+      "tags": ["architecture"],
+      "added": "2026-11-03",
+      "favorite": true
+    },
+    {
+      "url": "https://jvns.ca",
+      "title": "Julia Evans",
+      "kind": "blog",
+      "note": "Clear, friendly explanations of Linux, networking and debugging, plus excellent zines.",
+      "tags": ["debugging", "linux"],
+      "added": "2026-11-02",
+      "favorite": false
+    },
+    {
+      "url": "https://stripe.com/blog/idempotency",
+      "title": "Designing robust and predictable APIs with idempotency",
+      "kind": "article",
+      "note": "How Stripe uses idempotency keys so clients can retry safely.",
+      "tags": ["payments", "api"],
+      "added": "2026-10-28",
+      "favorite": false
+    },
+    {
+      "url": "https://github.com/colinhacks/zod",
+      "title": "Zod",
+      "kind": "repo",
+      "note": "TypeScript-first schema validation; this site validates its own JSON content with it.",
+      "tags": ["typescript"],
+      "added": "2026-10-21",
+      "favorite": false
+    },
+    {
+      "url": "https://github.com/pgvector/pgvector",
+      "title": "pgvector",
+      "kind": "repo",
+      "note": "Vector similarity search inside Postgres, so semantic search doesn't need a separate database.",
+      "tags": ["postgres", "ai"],
+      "added": "2026-10-14",
+      "favorite": false
+    },
+    {
+      "url": "https://www.joshwcomeau.com",
+      "title": "Josh W. Comeau",
+      "kind": "blog",
+      "note": "Interactive deep dives on CSS and React that make tricky layout behaviour click.",
+      "tags": ["css", "react"],
+      "added": "2026-10-07",
+      "favorite": false
+    },
+    {
+      "url": "https://12factor.net",
+      "title": "The Twelve-Factor App",
+      "kind": "site",
+      "note": "A short methodology for building deployable, configurable services; still a good checklist.",
+      "tags": ["architecture"],
+      "added": "2026-09-30",
+      "favorite": false
+    },
+    {
+      "url": "https://web.dev",
+      "title": "web.dev",
+      "kind": "site",
+      "note": "Google's guides on web performance, Core Web Vitals and accessibility.",
+      "tags": ["performance", "web"],
+      "added": "2026-09-22",
+      "favorite": false
+    }
+  ]
+}

@@ -27,9 +27,10 @@ Everything personal lives in `content/` (see [TEMPLATE.md](TEMPLATE.md)):
 
 1. **`content/site.json`**: role, email, location, bio, LinkedIn, availability, accent colours, feature flags. VS Code autocompletes it from `site.schema.json`.
 2. **`content/experience.json`**: real roles with impact bullets and dates; education.
-3. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
-4. **`content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
-5. Run `pnpm build && pnpm resume:pdf` and commit the new `public/resume.pdf`.
+3. **`content/bookmarks.json`**: useful repos, blogs, articles and sites, each with a one-line note (shown on `/bookmarks` and the home page).
+4. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
+5. **`content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
+6. Run `pnpm build && pnpm resume:pdf` and commit the new `public/resume.pdf`.
 
 Invalid JSON or frontmatter stops `pnpm dev`/`pnpm build` with a readable error. Drafts (`draft: true`) appear in `pnpm dev` only.
 

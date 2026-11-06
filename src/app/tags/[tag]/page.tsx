@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BookmarkRow } from "@/components/bookmarks/bookmark-row";
 import { PostRow } from "@/components/blog/post-row";
 import { ProjectRow } from "@/components/projects/project-row";
 import {
@@ -9,6 +10,7 @@ import {
   Sections,
 } from "@/components/swiss/layout";
 import { siteConfig } from "@/config/site";
+import { getBookmarks } from "@/lib/bookmarks";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { allTopics, itemsForTopic } from "@/lib/relations";
@@ -19,7 +21,9 @@ type Props = { params: Promise<{ tag: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allTopics(getPosts(), getProjects()).map((tag) => ({ tag }));
+  return allTopics(getPosts(), getProjects(), getBookmarks()).map((tag) => ({
+    tag,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -34,7 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TagPage({ params }: Props) {
   const { tag } = await params;
   const { posts, projects } = itemsForTopic(tag, getPosts(), getProjects());
-  if (posts.length === 0 && projects.length === 0) notFound();
+  const bookmarks = getBookmarks().filter((b) => b.tags.includes(tag));
+  if (posts.length === 0 && projects.length === 0 && bookmarks.length === 0)
+    notFound();
 
   return (
     <Container>
@@ -54,6 +60,13 @@ export default async function TagPage({ params }: Props) {
           <Section title={siteConfig.ui.writing}>
             {posts.map((post) => (
               <PostRow key={post.slug} post={post} />
+            ))}
+          </Section>
+        )}
+        {bookmarks.length > 0 && (
+          <Section title={siteConfig.ui.bookmarks}>
+            {bookmarks.map((bookmark) => (
+              <BookmarkRow key={bookmark.url} bookmark={bookmark} />
             ))}
           </Section>
         )}

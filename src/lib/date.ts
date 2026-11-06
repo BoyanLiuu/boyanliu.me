@@ -34,3 +34,15 @@ export function formatMonthYear(
 export function isoDate(value: DateInput): string {
   return toDate(value).toISOString().slice(0, 10);
 }
+
+/** "November 2026", for section headings. */
+export function formatMonthYearLong(
+  value: DateInput,
+  locale: string = siteConfig.locale,
+): string {
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    timeZone: "UTC",
+  }).format(toDate(value));
+}

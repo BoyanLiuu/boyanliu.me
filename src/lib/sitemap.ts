@@ -37,6 +37,11 @@ export function buildSitemap({
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: absoluteUrl("/bookmarks"),
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
     { url: absoluteUrl("/about"), changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/resume"), changeFrequency: "monthly", priority: 0.7 },
     ...projects.map((p) => ({

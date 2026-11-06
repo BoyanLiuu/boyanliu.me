@@ -21,11 +21,13 @@ export function projectsForPost<J extends ProjectLike>(
 export function allTopics(
   posts: readonly PostLike[],
   projects: readonly ProjectLike[],
+  bookmarks: readonly { tags: string[] }[] = [],
 ): string[] {
   return [
     ...new Set([
       ...posts.flatMap((p) => p.tags),
       ...projects.flatMap((p) => p.stack),
+      ...bookmarks.flatMap((b) => b.tags),
     ]),
   ].sort((a, b) => a.localeCompare(b));
 }

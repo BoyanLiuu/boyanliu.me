@@ -1,3 +1,4 @@
+import { getBookmarks } from "@/lib/bookmarks";
 import { getPosts } from "@/lib/posts";
 import { getProjects } from "@/lib/projects";
 import { allTopics } from "@/lib/relations";
@@ -9,6 +10,11 @@ export function GET() {
   const posts = getPosts();
   const projects = getProjects();
   return Response.json(
-    buildSearchIndex({ posts, projects, topics: allTopics(posts, projects) }),
+    buildSearchIndex({
+      posts,
+      projects,
+      bookmarks: getBookmarks(),
+      topics: allTopics(posts, projects, getBookmarks()),
+    }),
   );
 }

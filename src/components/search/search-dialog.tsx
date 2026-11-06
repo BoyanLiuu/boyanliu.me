@@ -9,6 +9,7 @@ import { OPEN_SEARCH_EVENT } from "./search-trigger";
 const groups: { kind: SearchItem["kind"]; heading: string }[] = [
   { kind: "project", heading: "Work" },
   { kind: "post", heading: "Writing" },
+  { kind: "bookmark", heading: "Bookmarks" },
   { kind: "page", heading: "Pages" },
   { kind: "topic", heading: "Topics" },
 ];
@@ -53,7 +54,9 @@ export function SearchDialog() {
 
   const go = (href: string) => {
     setOpen(false);
-    router.push(href);
+    if (/^https?:\/\//.test(href))
+      window.open(href, "_blank", "noopener,noreferrer");
+    else router.push(href);
   };
 
   return (

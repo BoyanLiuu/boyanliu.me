@@ -30,6 +30,10 @@
       "href": "/blog"
     },
     {
+      "title": "Bookmarks",
+      "href": "/bookmarks"
+    },
+    {
       "title": "About",
       "href": "/about"
     }
@@ -49,6 +53,7 @@
   },
   "ui": {
     "selectedWork": "Selected work",
+    "bookmarks": "Bookmarks",
     "writing": "Writing",
     "experience": "Experience",
     "contact": "Contact",

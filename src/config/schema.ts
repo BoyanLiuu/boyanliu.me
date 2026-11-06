@@ -115,6 +115,7 @@ export const siteSchema = z
     ui: z
       .strictObject({
         selectedWork: z.string(),
+        bookmarks: z.string(),
         writing: z.string(),
         experience: z.string(),
         contact: z.string(),
@@ -164,3 +165,59 @@ export const experienceSchema = z
   .describe("Work history and education for /about and /resume");
 
 export type ExperienceData = z.infer<typeof experienceSchema>;
+
+export const bookmarkKinds = [
+  "repo",
+  "blog",
+  "article",
+  "site",
+  "tool",
+  "video",
+  "course",
+  "book",
+] as const;
+
+export const bookmarksSchema = z
+  .strictObject({
+    $schema: z.string().optional(),
+    bookmarks: z
+      .array(
+        z.strictObject({
+          url: z.url().describe("Link to the resource"),
+          title: z.string().min(1),
+          kind: z
+            .enum(bookmarkKinds)
+            .describe("repo, blog, article, site, tool, video, course or book"),
+          note: z
+            .string()
+            .min(1)
+            .describe("One or two sentences: what it is and why it's useful"),
+          tags: z
+            .array(z.string().regex(/^[a-z0-9-]+$/, "lowercase-with-dashes"))
+            .default([]),
+          added: z.iso.date().describe("Date you saved it, YYYY-MM-DD"),
+          favorite: z
+            .boolean()
+            .default(false)
+            .describe("Pin to the Favourites section"),
+          via: z.url().optional().describe("Where you found it (optional)"),
+        }),
+      )
+      .superRefine((items, ctx) => {
+        const seen = new Map<string, number>();
+        items.forEach((item, i) => {
+          const key = item.url.replace(/\/+$/, "").toLowerCase();
+          if (seen.has(key)) {
+            ctx.addIssue({
+              code: "custom",
+              path: [i, "url"],
+              message: `duplicate of bookmark #${seen.get(key)! + 1}`,
+            });
+          } else seen.set(key, i);
+        });
+      })
+      .describe("Saved links, newest or oldest first (the site sorts by date)"),
+  })
+  .describe("Bookmarks: useful repos, blogs, articles and sites");
+
+export type BookmarksData = z.infer<typeof bookmarksSchema>;

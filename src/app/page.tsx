@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExperienceRow } from "@/components/about/experience-row";
+import { BookmarkRow } from "@/components/bookmarks/bookmark-row";
 import { PostRow } from "@/components/blog/post-row";
 import { Hero } from "@/components/home/hero";
 import { ProjectCard } from "@/components/projects/project-card";
@@ -11,6 +12,7 @@ import { LinkBar } from "@/components/swiss/link-bar";
 import { contactCells } from "@/config/links";
 import { siteConfig } from "@/config/site";
 import { experience } from "@/data/experience";
+import { getBookmarks } from "@/lib/bookmarks";
 import { getPosts } from "@/lib/posts";
 import { getFeaturedProjects } from "@/lib/projects";
 import { pageAlternates, personJsonLd } from "@/lib/seo";
@@ -63,6 +65,23 @@ export default function Home() {
             <ExperienceRow key={`${role.company}-${role.start}`} role={role} />
           ))}
         </Section>
+        {getBookmarks().length > 0 && (
+          <Section title={siteConfig.ui.bookmarks} id="bookmarks">
+            {getBookmarks()
+              .slice(0, 3)
+              .map((bookmark) => (
+                <BookmarkRow key={bookmark.url} bookmark={bookmark} compact />
+              ))}
+            <p className="mt-6 text-small">
+              <Link
+                href="/bookmarks"
+                className="underline underline-offset-4 hover:text-accent"
+              >
+                All bookmarks →
+              </Link>
+            </p>
+          </Section>
+        )}
       </Sections>
     </Container>
   );

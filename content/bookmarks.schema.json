@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "bookmarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the resource"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "repo",
+              "blog",
+              "article",
+              "site",
+              "tool",
+              "video",
+              "course",
+              "book"
+            ],
+            "description": "repo, blog, article, site, tool, video, course or book"
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1,
+            "description": "One or two sentences: what it is and why it's useful"
+          },
+          "tags": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+$"
+            }
+          },
+          "added": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$",
+            "description": "Date you saved it, YYYY-MM-DD"
+          },
+          "favorite": {
+            "default": false,
+            "description": "Pin to the Favourites section",
+            "type": "boolean"
+          },
+          "via": {
+            "description": "Where you found it (optional)",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "url",
+          "title",
+          "kind",
+          "note",
+          "added"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Saved links, newest or oldest first (the site sorts by date)"
+    }
+  },
+  "required": [
+    "bookmarks"
+  ],
+  "additionalProperties": false,
+  "description": "Bookmarks: useful repos, blogs, articles and sites"
+}
