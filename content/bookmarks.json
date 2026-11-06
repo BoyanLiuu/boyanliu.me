@@ -2,6 +2,33 @@
   "$schema": "./bookmarks.schema.json",
   "bookmarks": [
     {
+      "url": "https://roadmap.sh/",
+      "title": "roadmap.sh",
+      "kind": "site",
+      "note": "Community learning roadmaps for backend, frontend, DevOps and more; handy for spotting gaps.",
+      "tags": ["learning", "career"],
+      "added": "2026-11-06",
+      "favorite": false
+    },
+    {
+      "url": "https://overreacted.io/",
+      "title": "Overreacted",
+      "kind": "blog",
+      "note": "Dan Abramov's essays on React and programming; explains the why behind the APIs.",
+      "tags": ["react", "javascript"],
+      "added": "2026-11-06",
+      "favorite": false
+    },
+    {
+      "url": "https://github.com/sindresorhus/awesome",
+      "title": "Awesome",
+      "kind": "repo",
+      "note": "The index of curated 'awesome' lists; a good first stop when exploring an unfamiliar topic.",
+      "tags": ["resources"],
+      "added": "2026-11-06",
+      "favorite": false
+    },
+    {
       "url": "https://github.com/TanStack/query",
       "title": "TanStack Query",
       "kind": "repo",
