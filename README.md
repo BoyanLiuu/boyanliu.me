@@ -9,6 +9,7 @@ Requirements: Node 24+ and pnpm (via Corepack: `corepack enable`).
 ```bash
 pnpm install
 pnpm dev          # http://127.0.0.1:3000 — bound to loopback only; Ctrl+G toggles the grid overlay
+pnpm build && pnpm start  # production build; start serves the last build and does NOT pick up edits
 pnpm check        # typecheck + lint + unit tests + production build
 pnpm test:e2e     # Playwright smoke tests against the production build (run `pnpm build` first)
 ```
