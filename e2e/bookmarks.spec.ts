@@ -1,9 +1,7 @@
 import { expect, test } from "@playwright/test";
 import data from "../content/bookmarks.json" with { type: "json" };
 
-test("bookmarks page lists every bookmark with safe external links", async ({
-  page,
-}) => {
+test("bookmark links are external and safe", async ({ page }) => {
   await page.goto("/bookmarks");
   const first = data.bookmarks[0];
   const link = page
@@ -12,9 +10,23 @@ test("bookmarks page lists every bookmark with safe external links", async ({
   await expect(link).toHaveAttribute("href", first.url);
   await expect(link).toHaveAttribute("target", "_blank");
   await expect(link).toHaveAttribute("rel", /noopener/);
-  for (const b of data.bookmarks) {
-    await expect(page.locator(`a[href="${b.url}"]`).first()).toBeAttached();
+});
+
+test("pager reaches every bookmark, 10 per page", async ({ page }) => {
+  await page.goto("/bookmarks");
+  const seen = new Set<string>();
+  const list = page.locator('section a[target="_blank"]');
+  for (;;) {
+    const hrefs = await list.evaluateAll((links) =>
+      links.map((a) => a.getAttribute("href") ?? ""),
+    );
+    expect(hrefs.length).toBeLessThanOrEqual(10);
+    hrefs.forEach((href) => seen.add(href));
+    const older = page.getByRole("button", { name: "Older →" });
+    if ((await older.count()) === 0) break;
+    await older.click();
   }
+  expect([...seen].sort()).toEqual(data.bookmarks.map((b) => b.url).sort());
 });
 
 test("kind filter narrows the list", async ({ page }) => {

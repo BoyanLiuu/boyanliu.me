@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Label } from "@/components/swiss/layout";
+import { Pager, pagerLinkClass } from "@/components/swiss/pager";
 import type { Post } from "@/lib/posts";
 import { PostRow } from "./post-row";
 
-export const POSTS_PER_PAGE = 20;
+export const POSTS_PER_PAGE = 10;
 
 const pageHref = (page: number) =>
   page === 1 ? "/blog" : `/blog/page/${page}`;
@@ -41,36 +41,20 @@ export function Archive({
           </div>
         </section>
       ))}
-      {pages > 1 && (
-        <nav
-          aria-label="Pagination"
-          className="mt-10 flex items-baseline justify-between border-t-2 border-rule pt-4 text-small"
-        >
-          {page > 1 ? (
-            <Link
-              href={pageHref(page - 1)}
-              className="underline underline-offset-4 hover:text-accent"
-            >
-              ← Newer
-            </Link>
-          ) : (
-            <span />
-          )}
-          <Label>
-            Page {page} of {pages}
-          </Label>
-          {page < pages ? (
-            <Link
-              href={pageHref(page + 1)}
-              className="underline underline-offset-4 hover:text-accent"
-            >
-              Older →
-            </Link>
-          ) : (
-            <span />
-          )}
-        </nav>
-      )}
+      <Pager
+        page={page}
+        pages={pages}
+        newer={
+          <Link href={pageHref(page - 1)} className={pagerLinkClass}>
+            ← Newer
+          </Link>
+        }
+        older={
+          <Link href={pageHref(page + 1)} className={pagerLinkClass}>
+            Older →
+          </Link>
+        }
+      />
     </div>
   );
 }
