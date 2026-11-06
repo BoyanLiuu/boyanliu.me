@@ -2,6 +2,7 @@
   "name": "boyanliu.me",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev -H 127.0.0.1",
     "build": "next build",
@@ -18,7 +19,8 @@
     "resume:pdf": "node scripts/resume-pdf.mjs",
     "new:post": "node scripts/new-content.mjs post",
     "new:project": "node scripts/new-content.mjs project",
-    "schemas": "node scripts/generate-schemas.mts"
+    "schemas": "node scripts/generate-schemas.mts",
+    "new:bookmark": "node scripts/new-bookmark.mts"
   },
   "dependencies": {
     "@content-collections/mdx": "^0.2.2",

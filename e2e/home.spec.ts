@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import site from "../content/site.json";
+import site from "../content/site.json" with { type: "json" };
 
 /**
  * The recruiter "5-second test" (docs: guide §13.4): on a 1440×900 screen, before scrolling,

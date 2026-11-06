@@ -13,13 +13,14 @@ pnpm check        # typecheck + lint + unit tests + production build
 pnpm test:e2e     # Playwright smoke tests against the production build (run `pnpm build` first)
 ```
 
-| Script                                                | What it does                                                               |
-| ----------------------------------------------------- | -------------------------------------------------------------------------- |
-| `pnpm new:post "Title"`                               | Creates `content/posts/<slug>.mdx` as a draft with the recommended outline |
-| `pnpm new:project "Title"`                            | Creates `content/projects/<slug>.mdx` as a draft                           |
-| `pnpm media:video <in> public/projects/<slug>/<name>` | Converts a screen recording to MP4 + WebM + poster (needs `ffmpeg`)        |
-| `pnpm resume:pdf`                                     | Prints `/resume` to `public/resume.pdf` (run after `pnpm build`)           |
-| `pnpm format`                                         | Prettier with Tailwind class sorting                                       |
+| Script                                                | What it does                                                                                                            |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `pnpm new:post "Title"`                               | Creates `content/posts/<slug>.mdx` as a draft with the recommended outline                                              |
+| `pnpm new:project "Title"`                            | Creates `content/projects/<slug>.mdx` as a draft                                                                        |
+| `pnpm new:bookmark <url> [--note "…"] [--tags a,b]`   | Adds a bookmark with title, description and kind fetched from the link (GitHub repos via the API); `--dry-run` previews |
+| `pnpm media:video <in> public/projects/<slug>/<name>` | Converts a screen recording to MP4 + WebM + poster (needs `ffmpeg`)                                                     |
+| `pnpm resume:pdf`                                     | Prints `/resume` to `public/resume.pdf` (run after `pnpm build`)                                                        |
+| `pnpm format`                                         | Prettier with Tailwind class sorting                                                                                    |
 
 ## Make it yours (replace the TODOs)
 

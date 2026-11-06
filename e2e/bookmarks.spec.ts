@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import data from "../content/bookmarks.json";
+import data from "../content/bookmarks.json" with { type: "json" };
 
 test("bookmarks page lists every bookmark with safe external links", async ({
   page,
