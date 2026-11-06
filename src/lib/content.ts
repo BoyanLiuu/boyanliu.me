@@ -54,3 +54,18 @@ export function paginate<T>(
     pages,
   };
 }
+
+/** Page numbers for a pager: all of them up to 7 pages, otherwise first, last and a window around the current page, with "…" gaps. */
+export function pageNumbers(page: number, pages: number): (number | "…")[] {
+  if (pages <= 7) return Array.from({ length: pages }, (_, i) => i + 1);
+  const from = Math.max(2, Math.min(page - 1, pages - 4));
+  const to = Math.min(pages - 1, Math.max(page + 1, 5));
+  const middle = Array.from({ length: to - from + 1 }, (_, i) => from + i);
+  return [
+    1,
+    ...(from > 2 ? (["…"] as const) : []),
+    ...middle,
+    ...(to < pages - 1 ? (["…"] as const) : []),
+    pages,
+  ];
+}

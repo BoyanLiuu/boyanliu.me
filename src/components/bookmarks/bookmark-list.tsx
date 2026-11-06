@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
-import { Pager, pagerLinkClass } from "@/components/swiss/pager";
+import { Pager } from "@/components/swiss/pager";
 import { cn } from "@/lib/cn";
 import { paginate } from "@/lib/content";
 
@@ -84,24 +84,9 @@ export function BookmarkFilter({
       <Pager
         page={page}
         pages={pages}
-        newer={
-          <button
-            type="button"
-            onClick={() => goTo(page - 1)}
-            className={pagerLinkClass}
-          >
-            ← Newer
-          </button>
-        }
-        older={
-          <button
-            type="button"
-            onClick={() => goTo(page + 1)}
-            className={pagerLinkClass}
-          >
-            Older →
-          </button>
-        }
+        control={(target, props) => (
+          <button type="button" onClick={() => goTo(target)} {...props} />
+        )}
       />
     </>
   );

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   collectTags,
   countValues,
+  pageNumbers,
   paginate,
   sortByDateDesc,
   visible,
@@ -56,5 +57,18 @@ describe("paginate", () => {
 
   it("always has at least one page", () => {
     expect(paginate([], 1, 20).pages).toBe(1);
+  });
+});
+
+describe("pageNumbers", () => {
+  it("lists every page up to 7", () => {
+    expect(pageNumbers(1, 1)).toEqual([1]);
+    expect(pageNumbers(3, 7)).toEqual([1, 2, 3, 4, 5, 6, 7]);
+  });
+
+  it("keeps first, last and neighbours with gaps beyond 7", () => {
+    expect(pageNumbers(1, 20)).toEqual([1, 2, 3, 4, 5, "…", 20]);
+    expect(pageNumbers(10, 20)).toEqual([1, "…", 9, 10, 11, "…", 20]);
+    expect(pageNumbers(20, 20)).toEqual([1, "…", 16, 17, 18, 19, 20]);
   });
 });

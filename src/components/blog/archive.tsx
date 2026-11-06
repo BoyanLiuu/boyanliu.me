@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Pager, pagerLinkClass } from "@/components/swiss/pager";
+import { Pager } from "@/components/swiss/pager";
 import type { Post } from "@/lib/posts";
 import { PostRow } from "./post-row";
 
@@ -44,16 +44,7 @@ export function Archive({
       <Pager
         page={page}
         pages={pages}
-        newer={
-          <Link href={pageHref(page - 1)} className={pagerLinkClass}>
-            ← Newer
-          </Link>
-        }
-        older={
-          <Link href={pageHref(page + 1)} className={pagerLinkClass}>
-            Older →
-          </Link>
-        }
+        control={(target, props) => <Link href={pageHref(target)} {...props} />}
       />
     </div>
   );

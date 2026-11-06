@@ -22,9 +22,9 @@ test("pager reaches every bookmark, 10 per page", async ({ page }) => {
     );
     expect(hrefs.length).toBeLessThanOrEqual(10);
     hrefs.forEach((href) => seen.add(href));
-    const older = page.getByRole("button", { name: "Older →" });
-    if ((await older.count()) === 0) break;
-    await older.click();
+    const next = page.getByRole("button", { name: "Next page" });
+    if ((await next.count()) === 0) break;
+    await next.click();
   }
   expect([...seen].sort()).toEqual(data.bookmarks.map((b) => b.url).sort());
 });
