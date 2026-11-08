@@ -140,6 +140,22 @@
     transform: rotate(var(--tilt, 4deg));
   }
 }
+@keyframes gh-heartbeat {
+  0%,
+  40%,
+  100% {
+    transform: scale(1);
+  }
+  12% {
+    transform: scale(1.35);
+  }
+  26% {
+    transform: scale(1.12);
+  }
+  32% {
+    transform: scale(1.3);
+  }
+}
 @keyframes settle {
   from {
     transform: scale(1.1);
@@ -484,6 +500,222 @@
     transform: translate(calc(36% - var(--reach) * 31.3%), -50%);
   }
 
+  /*
+   * GitHub activity tile (next to "Selected work") and its full-year popup. GitHub's own greens;
+   * the phases (shimmer / heart / hello) are driven by <GithubPulse> through data attributes.
+   */
+  .gh-pulse,
+  .gh-graph {
+    --gh-bg: #fff;
+    --gh-line: #e6e3dd;
+    --gh-text: #1f2328;
+    --gh-muted: #59636e;
+    --gh-0: #eff2f5;
+    --gh-1: #aceebb;
+    --gh-2: #4ac26b;
+    --gh-3: #2da44e;
+    --gh-4: #116329;
+  }
+  .dark :is(.gh-pulse, .gh-graph) {
+    --gh-bg: #0d1117;
+    --gh-line: #30363d;
+    --gh-text: #f0f6fc;
+    --gh-muted: #9198a1;
+    --gh-0: #151b23;
+    --gh-1: #033a16;
+    --gh-2: #196c2e;
+    --gh-3: #2ea043;
+    --gh-4: #56d364;
+  }
+  .gh-pulse__tile {
+    display: inline-flex;
+    padding: 8px;
+    border: 1px solid var(--gh-line);
+    border-radius: 12px;
+    background: var(--gh-bg);
+    cursor: pointer;
+    transition:
+      transform 0.36s var(--ease-out-soft),
+      box-shadow 0.36s var(--ease-out-soft);
+  }
+  .gh-pulse__tile:hover,
+  .gh-pulse__tile[aria-expanded="true"] {
+    transform: translateY(-2px) rotate(-3deg);
+    box-shadow: 0 14px 28px -16px rgb(31 35 40 / 0.28);
+  }
+  .gh-pulse__tile:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  .gh-pulse__grid {
+    display: grid;
+    grid-template-columns: repeat(15, 6px);
+    grid-template-rows: repeat(7, 6px);
+    gap: 2px;
+  }
+  .gh-pulse__cell {
+    border-radius: 1.5px;
+    background: var(--gh-0);
+    transition: background-color 0.42s ease var(--d, 0s);
+  }
+  :is(.gh-pulse__cell, .gh-graph__day)[data-l="1"] {
+    background: var(--gh-1);
+  }
+  :is(.gh-pulse__cell, .gh-graph__day)[data-l="2"] {
+    background: var(--gh-2);
+  }
+  :is(.gh-pulse__cell, .gh-graph__day)[data-l="3"] {
+    background: var(--gh-3);
+  }
+  :is(.gh-pulse__cell, .gh-graph__day)[data-l="4"] {
+    background: var(--gh-4);
+  }
+  .gh-pulse__grid[data-phase="hello"] .gh-pulse__cell {
+    transition: background-color 0.16s ease var(--x, 0s);
+  }
+  .gh-pulse__grid[data-phase="heart"] .gh-pulse__cell[data-heart] {
+    box-shadow: 0 0 5px rgb(17 99 41 / 0.3);
+    animation: gh-heartbeat 1.4s ease-in-out 0.7s 1;
+  }
+  .gh-graph {
+    position: absolute;
+    top: calc(100% + 0.9rem);
+    left: 0;
+    z-index: 30;
+    width: max-content;
+    max-width: min(48rem, 100%);
+    padding: 1.1rem 1.25rem 1rem;
+    border: 1px solid var(--gh-line);
+    border-radius: 1rem;
+    background: var(--gh-bg);
+    color: var(--gh-text);
+    box-shadow: 0 28px 56px -28px rgb(31 35 40 / 0.3);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: 12% 0;
+    transition:
+      opacity 0.22s ease,
+      transform 0.32s var(--ease-out-soft),
+      visibility 0s linear 0.32s;
+  }
+  .gh-graph[data-open="true"] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .gh-graph__total {
+    margin-bottom: 1rem;
+    color: var(--gh-muted);
+    font-size: 0.875rem;
+  }
+  .gh-graph__total strong {
+    color: var(--gh-text);
+    font-weight: 600;
+  }
+  .gh-graph__account-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.8125rem;
+  }
+  .gh-graph__account-name {
+    color: var(--gh-text);
+    font-weight: 600;
+  }
+  .gh-graph__account-head a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--gh-muted);
+    font-weight: 500;
+  }
+  .gh-graph__account-head a:is(:hover, :focus-visible) {
+    color: var(--gh-4);
+  }
+  .gh-graph__account-total {
+    margin-left: auto;
+    color: var(--gh-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Two rows of months on wider screens (--gh-cols = half the months, set by the component). */
+  .gh-graph__months {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 0.9rem;
+  }
+  @media (width >= 48rem) {
+    .gh-graph__months {
+      display: grid;
+      grid-template-columns: repeat(var(--gh-cols, 7), auto);
+      justify-content: start;
+    }
+  }
+  .gh-graph__month {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .gh-graph__month-label {
+    color: var(--gh-muted);
+    font-size: 0.6875rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .gh-graph__month-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 10px;
+    grid-template-rows: repeat(7, 10px);
+    gap: 3px;
+  }
+  .gh-graph__day {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--gh-0);
+    outline: 1px solid rgb(31 35 40 / 0.05);
+    outline-offset: -1px;
+  }
+  .gh-graph__day--empty {
+    background: none;
+    outline: 0;
+  }
+  .gh-graph__legend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3px;
+    margin-top: 0.75rem;
+    color: var(--gh-muted);
+    font-size: 0.6875rem;
+  }
+  .gh-graph__legend span:first-child {
+    margin-right: 4px;
+  }
+  .gh-graph__legend span:last-child {
+    margin-left: 4px;
+  }
+  @media (width < 30rem) {
+    .gh-pulse__tile {
+      padding: 6px;
+      border-radius: 9px;
+    }
+    .gh-pulse__grid {
+      grid-template-columns: repeat(15, 4px);
+      grid-template-rows: repeat(7, 4px);
+      gap: 1.5px;
+    }
+    .gh-graph {
+      top: calc(100% + 0.75rem);
+      padding: 1rem;
+    }
+  }
+
   /* Header nav: the icon grows in beside the label on hover and on the active item. */
   .nav-icon {
     display: inline-flex;
@@ -587,6 +819,19 @@
   }
   .rotator__word:not(:first-child) {
     display: none;
+  }
+  /* GitHub tile: a still heart (and still "hello" when open); no transitions. */
+  .gh-pulse__cell,
+  .gh-pulse__tile,
+  .gh-graph {
+    transition: none !important;
+  }
+  .gh-pulse__grid:not([data-phase="hello"]) .gh-pulse__cell {
+    background: var(--gh-0) !important;
+  }
+  .gh-pulse__grid:not([data-phase="hello"]) .gh-pulse__cell[data-heart] {
+    background: var(--gh-4) !important;
+    animation: none !important;
   }
 }
 

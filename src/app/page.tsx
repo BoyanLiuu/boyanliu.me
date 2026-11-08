@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ExperienceRow } from "@/components/about/experience-row";
 import { BookmarkRow } from "@/components/bookmarks/bookmark-row";
 import { PostRow } from "@/components/blog/post-row";
+import { GithubActivity } from "@/components/home/github-activity";
 import { Hero } from "@/components/home/hero";
 import { Reveal } from "@/components/motion/reveal";
 import { ProjectShowcase } from "@/components/projects/project-showcase";
@@ -34,6 +35,7 @@ export default function Home() {
         <Section
           title={siteConfig.ui.selectedWork}
           id="work"
+          aside={<GithubActivity />}
           className="pt-10 lg:pt-14"
         >
           <div className="grid gap-8 lg:gap-10">

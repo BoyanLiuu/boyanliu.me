@@ -90,15 +90,17 @@ export function Sections({ className, ...props }: ComponentProps<"div">) {
   return <div className={className} {...props} />;
 }
 
-/** A page section: large display title, content underneath. */
+/** A page section: large display title (with an optional `aside` beside it), content underneath. */
 export function Section({
   title,
   id,
+  aside,
   children,
   className,
 }: {
   title: string;
   id?: string;
+  aside?: ReactNode;
   children: ReactNode;
   className?: string;
 }) {
@@ -108,7 +110,10 @@ export function Section({
       aria-label={title}
       className={cn("scroll-mt-24 pt-16 lg:pt-24", className)}
     >
-      <h2 className="font-display text-section font-bold">{title}</h2>
+      <div className="relative z-20 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <h2 className="font-display text-section font-bold">{title}</h2>
+        {aside}
+      </div>
       <div className="mt-8 lg:mt-10">{children}</div>
     </section>
   );
