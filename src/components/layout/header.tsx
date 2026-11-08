@@ -1,60 +1,115 @@
+import {
+  BookmarkSimpleIcon,
+  BriefcaseIcon,
+  DownloadSimpleIcon,
+  NotePencilIcon,
+  UserIcon,
+} from "@phosphor-icons/react/ssr";
 import Link from "next/link";
+import type { ComponentType } from "react";
 import { SearchTrigger } from "@/components/search/search-trigger";
-import { Container, Grid, Mark } from "@/components/swiss/layout";
+import { Pill } from "@/components/ui/pill";
 import { siteConfig } from "@/config/site";
+import { Avatar } from "./avatar";
+import { HeaderShell } from "./header-shell";
 import { MobileNav } from "./mobile-nav";
 import { NavLink } from "./nav-link";
 import { ThemeToggle } from "./theme-toggle";
 
+/** Icons for the known sections; other nav entries show the label only. */
+const navIcons: Record<
+  string,
+  ComponentType<{ size?: number; weight?: "bold" }>
+> = {
+  "/projects": BriefcaseIcon,
+  "/blog": NotePencilIcon,
+  "/bookmarks": BookmarkSimpleIcon,
+  "/about": UserIcon,
+};
+
+const iconButton =
+  "grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-wash hover:text-ink";
+
+function SearchIcon() {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      className="size-[1.15rem]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    >
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </svg>
+  );
+}
+
 /**
- * Top bar on the grid. From 1024px: name (2 cols) · nav items (2 cols each) · résumé, search, theme (2 cols).
- * Below 1024px: name · Search · Menu (full-screen sheet).
+ * Floating header: name · segmented nav (centre) · search, theme and résumé.
+ * Below 1024px: name · search · Menu (full-screen sheet).
  */
 export function Header() {
   return (
-    <header className="pt-5 lg:pt-10 print:hidden">
-      <Container>
-        <Grid className="items-baseline border-b-2 border-rule pb-3 text-small">
-          <Link
-            href="/"
-            className="col-span-2 font-bold md:col-span-4 lg:col-span-2"
-          >
-            {siteConfig.name}
-            <Mark className="size-[0.35em]" />
-          </Link>
-          <nav aria-label="Main" className="hidden lg:contents">
-            {siteConfig.nav.map((item) => (
-              <NavLink
-                key={item.href}
-                href={item.href}
-                className="lg:col-span-2"
-              >
-                {item.title}
-              </NavLink>
-            ))}
-          </nav>
-          <div className="hidden justify-end gap-3 whitespace-nowrap lg:col-span-2 lg:col-start-11 lg:flex">
-            <NavLink href="/resume">{siteConfig.ui.resume} ↓</NavLink>
-            {siteConfig.features.search && (
-              <SearchTrigger
-                className="hover:text-accent"
-                ariaLabel="Search (⌘K)"
-              >
-                <kbd className="font-sans">⌘K</kbd>
-              </SearchTrigger>
-            )}
-            <ThemeToggle className="hover:text-accent" compact />
-          </div>
-          <div className="col-span-2 flex justify-end gap-4 md:col-span-4 lg:hidden">
-            {siteConfig.features.search && (
-              <SearchTrigger className="underline underline-offset-4">
-                Search
-              </SearchTrigger>
-            )}
-            <MobileNav />
-          </div>
-        </Grid>
-      </Container>
-    </header>
+    <HeaderShell>
+      <div className="flex flex-1 items-center">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 text-[0.95rem] font-semibold tracking-[-0.01em]"
+        >
+          <Avatar size={34} />
+          {siteConfig.name}
+        </Link>
+      </div>
+      <nav
+        aria-label="Main"
+        className="hidden items-center gap-0.5 rounded-full bg-wash p-1 lg:flex"
+      >
+        {siteConfig.nav.map((item, index) => {
+          const Icon = navIcons[item.href];
+          return (
+            <NavLink
+              key={item.href}
+              href={item.href}
+              homeActive={index === 0}
+              className="inline-flex items-center rounded-full px-4 py-2 text-small font-medium text-muted transition-[background-color,color,box-shadow] duration-[180ms] hover:bg-paper hover:text-ink focus-visible:bg-paper data-[active]:bg-paper data-[active]:text-ink data-[active]:shadow-soft"
+            >
+              {Icon && (
+                <span aria-hidden className="nav-icon">
+                  <Icon size={16} weight="bold" />
+                </span>
+              )}
+              {item.title}
+            </NavLink>
+          );
+        })}
+      </nav>
+      <div className="hidden flex-1 items-center justify-end gap-1 lg:flex">
+        {siteConfig.features.search && (
+          <SearchTrigger className={iconButton} ariaLabel="Search (⌘K)">
+            <SearchIcon />
+          </SearchTrigger>
+        )}
+        <ThemeToggle className={iconButton} compact />
+        <Pill
+          href="/resume"
+          size="sm"
+          icon={<DownloadSimpleIcon size={17} weight="bold" />}
+          className="ml-1.5 text-small"
+        >
+          {siteConfig.ui.resume}
+        </Pill>
+      </div>
+      <div className="flex items-center gap-1 lg:hidden">
+        {siteConfig.features.search && (
+          <SearchTrigger className={iconButton} ariaLabel="Search">
+            <SearchIcon />
+          </SearchTrigger>
+        )}
+        <MobileNav className="rounded-full bg-wash px-4 py-2 text-small font-semibold" />
+      </div>
+    </HeaderShell>
   );
 }

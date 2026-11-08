@@ -5,7 +5,7 @@ import { isSvg, type MediaItem } from "@/lib/media";
 import { VideoLoop } from "./video-loop";
 
 /**
- * One frame for every kind of project media: fixed 16:10 ratio, 1px ink border, optional caption.
+ * One frame for every kind of project media: fixed 16:10 ratio, rounded with a 1px rule border, optional caption.
  * - raster images: next/image (AVIF/WebP, responsive sizes, lazy unless `priority`)
  * - SVG diagrams: served as-is
  * - video: muted loop (poster only under reduced motion)
@@ -31,7 +31,7 @@ export function MediaFrame({
 
   return (
     <figure className={className}>
-      <div className="group relative aspect-[16/10] overflow-hidden border border-rule bg-wash">
+      <div className="group relative aspect-[16/10] overflow-hidden rounded-card border border-rule bg-wash">
         {item.type === "video" ? (
           <VideoLoop src={item.src} poster={item.poster} label={item.alt} />
         ) : isSvg(item.src) ? (

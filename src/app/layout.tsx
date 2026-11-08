@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Bricolage_Grotesque, Caveat, DM_Sans } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -10,16 +10,23 @@ import { siteConfig } from "@/config/site";
 import { feedTypes } from "@/lib/seo";
 import "./globals.css";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
   display: "swap",
 });
-const interTight = Inter_Tight({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-inter-tight",
+  variable: "--font-bricolage",
   display: "swap",
+});
+// Only the photo caption uses it, so it is not preloaded.
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-caveat",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -42,10 +49,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${interTight.variable}`}
+      className={`${dmSans.variable} ${bricolage.variable} ${caveat.variable}`}
       suppressHydrationWarning
     >
       <head>
+        {/* Scroll reveals need JS; without it, show everything. */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              "<style>.reveal{opacity:1!important;transform:none!important}.reveal-stagger>*{opacity:1!important}</style>",
+          }}
+        />
         {/* Accent colours from content/site.json (hex, contrast-checked at build). */}
         <style
           dangerouslySetInnerHTML={{
@@ -53,10 +67,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
       </head>
-      <body id="top">
+      <body id="top" className="bg-night print:bg-paper">
         <a
           href="#main"
-          className="sr-only fixed top-2 left-2 z-[60] bg-accent px-3 py-2 text-paper focus:not-sr-only"
+          className="sr-only fixed top-2 left-2 z-[60] rounded-full bg-accent px-4 py-2 text-paper focus:not-sr-only"
         >
           Skip to content
         </a>
@@ -66,8 +80,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main id="main">{children}</main>
+          {/* The page is a rounded sheet over the dark footer. */}
+          <div className="relative z-10 rounded-b-sheet bg-paper print:rounded-none">
+            <Header />
+            {/* Bottom padding lives on <main>, not the sheet, so the sticky header is never pushed off-screen at the end of the page. */}
+            <main id="main" className="pb-24 lg:pb-32 print:pb-0">
+              {children}
+            </main>
+          </div>
           <Footer />
           {siteConfig.features.search && <SearchDialog />}
           <Analytics />

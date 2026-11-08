@@ -64,8 +64,8 @@ export function SearchDialog() {
       open={open}
       onOpenChange={setOpen}
       label="Search projects and writing"
-      overlayClassName="fixed inset-0 z-50 bg-ink/40"
-      contentClassName="fixed inset-x-5 top-[10vh] z-50 mx-auto max-w-2xl border-2 border-rule bg-paper text-ink md:inset-x-8"
+      overlayClassName="fixed inset-0 z-50 bg-night/40 backdrop-blur-sm"
+      contentClassName="fixed inset-x-5 top-[10vh] z-50 mx-auto max-w-2xl overflow-hidden rounded-card border border-rule bg-paper text-ink shadow-lift md:inset-x-8"
     >
       <Command.Input
         placeholder="Search projects, posts and topics…"
@@ -88,14 +88,14 @@ export function SearchDialog() {
               <Command.Group
                 key={kind}
                 heading={heading}
-                className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-label [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted [&_[cmdk-group-heading]]:uppercase"
+                className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-label [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted"
               >
                 {list.map((item) => (
                   <Command.Item
                     key={item.href}
                     value={`${item.title} ${item.keywords.join(" ")} ${item.summary ?? ""}`}
                     onSelect={() => go(item.href)}
-                    className="flex cursor-pointer items-baseline justify-between gap-4 px-3 py-2.5 data-[selected=true]:bg-ink data-[selected=true]:text-paper"
+                    className="flex cursor-pointer items-baseline justify-between gap-4 rounded-sm px-3 py-2.5 data-[selected=true]:bg-wash"
                   >
                     <span className="font-display text-body font-bold">
                       {item.title}

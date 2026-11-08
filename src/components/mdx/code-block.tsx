@@ -20,7 +20,7 @@ export function CodeBlock(props: ComponentProps<"pre">) {
       <button
         type="button"
         onClick={copy}
-        className="absolute top-2.5 right-2.5 border border-rule bg-paper px-2 py-0.5 text-label uppercase opacity-100 transition-opacity md:opacity-0 md:group-focus-within:opacity-100 md:group-hover:opacity-100"
+        className="absolute top-2.5 right-2.5 rounded-full border border-rule bg-paper px-3 py-0.5 text-label font-medium opacity-100 transition-opacity md:opacity-0 md:group-focus-within:opacity-100 md:group-hover:opacity-100"
       >
         {copied ? "Copied" : "Copy"}
       </button>

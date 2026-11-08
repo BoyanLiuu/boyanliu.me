@@ -48,7 +48,10 @@ export function Pager({
                 aria-current="page"
                 className="flex items-center gap-1 px-2 py-1 font-bold"
               >
-                <span aria-hidden className="inline-block size-2 bg-accent" />
+                <span
+                  aria-hidden
+                  className="inline-block size-2 rounded-full bg-accent"
+                />
                 {n}
               </span>
             ) : (

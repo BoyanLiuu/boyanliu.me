@@ -41,6 +41,13 @@ export const siteSchema = z
         .min(1)
         .describe("Role shown in the hero, résumé and share cards"),
       email: z.email(),
+      company: z
+        .string()
+        .min(1)
+        .optional()
+        .describe(
+          "Current employer; the hero badge reads 'jobTitle @ company'",
+        ),
       location: z
         .string()
         .describe("Shown in the hero and résumé; empty to hide"),
@@ -48,6 +55,36 @@ export const siteSchema = z
         .string()
         .min(1)
         .describe("One or two sentences: specialty plus a concrete result"),
+      headline: z
+        .string()
+        .min(1)
+        .optional()
+        .describe(
+          "Home hero headline, e.g. 'I’m Shawn, a software engineer'. Defaults to name and role",
+        ),
+      headlineAccent: z
+        .union([z.string().min(1), z.array(z.string().min(1)).min(1)])
+        .optional()
+        .describe(
+          "Words after the headline, in the accent colour. A list cycles through each phrase",
+        ),
+      stack: z
+        .array(
+          z
+            .string()
+            .regex(/^[a-z0-9]+$/, "a simple-icons slug, e.g. nextdotjs"),
+        )
+        .optional()
+        .describe(
+          "Logos in the hero's stack row: slugs from https://simpleicons.org, e.g. react, nextdotjs, typescript",
+        ),
+      photo: z
+        .string()
+        .startsWith("/")
+        .optional()
+        .describe(
+          "Portrait under public/, e.g. /me.jpg (4:5). Omit to show initials",
+        ),
       availability: z
         .enum(["open", "busy", "hidden"])
         .describe("Hero badge: open, busy or hidden"),
@@ -122,6 +159,18 @@ export const siteSchema = z
         readMore: z.string(),
         minRead: z.string(),
         resume: z.string(),
+        stack: z
+          .string()
+          .optional()
+          .describe("Label above the hero's stack row"),
+        footerTitle: z
+          .string()
+          .optional()
+          .describe("First line of the footer call to action"),
+        footerSubtitle: z
+          .string()
+          .optional()
+          .describe("Second line of the footer call to action"),
       })
       .describe("Interface labels"),
   })

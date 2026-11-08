@@ -71,7 +71,7 @@ export function BookmarkFilter({
       </div>
       {titles.map((title) => (
         <section key={title} aria-label={title} className="mt-8">
-          <h2 className="border-t-2 border-rule pt-3 text-label font-medium uppercase">
+          <h2 className="border-t border-rule pt-4 text-small font-semibold text-muted">
             {title}
           </h2>
           {items

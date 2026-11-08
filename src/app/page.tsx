@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ExperienceRow } from "@/components/about/experience-row";
 import { BookmarkRow } from "@/components/bookmarks/bookmark-row";
 import { PostRow } from "@/components/blog/post-row";
 import { Hero } from "@/components/home/hero";
-import { ProjectCard } from "@/components/projects/project-card";
-import { ProjectFeature } from "@/components/projects/project-feature";
+import { Reveal } from "@/components/motion/reveal";
+import { ProjectShowcase } from "@/components/projects/project-showcase";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Container, Section, Sections } from "@/components/swiss/layout";
-import { LinkBar } from "@/components/swiss/link-bar";
-import { contactCells } from "@/config/links";
+import {
+  Container,
+  MoreLink,
+  Section,
+  Sections,
+} from "@/components/swiss/layout";
 import { siteConfig } from "@/config/site";
 import { experience } from "@/data/experience";
 import { getBookmarks } from "@/lib/bookmarks";
@@ -20,66 +22,57 @@ import { pageAlternates, personJsonLd } from "@/lib/seo";
 export const metadata: Metadata = { alternates: pageAlternates("/") };
 
 export default function Home() {
-  const [feature, ...rest] = getFeaturedProjects(3);
+  const projects = getFeaturedProjects(3);
   const posts = getPosts().slice(0, 3);
+  const bookmarks = getBookmarks().slice(0, 3);
 
   return (
     <Container>
       <JsonLd data={personJsonLd()} />
       <Hero />
-      <LinkBar cells={contactCells} label="Contact" className="border-t-0" />
       <Sections>
-        <Section title={siteConfig.ui.selectedWork} id="work">
-          {feature && <ProjectFeature project={feature} />}
-          {rest.length > 0 && (
-            <div className="mt-10 grid gap-x-6 gap-y-10 border-t border-rule pt-5 md:grid-cols-2">
-              {rest.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-            </div>
-          )}
-          <p className="mt-6 text-small">
-            <Link
-              href="/projects"
-              className="underline underline-offset-4 hover:text-accent"
-            >
-              All work →
-            </Link>
-          </p>
+        <Section
+          title={siteConfig.ui.selectedWork}
+          id="work"
+          className="pt-10 lg:pt-14"
+        >
+          <div className="grid gap-8 lg:gap-10">
+            {projects.map((project, index) => (
+              <ProjectShowcase
+                key={project.slug}
+                project={project}
+                first={index === 0}
+              />
+            ))}
+          </div>
+          <MoreLink href="/projects">All work →</MoreLink>
         </Section>
         <Section title={siteConfig.ui.writing} id="writing">
-          {posts.map((post) => (
-            <PostRow key={post.slug} post={post} />
-          ))}
-          <p className="mt-6 text-small">
-            <Link
-              href="/blog"
-              className="underline underline-offset-4 hover:text-accent"
-            >
-              All writing →
-            </Link>
-          </p>
+          <Reveal variant="stagger">
+            {posts.map((post) => (
+              <PostRow key={post.slug} post={post} />
+            ))}
+          </Reveal>
+          <MoreLink href="/blog">All writing →</MoreLink>
         </Section>
         <Section title={siteConfig.ui.experience} id="experience">
-          {experience.slice(0, 3).map((role) => (
-            <ExperienceRow key={`${role.company}-${role.start}`} role={role} />
-          ))}
+          <Reveal variant="stagger">
+            {experience.slice(0, 3).map((role) => (
+              <ExperienceRow
+                key={`${role.company}-${role.start}`}
+                role={role}
+              />
+            ))}
+          </Reveal>
         </Section>
-        {getBookmarks().length > 0 && (
+        {bookmarks.length > 0 && (
           <Section title={siteConfig.ui.bookmarks} id="bookmarks">
-            {getBookmarks()
-              .slice(0, 3)
-              .map((bookmark) => (
+            <Reveal variant="stagger">
+              {bookmarks.map((bookmark) => (
                 <BookmarkRow key={bookmark.url} bookmark={bookmark} compact />
               ))}
-            <p className="mt-6 text-small">
-              <Link
-                href="/bookmarks"
-                className="underline underline-offset-4 hover:text-accent"
-              >
-                All bookmarks →
-              </Link>
-            </p>
+            </Reveal>
+            <MoreLink href="/bookmarks">All bookmarks →</MoreLink>
           </Section>
         )}
       </Sections>

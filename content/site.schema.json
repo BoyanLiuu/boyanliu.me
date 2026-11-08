@@ -47,6 +47,11 @@
           "format": "email",
           "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
         },
+        "company": {
+          "description": "Current employer; the hero badge reads 'jobTitle @ company'",
+          "type": "string",
+          "minLength": 1
+        },
         "location": {
           "type": "string",
           "description": "Shown in the hero and résumé; empty to hide"
@@ -55,6 +60,42 @@
           "type": "string",
           "minLength": 1,
           "description": "One or two sentences: specialty plus a concrete result"
+        },
+        "headline": {
+          "description": "Home hero headline, e.g. 'I’m Shawn, a software engineer'. Defaults to name and role",
+          "type": "string",
+          "minLength": 1
+        },
+        "headlineAccent": {
+          "description": "Words after the headline, in the accent colour. A list cycles through each phrase",
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          ]
+        },
+        "stack": {
+          "description": "Logos in the hero's stack row: slugs from https://simpleicons.org, e.g. react, nextdotjs, typescript",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+$"
+          }
+        },
+        "photo": {
+          "description": "Portrait under public/, e.g. /me.jpg (4:5). Omit to show initials",
+          "type": "string",
+          "format": "starts_with",
+          "pattern": "^\\/.*"
         },
         "availability": {
           "type": "string",
@@ -250,6 +291,18 @@
           "type": "string"
         },
         "resume": {
+          "type": "string"
+        },
+        "stack": {
+          "description": "Label above the hero's stack row",
+          "type": "string"
+        },
+        "footerTitle": {
+          "description": "First line of the footer call to action",
+          "type": "string"
+        },
+        "footerSubtitle": {
+          "description": "Second line of the footer call to action",
           "type": "string"
         }
       },

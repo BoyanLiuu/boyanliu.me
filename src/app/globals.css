@@ -4,7 +4,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
- * Swiss design tokens (docs/portfolio-build-plan.md, Appendix A).
+ * Design tokens. Warm editorial look: Bricolage Grotesque headings, DM Sans body,
+ * ink on paper with a burgundy accent, soft rules, rounded cards and pill controls.
  * Tailwind's default palette, radii and shadows are reset, so only these tokens exist:
  * a stray `bg-blue-500` or `rounded-lg` produces no CSS.
  */
@@ -14,47 +15,73 @@
   --shadow-*: initial;
 
   --color-paper: #ffffff;
-  --color-ink: #000000;
-  --color-muted: #555555;
-  --color-rule: #000000;
-  --color-wash: #f2f2f2;
-  --color-accent: #e30613;
+  --color-ink: #171310;
+  --color-muted: #6f6c69;
+  --color-rule: #e6e3dd;
+  --color-wash: #f4f3f0;
+  --color-accent: #7b1e2b;
+  /* Footer surface; stays dark in both themes. */
+  --color-night: #171310;
+  --color-night-ink: #ffffff;
+  --color-night-muted: #a8a29b;
+  --color-night-rule: #3a342e;
+  --color-night-accent: #f5a524;
+
+  --radius-sm: 0.6rem;
+  --radius-card: 1rem;
+  --radius-sheet: 2.5rem;
+  --radius-full: 9999px;
+
+  --shadow-soft:
+    0 1px 2px rgb(23 19 16 / 0.06), 0 8px 24px rgb(23 19 16 / 0.06);
+  --shadow-lift:
+    0 2px 4px rgb(23 19 16 / 0.06), 0 18px 40px rgb(23 19 16 / 0.12);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
   --font-display:
-    var(--font-inter-tight), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    var(--font-bricolage), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-sans:
-    var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    var(--font-dm-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --text-display: clamp(4rem, 11vw, 10.5rem);
-  --text-display--line-height: 0.86;
-  --text-display--letter-spacing: -0.055em;
-  --text-h1: clamp(2.25rem, 5vw, 3.5rem);
-  --text-h1--line-height: 1;
-  --text-h1--letter-spacing: -0.035em;
+  --text-display: clamp(2.75rem, 5.6vw, 4.5rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.03em;
+  --text-section: clamp(2.25rem, 4.2vw, 3.25rem);
+  --text-section--line-height: 1.08;
+  --text-section--letter-spacing: -0.03em;
+  --text-h1: clamp(2.25rem, 4.5vw, 3.25rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.03em;
   --text-h2: 2rem;
   --text-h2--line-height: 1.1;
-  --text-h2--letter-spacing: -0.03em;
+  --text-h2--letter-spacing: -0.02em;
   --text-h3: 1.375rem;
   --text-h3--line-height: 1.25;
-  --text-h3--letter-spacing: -0.02em;
-  --text-body: 1.125rem;
-  --text-body--line-height: 1.75rem;
-  --text-small: 0.875rem;
-  --text-small--line-height: 1.25rem;
-  --text-label: 0.75rem;
-  --text-label--line-height: 1rem;
-  --text-label--letter-spacing: 0.06em;
+  --text-h3--letter-spacing: -0.015em;
+  --text-lead: 1.2rem;
+  --text-lead--line-height: 1.55;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.9rem;
+  --text-small--line-height: 1.4;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.25rem;
+  --text-label--letter-spacing: 0.01em;
 }
 
-/* Dark theme: inverted palette; the accent is lighter so it keeps ≥ 4.5:1 contrast on black. */
+/* Dark theme: warm near-black paper; the accent is lighter so it keeps ≥ 4.5:1 contrast. */
 .dark {
-  --color-paper: #000000;
-  --color-ink: #ffffff;
-  --color-muted: #a3a3a3;
-  --color-rule: #ffffff;
-  --color-wash: #141414;
-  --color-accent: #ff3b30;
+  --color-paper: #171310;
+  --color-ink: #f2eee8;
+  --color-muted: #a39d96;
+  --color-rule: #34302b;
+  --color-wash: #24201c;
+  --color-accent: #f5a524;
+  --color-night: #0c0a08;
+  --color-night-rule: #2a2622;
   color-scheme: dark;
 }
 
@@ -80,10 +107,492 @@
   }
 }
 
+/*
+ * Motion (modelled on sudhanva.space; all hand-written CSS, no animation library).
+ * One easing everywhere: --ease-out-soft. Entrance animations use `backwards` fill so
+ * elements sit in their "from" state during the delay, then end on their normal styles.
+ */
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 2rem));
+  }
+}
+@keyframes enter-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1.25rem);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.6);
+  }
+}
+@keyframes polaroid-drop {
+  from {
+    opacity: 0;
+    transform: translateY(3.5rem) rotate(var(--tilt-from, 12deg)) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--tilt, 4deg));
+  }
+}
+@keyframes settle {
+  from {
+    transform: scale(1.1);
+  }
+}
+
+@layer components {
+  /* Page-load entrance. Delay with an inline `animation-delay` or [animation-delay:…]. */
+  .enter-up {
+    animation: enter-up 0.9s var(--ease-out-soft) backwards;
+  }
+  .enter-down {
+    animation: enter-down 0.7s var(--ease-out-soft) backwards;
+  }
+  .pop-in {
+    animation: pop-in 0.75s var(--ease-out-soft) backwards;
+  }
+
+  /* Tilted photo card that drops in on load. */
+  .polaroid {
+    --tilt: 4deg;
+    --tilt-from: 12deg;
+    transform: rotate(var(--tilt));
+    animation: polaroid-drop 1.2s var(--ease-out-soft) 0.3s backwards;
+  }
+  @media (width < 48rem) {
+    .polaroid {
+      --tilt: 0deg;
+      --tilt-from: 0deg;
+    }
+  }
+
+  /* Scroll reveal: <Reveal> sets [data-revealed] once the element is 12% inside the viewport (no JS: see the <noscript> rule in the layout). */
+  .reveal {
+    opacity: 0;
+    transform: translateY(2.5rem);
+    will-change: opacity, transform;
+    transition:
+      opacity 0.8s var(--ease-out-soft),
+      transform 1s var(--ease-out-soft);
+  }
+  .reveal--card {
+    transform: translateY(4rem) scale(0.96);
+    transform-origin: 50% 0;
+  }
+  .reveal[data-revealed] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+  /* Cards: the artwork settles from 110% as the card lands. */
+  .reveal--card[data-revealed] .card-art {
+    animation: settle 1.3s var(--ease-out-soft) 0.15s backwards;
+  }
+  .card-art {
+    transform-origin: 6% 11%;
+    transition: transform 0.9s var(--ease-out-soft);
+  }
+  @media (hover: hover) {
+    .group:hover .card-art {
+      transform: scale(1.06);
+    }
+  }
+  .group:focus-within .card-art {
+    transform: scale(1.06);
+  }
+
+  /* Lists: children rise one after another once the list is revealed. */
+  .reveal-stagger:not([data-revealed]) > * {
+    opacity: 0;
+  }
+  .reveal-stagger[data-revealed] > * {
+    --enter-y: 1.75rem;
+    animation: enter-up 0.85s var(--ease-out-soft) backwards;
+    animation-delay: calc(0.15s + var(--i, 0) * 90ms);
+  }
+  .reveal-stagger > :nth-child(2) {
+    --i: 1;
+  }
+  .reveal-stagger > :nth-child(3) {
+    --i: 2;
+  }
+  .reveal-stagger > :nth-child(4) {
+    --i: 3;
+  }
+  .reveal-stagger > :nth-child(n + 5) {
+    --i: 4;
+  }
+
+  /* Footer: <FooterReveal> sets data-reveal="out" on mount, then "in" when 35% visible. */
+  [data-reveal="out"] :is(.footer-art, .footer-line, .footer-actions) {
+    opacity: 0;
+  }
+  [data-reveal="in"] .footer-art {
+    --enter-y: 2.5rem;
+    animation: enter-up 0.9s var(--ease-out-soft) backwards;
+  }
+  [data-reveal="in"] .footer-line {
+    --enter-y: 2rem;
+    animation: enter-up 0.9s var(--ease-out-soft) 0.14s backwards;
+  }
+  [data-reveal="in"] .footer-actions {
+    --enter-y: 1.5rem;
+    animation: enter-up 0.9s var(--ease-out-soft) 0.3s backwards;
+  }
+
+  /*
+   * Pill button: on hover the label pill shrinks and a circle with an icon slides in on its right.
+   * Hovering a parent .group (e.g. a whole card) triggers it too.
+   */
+  .pill {
+    --pill-h: 2.75rem;
+    --pill-pad: 2rem;
+    --pill-bg: var(--color-accent);
+    --pill-fg: var(--color-paper);
+    --pill-ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: var(--pill-h);
+    color: var(--pill-fg);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .pill-ink {
+    --pill-bg: var(--color-ink);
+    --pill-fg: var(--color-paper);
+  }
+  /* Dark pills turn accent on hover (theirs, or their card's); .pill__inner's transition animates it. */
+  :is(
+    .pill-ink:hover,
+    .pill-ink:focus-visible,
+    .group:hover .pill-ink,
+    .group:focus-within .pill-ink
+  ) {
+    --pill-bg: var(--color-accent);
+    --pill-fg: var(--color-paper);
+  }
+  .pill-lg {
+    --pill-h: 3rem;
+    --pill-pad: 2.5rem;
+  }
+  .pill-sm {
+    --pill-h: 2.5rem;
+    --pill-pad: 1.75rem;
+  }
+  .pill__inner,
+  .pill__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--pill-h);
+    border-radius: var(--radius-full);
+    background-color: var(--pill-bg);
+    transition: all 0.5s var(--pill-ease);
+  }
+  .pill__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-inline: var(--pill-pad);
+  }
+  .pill__circle {
+    position: absolute;
+    right: 0;
+    width: var(--pill-h);
+    overflow: hidden;
+    scale: 0;
+    transform-origin: 0 50%;
+  }
+  .pill__circle > span {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: all 0.3s var(--pill-ease) 0.1s;
+  }
+  :is(
+      .pill:hover,
+      .pill:focus-visible,
+      .group:hover .pill,
+      .group:focus-within .pill
+    )
+    .pill__inner {
+    width: calc(100% - var(--pill-h) - 4px);
+  }
+  :is(
+      .pill:hover,
+      .pill:focus-visible,
+      .group:hover .pill,
+      .group:focus-within .pill
+    )
+    .pill__circle {
+    scale: 1;
+  }
+  :is(
+      .pill:hover,
+      .pill:focus-visible,
+      .group:hover .pill,
+      .group:focus-within .pill
+    )
+    .pill__circle
+    > span {
+    transform: none;
+  }
+  .pill:focus-visible {
+    outline: 2px solid var(--pill-bg);
+    outline-offset: 3px;
+    border-radius: var(--radius-full);
+  }
+
+  /* Hero stack row: overlapping round logo badges that pop in one after another. */
+  .stack-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.1rem;
+    height: 3.1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-full);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    transition: transform 0.18s;
+    animation: pop-in 0.65s var(--ease-out-soft) backwards;
+    animation-delay: calc(0.6s + var(--i, 0) * 70ms);
+  }
+  .stack-icon + .stack-icon {
+    margin-left: -0.5rem;
+  }
+  .stack-icon:hover {
+    z-index: 1;
+    transform: translateY(-3px) rotate(-3deg);
+  }
+  .stack-icon:focus {
+    z-index: 1;
+    outline: none;
+  }
+  .stack-icon:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .stack-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  /* Name tooltip: slides down below the badge on hover, tap or focus; counter-rotated so it stays level. */
+  .stack-tip {
+    position: absolute;
+    top: calc(100% + 0.55rem);
+    left: 50%;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-full);
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    translate: -50% -0.35rem;
+    transition:
+      opacity 0.18s,
+      rotate 0.18s,
+      translate 0.25s var(--ease-out-soft);
+  }
+  .stack-tip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    translate: -50% 0;
+    border: 5px solid transparent;
+    border-bottom-color: var(--color-ink);
+  }
+  .stack-icon:is(:hover, :focus) .stack-tip {
+    opacity: 1;
+    translate: -50% 0;
+  }
+  .stack-icon:hover .stack-tip {
+    rotate: 3deg;
+  }
+  @media (width < 48rem) {
+    .stack-icon {
+      width: min(11.8vw, 3.1rem);
+      height: min(11.8vw, 3.1rem);
+      padding: min(2.4vw, 0.75rem);
+    }
+    .stack-icon + .stack-icon {
+      margin-left: -2.4vw;
+    }
+  }
+
+  /*
+   * Footer "Creation of Adam" card: <ReachingHands> sets --reach from 0 to 1 with scroll and
+   * each hand slides in from its edge until the fingertips nearly touch. Defaults to 1 (together).
+   */
+  .reach {
+    --reach: 1;
+    position: relative;
+    width: min(100%, 680px);
+    aspect-ratio: 1000 / 380;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 22px;
+    background: var(--color-accent);
+  }
+  .reach__hand {
+    position: absolute;
+    width: 56%;
+    height: auto;
+    will-change: transform;
+  }
+  .reach__hand--left {
+    left: 0;
+    top: 52%;
+    transform: translate(calc(-38% + var(--reach) * 28%), -50%);
+  }
+  .reach__hand--right {
+    right: 0;
+    top: 46%;
+    transform: translate(calc(38% - var(--reach) * 28%), -50%) scaleX(-1);
+  }
+  /* Image artwork (public/hands/left.* and right.*): one arm per file, no mirroring. */
+  .reach__img {
+    position: absolute;
+    width: 52%;
+    height: auto;
+    will-change: transform;
+  }
+  .reach__img--left {
+    left: 0;
+    top: 44.2%;
+    transform: translate(calc(-36% + var(--reach) * 33%), -50%);
+  }
+  .reach__img--right {
+    right: 0;
+    top: 42.6%;
+    transform: translate(calc(36% - var(--reach) * 31.3%), -50%);
+  }
+
+  /* Header nav: the icon grows in beside the label on hover and on the active item. */
+  .nav-icon {
+    display: inline-flex;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      width 0.18s,
+      margin 0.18s,
+      opacity 0.18s;
+  }
+  :is(a:hover, a:focus-visible, a[data-active]) > .nav-icon {
+    width: 1rem;
+    margin-right: 0.4rem;
+    opacity: 1;
+  }
+
+  /*
+   * Rotating headline words: each word's letters blur-fade in one after another, hold, then fade out.
+   * <RotatingWords> sets --slot (seconds per word), --count, and per-letter --letter-delay.
+   */
+  .rotator {
+    display: inline-grid;
+    width: max-content;
+    vertical-align: baseline;
+    margin: -0.35em 0 -0.45em;
+    padding: 0.35em 0 0.45em;
+  }
+  .rotator__word {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+  }
+  .rotator__letter {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(0.08em);
+    animation: var(--rotator-name) calc(var(--slot) * var(--count))
+      var(--ease-out-soft) infinite;
+    animation-delay: calc(
+      var(--word-index) * var(--slot) + var(--letter-delay)
+    );
+  }
+  .rotator__letter[data-space] {
+    white-space: pre-wrap;
+  }
+  /* Phones: whole words fade, and long phrases may wrap instead of overflowing. */
+  @media (width < 48rem) {
+    .rotator {
+      width: auto;
+    }
+    .rotator__letter {
+      display: inline;
+      opacity: 1;
+      filter: none;
+      animation: none;
+    }
+    .rotator__word {
+      white-space: normal;
+      opacity: 0;
+      animation: var(--rotator-name) calc(var(--slot) * var(--count))
+        var(--ease-out-soft) infinite;
+      animation-delay: calc(var(--word-index) * var(--slot));
+    }
+  }
+}
+
+/* Reduced motion: everything is shown in its final state; the rotator shows only its first word. */
+@media (prefers-reduced-motion: reduce) {
+  .enter-up,
+  .enter-down,
+  .pop-in,
+  .polaroid,
+  .card-art,
+  .reveal-stagger > *,
+  .stack-icon,
+  [data-reveal] :is(.footer-art, .footer-line, .footer-actions),
+  .reveal--card .card-art {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .reveal,
+  .reveal--card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pill__inner,
+  .pill__circle,
+  .pill__circle > span,
+  .nav-icon {
+    transition: none;
+  }
+  .group:is(:hover, :focus-within) .card-art {
+    transform: none;
+  }
+  .rotator__letter,
+  .rotator__word {
+    animation: none !important;
+    opacity: 1;
+    filter: none;
+  }
+  .rotator__word:not(:first-child) {
+    display: none;
+  }
+}
+
 /* Long-form content (posts, case studies). Elements come from Markdown, so they are styled here, not per component. */
 @layer components {
   .prose-swiss {
-    counter-reset: h2;
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
   }
@@ -91,21 +600,13 @@
     margin-top: 1.25rem;
   }
   .prose-swiss h2 {
-    counter-increment: h2;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--text-h2);
     line-height: var(--text-h2--line-height);
     letter-spacing: var(--text-h2--letter-spacing);
-    margin-top: 3rem;
-    padding-top: 0.875rem;
-    border-top: 2px solid var(--color-rule);
-    scroll-margin-top: 5rem;
-  }
-  .prose-swiss h2::before {
-    content: counter(h2, decimal-leading-zero);
-    color: var(--color-accent);
-    margin-right: 0.75rem;
+    margin-top: 3.25rem;
+    scroll-margin-top: 6rem;
   }
   .prose-swiss h3 {
     font-family: var(--font-display);
@@ -114,19 +615,27 @@
     line-height: var(--text-h3--line-height);
     letter-spacing: var(--text-h3--letter-spacing);
     margin-top: 2rem;
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 6rem;
   }
   .prose-swiss :is(h2, h3) a {
     color: inherit;
+    font-weight: inherit;
     text-decoration: none;
   }
   .prose-swiss a {
+    color: var(--color-accent);
+    font-weight: 600;
     text-decoration: underline;
     text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--color-accent) 40%,
+      transparent
+    );
     text-underline-offset: 4px;
   }
   .prose-swiss a:hover {
-    color: var(--color-accent);
+    text-decoration-color: currentColor;
   }
   .prose-swiss strong {
     font-weight: 700;
@@ -136,13 +645,14 @@
     font-size: 0.875em;
     background: var(--color-wash);
     padding: 0.1em 0.35em;
+    border-radius: 0.35rem;
   }
   .prose-swiss ul {
-    list-style: square;
+    list-style: disc;
     padding-left: 1.25rem;
   }
   .prose-swiss ol {
-    list-style: decimal-leading-zero;
+    list-style: decimal;
     padding-left: 2.25rem;
   }
   .prose-swiss li::marker {
@@ -160,7 +670,7 @@
     margin-right: 0.5rem;
   }
   .prose-swiss blockquote {
-    border-left: 2px solid var(--color-rule);
+    border-left: 3px solid var(--color-accent);
     padding-left: 1.25rem;
     color: var(--color-muted);
   }
@@ -175,14 +685,13 @@
     text-align: left;
     font-size: var(--text-label);
     letter-spacing: var(--text-label--letter-spacing);
-    text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--color-muted);
     border-bottom: 1px solid var(--color-rule);
     padding: 0.5rem 1rem 0.5rem 0;
   }
   .prose-swiss td {
-    border-bottom: 1px solid
-      color-mix(in srgb, var(--color-rule) 20%, transparent);
+    border-bottom: 1px solid var(--color-rule);
     padding: 0.625rem 1rem 0.625rem 0;
   }
   .prose-swiss hr {
@@ -191,6 +700,7 @@
   }
   .prose-swiss img {
     border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
   }
 
   /* Code blocks from rehype-pretty-code (Shiki dual themes). */
@@ -201,12 +711,13 @@
   .prose-swiss [data-rehype-pretty-code-title] {
     font-size: var(--text-label);
     letter-spacing: var(--text-label--letter-spacing);
-    text-transform: uppercase;
+    color: var(--color-muted);
     margin-bottom: 0.5rem;
   }
   .prose-swiss pre {
     background: var(--color-wash);
-    border-left: 2px solid var(--color-rule);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
     padding: 1.125rem 1.25rem;
     overflow-x: auto;
     font-family: var(--font-mono);
@@ -258,7 +769,7 @@
     --color-ink: #000000;
     --color-muted: #444444;
     --color-rule: #000000;
-    --color-accent: #e30613;
+    --color-accent: #7b1e2b;
     font-size: 13px;
   }
   a {

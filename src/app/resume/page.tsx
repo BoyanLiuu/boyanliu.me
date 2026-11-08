@@ -53,7 +53,7 @@ export default function Resume() {
       <a
         href="/resume.pdf"
         className={cn(
-          "mt-4 inline-block bg-accent px-4 py-2 font-display font-bold text-paper print:hidden",
+          "mt-4 inline-block rounded-full bg-accent px-6 py-2.5 text-small font-semibold text-paper print:hidden",
           eventClass(events.resumeDownload),
         )}
       >

@@ -152,7 +152,7 @@ export default async function PostPage({ params }: Props) {
 
       {related.length > 0 && (
         <section aria-label="Related writing" className="mt-16">
-          <h2 className="border-t-2 border-rule pt-3 text-label font-medium uppercase">
+          <h2 className="border-t border-rule pt-4 text-small font-semibold text-muted">
             Related writing
           </h2>
 

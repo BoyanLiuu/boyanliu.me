@@ -1,12 +1,13 @@
+import Link from "next/link";
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-/** Page width and outer margins: 20 / 32 / 64px, content capped at 1312px. */
+/** Page width and outer margins: 20 / 32px, content capped at 72rem (1152px). */
 export function Container({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-[calc(1312px+8rem)] px-5 md:px-8 lg:px-16",
+        "mx-auto w-full max-w-[calc(72rem+4rem)] px-5 md:px-8",
         className,
       )}
       {...props}
@@ -32,7 +33,7 @@ export function Grid<T extends ElementType = "div">({
   );
 }
 
-/** Horizontal rule: 1px between rows, 2px above sections. */
+/** Horizontal rule: 1px between rows, 2px above groups. */
 export function Rule({
   weight = 1,
   className,
@@ -51,35 +52,32 @@ export function Rule({
   );
 }
 
-/** Small uppercase label. */
+/** Small meta label (dates, stacks, captions). */
 export function Label({ className, ...props }: ComponentProps<"span">) {
   return (
-    <span
-      className={cn("text-label font-medium uppercase", className)}
-      {...props}
-    />
+    <span className={cn("text-label font-medium", className)} {...props} />
   );
 }
 
-/** The signature red square. Decorative only. */
+/** The accent full stop after headlines. Decorative only. */
 export function Mark({ className }: { className?: string }) {
   return (
     <span
       aria-hidden
       className={cn(
-        "ml-[0.04em] inline-block size-[0.15em] bg-accent align-baseline",
+        "ml-[0.05em] inline-block size-[0.16em] rounded-full bg-accent align-baseline",
         className,
       )}
     />
   );
 }
 
-/** The giant Swiss headline. */
+/** The page headline. */
 export function Display({ className, ...props }: ComponentProps<"h1">) {
   return (
     <h1
       className={cn(
-        "font-display text-display font-bold text-balance break-words",
+        "font-display text-display font-semibold text-balance break-words",
         className,
       )}
       {...props}
@@ -87,17 +85,12 @@ export function Display({ className, ...props }: ComponentProps<"h1">) {
   );
 }
 
-/** Wraps numbered sections so their counters restart at 01. */
+/** Groups page sections (kept as a wrapper so pages can add spacing). */
 export function Sections({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div className={cn("[counter-reset:section]", className)} {...props} />
-  );
+  return <div className={className} {...props} />;
 }
 
-/**
- * A numbered section: the number (from a CSS counter) and title take columns 1–2,
- * the content columns 3–12. On phones the number sits above the content.
- */
+/** A page section: large display title, content underneath. */
 export function Section({
   title,
   id,
@@ -113,21 +106,33 @@ export function Section({
     <section
       id={id}
       aria-label={title}
-      className={cn("pt-10 [counter-increment:section]", className)}
+      className={cn("scroll-mt-24 pt-16 lg:pt-24", className)}
     >
-      <Grid>
-        <header className="col-span-4 mb-6 md:col-span-8 lg:col-span-2 lg:mb-0">
-          <span
-            aria-hidden
-            className="block font-display text-[3rem] leading-[0.9] font-bold tracking-[-0.04em] before:content-[counter(section,decimal-leading-zero)] lg:text-[4rem]"
-          />
-          <h2 className="mt-2 text-small font-medium">{title}</h2>
-        </header>
-        <div className="col-span-4 md:col-span-8 lg:col-span-10">
-          {children}
-        </div>
-      </Grid>
+      <h2 className="font-display text-section font-bold">{title}</h2>
+      <div className="mt-8 lg:mt-10">{children}</div>
     </section>
+  );
+}
+
+/** "All work →" style link under a section: an outlined pill. */
+export function MoreLink({
+  href,
+  children,
+  className,
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p className={cn("mt-8", className)}>
+      <Link
+        href={href}
+        className="inline-flex items-center rounded-full border border-rule px-5 py-2.5 text-small font-semibold transition-colors hover:border-ink hover:bg-wash"
+      >
+        {children}
+      </Link>
+    </p>
   );
 }
 

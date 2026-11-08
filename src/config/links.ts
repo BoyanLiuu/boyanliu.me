@@ -5,7 +5,7 @@ import { siteConfig } from "./site";
 /** The contact cells used by the hero and the footer. */
 export const contactCells: LinkCell[] = [
   {
-    label: `${siteConfig.ui.resume} ↓`,
+    label: siteConfig.ui.resume,
     href: "/resume",
     primary: true,
     event: events.resumeView,

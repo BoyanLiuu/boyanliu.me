@@ -86,7 +86,10 @@ export default async function CaseStudy({ params }: Props) {
         </Display>
         <div className="col-span-4 mt-6 self-end text-body md:col-span-6 lg:col-span-3 lg:mt-0">
           <p className="flex items-center gap-2 font-bold">
-            <span aria-hidden className="inline-block size-3 bg-accent" />
+            <span
+              aria-hidden
+              className="inline-block size-2.5 rounded-full bg-accent"
+            />
             {project.status === "live"
               ? "Live"
               : project.status === "in-progress"
@@ -161,7 +164,7 @@ export default async function CaseStudy({ params }: Props) {
           )}
           {related.length > 0 && (
             <section aria-label="Related writing" className="mt-12">
-              <h2 className="border-t-2 border-rule pt-3 text-label font-medium uppercase">
+              <h2 className="border-t border-rule pt-4 text-small font-semibold text-muted">
                 Related writing
               </h2>
               {related.map((post) => (
