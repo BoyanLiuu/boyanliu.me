@@ -41,7 +41,7 @@ export default function Home() {
               <ProjectShowcase
                 key={project.slug}
                 project={project}
-                first={index === 0}
+                index={index}
               />
             ))}
           </div>

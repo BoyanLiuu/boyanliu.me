@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { Label } from "@/components/swiss/layout";
 import { Pill } from "@/components/ui/pill";
@@ -7,21 +8,23 @@ import { isSvg } from "@/lib/media";
 import type { Project } from "@/lib/projects";
 
 const card =
-  "group grid overflow-hidden rounded-card bg-wash lg:min-h-[27rem] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]";
+  "stack-card group grid overflow-hidden rounded-card border border-rule bg-wash lg:min-h-[27rem] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]";
 
 /**
  * Home-page case study card: copy and a "Read case study" pill on the left,
  * the cover as a screenshot that bleeds off the card's right and bottom edges.
  * Motion: the card rises in on scroll and its art settles from 110%; hovering the card zooms
- * the art, turns the pill accent and slides its arrow in. `first` loads its cover eagerly.
+ * the art, and hovering the pill turns it accent and slides its arrow in. On desktop the cards stick and stack
+ * as you scroll (`.stack-card`); `index` sets each card's stacking offset and alternating tilt.
  */
 export function ProjectShowcase({
   project,
-  first = false,
+  index = 0,
 }: {
   project: Project;
-  first?: boolean;
+  index?: number;
 }) {
+  const first = index === 0;
   const href = `/projects/${project.slug}`;
   const content = (
     <>
@@ -72,7 +75,12 @@ export function ProjectShowcase({
     </>
   );
   return (
-    <Reveal as="article" variant="card" className={card}>
+    <Reveal
+      as="article"
+      variant="card"
+      className={card}
+      style={{ "--stack-i": index } as CSSProperties}
+    >
       {content}
     </Reveal>
   );

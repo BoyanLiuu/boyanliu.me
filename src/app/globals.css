@@ -207,6 +207,30 @@
     transform: scale(1.06);
   }
 
+  /*
+   * Selected work: on desktop (and tall-enough screens) each case-study card sticks below the
+   * header, 20px lower than the one before, so the next card slides up and covers it, leaving a
+   * strip of each earlier card showing. Cards after the first tilt ±1° alternately. Pure CSS; the stack scrolls
+   * away together when the list ends.
+   */
+  @media (width >= 64rem) and (height >= 40rem) {
+    .stack-card {
+      position: sticky;
+      top: calc(6rem + var(--stack-i, 0) * 20px);
+      rotate: -1deg;
+      box-shadow:
+        0 -1px 0 var(--color-rule),
+        var(--shadow-soft);
+    }
+    .stack-card:nth-child(even) {
+      rotate: 1deg;
+    }
+    /* The first card stays level; only the cards stacking over it tilt. */
+    .stack-card:first-child {
+      rotate: none;
+    }
+  }
+
   /* Lists: children rise one after another once the list is revealed. */
   .reveal-stagger:not([data-revealed]) > * {
     opacity: 0;
@@ -247,8 +271,8 @@
   }
 
   /*
-   * Pill button: on hover the label pill shrinks and a circle with an icon slides in on its right.
-   * Hovering a parent .group (e.g. a whole card) triggers it too.
+   * Pill button: on hover (of the pill itself) the label shrinks and a circle with an icon slides
+   * in on its right.
    */
   .pill {
     --pill-h: 2.75rem;
@@ -269,13 +293,8 @@
     --pill-bg: var(--color-ink);
     --pill-fg: var(--color-paper);
   }
-  /* Dark pills turn accent on hover (theirs, or their card's); .pill__inner's transition animates it. */
-  :is(
-    .pill-ink:hover,
-    .pill-ink:focus-visible,
-    .group:hover .pill-ink,
-    .group:focus-within .pill-ink
-  ) {
+  /* Dark pills turn accent when the pill itself is hovered or focused; .pill__inner's transition animates it. */
+  :is(.pill-ink:hover, .pill-ink:focus-visible) {
     --pill-bg: var(--color-accent);
     --pill-fg: var(--color-paper);
   }
@@ -319,32 +338,13 @@
     transform: translateX(-100%);
     transition: all 0.3s var(--pill-ease) 0.1s;
   }
-  :is(
-      .pill:hover,
-      .pill:focus-visible,
-      .group:hover .pill,
-      .group:focus-within .pill
-    )
-    .pill__inner {
+  :is(.pill:hover, .pill:focus-visible) .pill__inner {
     width: calc(100% - var(--pill-h) - 4px);
   }
-  :is(
-      .pill:hover,
-      .pill:focus-visible,
-      .group:hover .pill,
-      .group:focus-within .pill
-    )
-    .pill__circle {
+  :is(.pill:hover, .pill:focus-visible) .pill__circle {
     scale: 1;
   }
-  :is(
-      .pill:hover,
-      .pill:focus-visible,
-      .group:hover .pill,
-      .group:focus-within .pill
-    )
-    .pill__circle
-    > span {
+  :is(.pill:hover, .pill:focus-visible) .pill__circle > span {
     transform: none;
   }
   .pill:focus-visible {

@@ -7,8 +7,8 @@ const sizes = { sm: "pill-sm", md: "", lg: "pill-lg" } as const;
 const tones = { accent: "", ink: "pill-ink" } as const;
 
 /**
- * Filled pill link. On hover (or when a parent `.group` is hovered) the label shrinks and a
- * circle with the icon slides in on its right. Styles: `.pill` in globals.css.
+ * Filled pill link. On hover or keyboard focus the label shrinks and a circle with the icon
+ * slides in on its right. Styles: `.pill` in globals.css.
  */
 export function Pill({
   href,
