@@ -15,7 +15,7 @@ const groups: { kind: SearchItem["kind"]; heading: string }[] = [
 ];
 
 /** ⌘K / Ctrl+K command palette. Mounted once; loads /search.json the first time it opens. */
-export function SearchDialog() {
+export const SearchDialog = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<SearchItem[] | null>(null);
@@ -113,4 +113,4 @@ export function SearchDialog() {
       </Command.List>
     </Command.Dialog>
   );
-}
+};

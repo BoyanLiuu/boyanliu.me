@@ -45,7 +45,7 @@ const row = (index: number) => Math.floor(index / COLUMNS);
 const column = (index: number) => index % COLUMNS;
 
 /** Random level with roughly GitHub's distribution: mostly empty, a few dark cells. */
-function randomLevel(random: () => number): ContributionLevel {
+const randomLevel = (random: () => number): ContributionLevel => {
   const value = random();
   return value < 0.34
     ? 0
@@ -56,10 +56,10 @@ function randomLevel(random: () => number): ContributionLevel {
         : value < 0.92
           ? 3
           : 4;
-}
+};
 
 /** Small seeded PRNG so the first frame is identical on the server and the client. */
-function seededRandom(seed: number) {
+const seededRandom = (seed: number) => {
   let state = seed;
   return () => {
     state = (state + 0x6d2b79f5) | 0;
@@ -67,7 +67,7 @@ function seededRandom(seed: number) {
     value = (value + Math.imul(value ^ (value >>> 7), 61 | value)) ^ value;
     return ((value ^ (value >>> 14)) >>> 0) / 0x100000000;
   };
-}
+};
 
 const firstFrame: ContributionLevel[] = (() => {
   const random = seededRandom(569);
@@ -112,7 +112,7 @@ const hello: ContributionLevel[] = Array.from({ length: CELLS }, (_, index) => {
     : 0;
 });
 
-function dayTitle(date: string, count: number) {
+const dayTitle = (date: string, count: number) => {
   const [year, month, day] = date.split("-").map(Number) as [
     number,
     number,
@@ -123,9 +123,9 @@ function dayTitle(date: string, count: number) {
       ? "No contributions"
       : `${count} contribution${count === 1 ? "" : "s"}`;
   return `${amount} on ${MONTHS[month - 1]} ${day}, ${year}`;
-}
+};
 
-export function GithubPulse({
+export const GithubPulse = ({
   graph,
   profile,
   locale,
@@ -133,7 +133,7 @@ export function GithubPulse({
   graph: ContributionGraph | null;
   profile: string;
   locale: string;
-}) {
+}) => {
   const [cells, setCells] = useState<ContributionLevel[]>(firstFrame);
   const [phase, setPhase] = useState<"shimmer" | "heart">("shimmer");
   const [open, setOpen] = useState(false);
@@ -357,4 +357,4 @@ export function GithubPulse({
       </div>
     </div>
   );
-}
+};

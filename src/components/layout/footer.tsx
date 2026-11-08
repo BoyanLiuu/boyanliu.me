@@ -13,7 +13,7 @@ import { ContactLinks } from "./contact-links";
  * Hand artwork for the footer card: public/hands/left.(png|webp|svg) and right.(…), checked at
  * build time. Without both files the card uses its built-in line-art SVG.
  */
-function findHandImages(): HandImages | undefined {
+const findHandImages = (): HandImages | undefined => {
   const find = (side: "left" | "right") =>
     ["png", "webp", "svg"]
       .map((extension) => `${side}.${extension}`)
@@ -25,13 +25,13 @@ function findHandImages(): HandImages | undefined {
   return left && right
     ? { left: `/hands/${left}`, right: `/hands/${right}` }
     : undefined;
-}
+};
 
 /**
  * Dark closing panel under the page sheet: the reaching-hands card, call to action, contact pills
  * and the small print. The first three enter in sequence when the footer scrolls into view.
  */
-export function Footer() {
+export const Footer = () => {
   // Rendered at build time; the range updates on the next deploy each year.
   const start = siteConfig.author.copyrightStart;
   const year = new Date().getFullYear();
@@ -75,4 +75,4 @@ export function Footer() {
       </Container>
     </footer>
   );
-}
+};

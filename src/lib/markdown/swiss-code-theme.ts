@@ -15,28 +15,26 @@ const scopes = {
   ],
 };
 
-function theme(
+const theme = (
   name: string,
   type: "light" | "dark",
   ink: string,
   keyword: string,
   comment: string,
   bg: string,
-) {
-  return {
-    name,
-    type,
-    colors: { "editor.foreground": ink, "editor.background": bg },
-    tokenColors: [
-      { settings: { foreground: ink } },
-      {
-        scope: scopes.comment,
-        settings: { foreground: comment, fontStyle: "italic" },
-      },
-      { scope: scopes.keyword, settings: { foreground: keyword } },
-    ],
-  };
-}
+) => ({
+  name,
+  type,
+  colors: { "editor.foreground": ink, "editor.background": bg },
+  tokenColors: [
+    { settings: { foreground: ink } },
+    {
+      scope: scopes.comment,
+      settings: { foreground: comment, fontStyle: "italic" },
+    },
+    { scope: scopes.keyword, settings: { foreground: keyword } },
+  ],
+});
 
 export const swissLight = theme(
   "swiss-light",

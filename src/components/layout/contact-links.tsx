@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
  * Contact pills: the résumé as the filled accent pill (icon slides in on hover), the rest outlined.
  * `tone="night"` is for the dark footer surface. `animateIn` pops the pills in one after another on load.
  */
-export function ContactLinks({
+export const ContactLinks = ({
   label = "Contact",
   tone = "paper",
   animateIn = false,
@@ -19,7 +19,7 @@ export function ContactLinks({
   tone?: "paper" | "night";
   animateIn?: boolean;
   className?: string;
-}) {
+}) => {
   const visible = contactCells.filter((cell) => cell.href);
   return (
     <nav aria-label={label} className={cn("flex flex-wrap gap-2.5", className)}>
@@ -89,4 +89,4 @@ export function ContactLinks({
       })}
     </nav>
   );
-}
+};

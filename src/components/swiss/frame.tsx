@@ -1,7 +1,7 @@
 import { MediaFrame } from "@/components/media/media-frame";
 
 /** Project cover: a MediaFrame for an image or SVG. Kept as a small wrapper for the card components. */
-export function Frame({
+export const Frame = ({
   src,
   alt,
   muted = false,
@@ -13,14 +13,12 @@ export function Frame({
   muted?: boolean;
   priority?: boolean;
   className?: string;
-}) {
-  return (
-    <MediaFrame
-      item={{ type: "image", src, alt }}
-      muted={muted}
-      priority={priority}
-      sizes="(min-width: 1024px) 50vw, 100vw"
-      className={className}
-    />
-  );
-}
+}) => (
+  <MediaFrame
+    item={{ type: "image", src, alt }}
+    muted={muted}
+    priority={priority}
+    sizes="(min-width: 1024px) 50vw, 100vw"
+    className={className}
+  />
+);

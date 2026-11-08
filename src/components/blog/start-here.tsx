@@ -3,7 +3,7 @@ import { Label } from "@/components/swiss/layout";
 import type { Post } from "@/lib/posts";
 
 /** The best posts first: featured posts as a 3-column row above the archive. */
-export function StartHere({ posts }: { posts: Post[] }) {
+export const StartHere = ({ posts }: { posts: Post[] }) => {
   if (posts.length === 0) return null;
   return (
     <section
@@ -29,4 +29,4 @@ export function StartHere({ posts }: { posts: Post[] }) {
       </div>
     </section>
   );
-}
+};

@@ -12,17 +12,17 @@ const bySlug = new Map(
 );
 
 /** Near-black brand colours (e.g. Next.js) would vanish in dark mode, so they follow the text colour. */
-function isNearBlack(hex: string) {
+const isNearBlack = (hex: string) => {
   const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
   return 0.2126 * r! + 0.7152 * g! + 0.0722 * b! < 40;
-}
+};
 
 /**
  * "My stack" row under the hero: overlapping round logo badges.
  * Motion: the label rises in at 0.5s, then the badges pop in 70ms apart; hovering one lifts and tilts it.
  * Each badge shows its name in a tooltip below it on hover, tap or keyboard focus.
  */
-export function TechStack({ className }: { className?: string }) {
+export const TechStack = ({ className }: { className?: string }) => {
   const slugs = siteConfig.author.stack ?? [];
   if (slugs.length === 0) return null;
   const icons = slugs.map((slug) => {
@@ -63,4 +63,4 @@ export function TechStack({ className }: { className?: string }) {
       </ul>
     </div>
   );
-}
+};

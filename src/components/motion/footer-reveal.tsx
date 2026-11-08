@@ -7,13 +7,13 @@ import { type ReactNode, useEffect, useRef } from "react";
  * (`data-reveal="out"`) and plays their entrance once 35% of the footer is visible.
  * Without JS (or with reduced motion) the attribute is never set, so nothing is hidden.
  */
-export function FooterReveal({
+export const FooterReveal = ({
   className,
   children,
 }: {
   className?: string;
   children: ReactNode;
-}) {
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const element = ref.current;
@@ -40,4 +40,4 @@ export function FooterReveal({
       {children}
     </div>
   );
-}
+};

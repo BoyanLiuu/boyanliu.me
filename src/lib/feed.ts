@@ -12,7 +12,7 @@ export type FeedPost = {
 };
 
 /** One Feed object, serialised as RSS 2.0, Atom 1.0 or JSON Feed 1 by the route handlers. */
-export function buildFeed(posts: FeedPost[]): Feed {
+export const buildFeed = (posts: FeedPost[]): Feed => {
   const home = absoluteUrl("/");
   const author = { name: siteConfig.author.name, link: home };
   const latest = posts.reduce(
@@ -50,4 +50,4 @@ export function buildFeed(posts: FeedPost[]): Feed {
     });
   }
   return feed;
-}
+};

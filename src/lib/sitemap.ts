@@ -4,7 +4,7 @@ import { absoluteUrl } from "./url";
 type Dated = { slug: string; date: string; updated?: string };
 
 /** Every public URL, absolute. Pure, so it can be unit-tested with fixtures. */
-export function buildSitemap({
+export const buildSitemap = ({
   posts,
   projects,
   tags = [],
@@ -12,7 +12,7 @@ export function buildSitemap({
   posts: Dated[];
   projects: { slug: string }[];
   tags?: string[];
-}): MetadataRoute.Sitemap {
+}): MetadataRoute.Sitemap => {
   const latestPost = posts.reduce(
     (max, p) => Math.max(max, Date.parse(p.updated ?? p.date)),
     0,
@@ -61,4 +61,4 @@ export function buildSitemap({
       priority: 0.4,
     })),
   ];
-}
+};

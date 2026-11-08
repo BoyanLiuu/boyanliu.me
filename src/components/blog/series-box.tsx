@@ -3,7 +3,7 @@ import { Label } from "@/components/swiss/layout";
 import { cn } from "@/lib/cn";
 
 /** "Part 2 of 4" box listing every part of the series, current one marked. */
-export function SeriesBox({
+export const SeriesBox = ({
   name,
   parts,
   current,
@@ -11,7 +11,7 @@ export function SeriesBox({
   name: string;
   parts: { slug: string; title: string }[];
   current: string;
-}) {
+}) => {
   const index = parts.findIndex((part) => part.slug === current);
   return (
     <aside
@@ -42,4 +42,4 @@ export function SeriesBox({
       </ol>
     </aside>
   );
-}
+};

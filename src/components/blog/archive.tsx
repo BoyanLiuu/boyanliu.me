@@ -9,7 +9,7 @@ const pageHref = (page: number) =>
   page === 1 ? "/blog" : `/blog/page/${page}`;
 
 /** Posts grouped by year (year in columns 1–2), with a pager when there is more than one page. */
-export function Archive({
+export const Archive = ({
   posts,
   page,
   pages,
@@ -17,7 +17,7 @@ export function Archive({
   posts: Post[];
   page: number;
   pages: number;
-}) {
+}) => {
   const years = [
     ...new Set(posts.map((post) => new Date(post.date).getUTCFullYear())),
   ];
@@ -48,4 +48,4 @@ export function Archive({
       />
     </div>
   );
-}
+};

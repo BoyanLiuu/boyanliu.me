@@ -5,13 +5,13 @@ import type { TocItem } from "@/lib/toc";
 import { cn } from "@/lib/cn";
 
 /** Table of contents with scroll-spy: the section nearest the top of the viewport is marked with the red square. */
-export function Toc({
+export const Toc = ({
   items,
   className,
 }: {
   items: TocItem[];
   className?: string;
-}) {
+}) => {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
@@ -78,4 +78,4 @@ export function Toc({
       </ol>
     </nav>
   );
-}
+};

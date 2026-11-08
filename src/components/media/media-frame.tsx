@@ -11,7 +11,7 @@ import { VideoLoop } from "./video-loop";
  * - video: muted loop (poster only under reduced motion)
  * `muted` renders greyscale that turns to colour on hover (secondary projects).
  */
-export function MediaFrame({
+export const MediaFrame = ({
   item,
   muted = false,
   priority = false,
@@ -23,7 +23,7 @@ export function MediaFrame({
   priority?: boolean;
   sizes?: string;
   className?: string;
-}) {
+}) => {
   const visual = cn(
     "size-full object-cover object-top-left transition-[filter] duration-150",
     muted && "grayscale group-hover:grayscale-0",
@@ -60,4 +60,4 @@ export function MediaFrame({
       )}
     </figure>
   );
-}
+};

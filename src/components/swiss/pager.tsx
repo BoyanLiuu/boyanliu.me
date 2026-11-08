@@ -12,7 +12,7 @@ export type PagerControl = (
  * "← Previous  1 2 3  Next →" bar shared by the writing archive and bookmarks. Hidden when there is a single page.
  * The current page is plain text marked with the accent square.
  */
-export function Pager({
+export const Pager = ({
   page,
   pages,
   control,
@@ -20,7 +20,7 @@ export function Pager({
   page: number;
   pages: number;
   control: PagerControl;
-}) {
+}) => {
   if (pages <= 1) return null;
   const link = "underline underline-offset-4 hover:text-accent";
   return (
@@ -74,4 +74,4 @@ export function Pager({
       </span>
     </nav>
   );
-}
+};

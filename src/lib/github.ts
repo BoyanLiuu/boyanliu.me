@@ -48,19 +48,19 @@ const GRAPHQL_LEVELS: Record<string, ContributionLevel> = {
 };
 
 /** "https://github.com/BoyanLiuu" → "BoyanLiuu". */
-export function githubUser(profileUrl: string): string | undefined {
+export const githubUser = (profileUrl: string): string | undefined => {
   try {
     const user = new URL(profileUrl).pathname.split("/").filter(Boolean)[0];
     return user || undefined;
   } catch {
     return undefined;
   }
-}
+};
 
-async function fromGraphQL(
+const fromGraphQL = async (
   user: string,
   token: string,
-): Promise<{ total: number; days: ContributionDay[] }> {
+): Promise<{ total: number; days: ContributionDay[] }> => {
   const query = `query($login: String!) { user(login: $login) { contributionsCollection { contributionCalendar {
     totalContributions weeks { contributionDays { date contributionCount contributionLevel } } } } } }`;
   const response = await fetch("https://api.github.com/graphql", {
@@ -87,11 +87,11 @@ async function fromGraphQL(
       })),
   );
   return { total: Number(calendar.totalContributions), days };
-}
+};
 
-async function fromPublicMirror(
+const fromPublicMirror = async (
   user: string,
-): Promise<{ total: number; days: ContributionDay[] }> {
+): Promise<{ total: number; days: ContributionDay[] }> => {
   const response = await fetch(
     `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(user)}?y=last`,
     {
@@ -113,10 +113,10 @@ async function fromPublicMirror(
       ? json.total.lastYear
       : days.reduce((sum, day) => sum + day.c, 0);
   return { total, days };
-}
+};
 
 /** Group days into calendar months of Sunday-first week columns. Exported for tests. */
-export function toMonths(days: ContributionDay[]): ContributionMonth[] {
+export const toMonths = (days: ContributionDay[]): ContributionMonth[] => {
   const sorted = [...days].sort((a, b) => a.d.localeCompare(b.d));
   const byMonth = new Map<string, ContributionDay[]>();
   for (const day of sorted) {
@@ -144,11 +144,11 @@ export function toMonths(days: ContributionDay[]): ContributionMonth[] {
     const label = `${MONTHS[month - 1]}${edge ? ` ’${String(year).slice(2)}` : ""}`;
     return { key, label, weeks };
   });
-}
+};
 
-export async function getContributionGraph(
+export const getContributionGraph = async (
   profileUrl: string,
-): Promise<ContributionGraph | null> {
+): Promise<ContributionGraph | null> => {
   const user = githubUser(profileUrl);
   if (!user) return null;
   try {
@@ -164,4 +164,4 @@ export async function getContributionGraph(
     );
     return null;
   }
-}
+};

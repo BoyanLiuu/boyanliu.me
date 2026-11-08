@@ -1,7 +1,7 @@
 /** Hosts allowed in <Playground>. Anything else renders nothing, so MDX cannot embed arbitrary pages. */
 export const PLAYGROUND_HOSTS = ["stackblitz.com", "codesandbox.io"];
 
-export function isAllowedPlayground(src: string): boolean {
+export const isAllowedPlayground = (src: string): boolean => {
   try {
     const url = new URL(src);
     return (
@@ -13,9 +13,8 @@ export function isAllowedPlayground(src: string): boolean {
   } catch {
     return false;
   }
-}
+};
 
 /** YouTube ids are 11 characters of [A-Za-z0-9_-]. */
-export function isYouTubeId(id: string): boolean {
-  return /^[A-Za-z0-9_-]{11}$/.test(id);
-}
+export const isYouTubeId = (id: string): boolean =>
+  /^[A-Za-z0-9_-]{11}$/.test(id);

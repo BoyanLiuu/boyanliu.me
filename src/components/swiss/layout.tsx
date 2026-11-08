@@ -3,24 +3,22 @@ import type { ComponentProps, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 /** Page width and outer margins: 20 / 32px, content capped at 72rem (1152px). */
-export function Container({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div
-      className={cn(
-        "mx-auto w-full max-w-[calc(72rem+4rem)] px-5 md:px-8",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+export const Container = ({ className, ...props }: ComponentProps<"div">) => (
+  <div
+    className={cn(
+      "mx-auto w-full max-w-[calc(72rem+4rem)] px-5 md:px-8",
+      className,
+    )}
+    {...props}
+  />
+);
 
 /** The Swiss grid: 4 columns on phones, 8 on tablets, 12 from 1024px. */
-export function Grid<T extends ElementType = "div">({
+export const Grid = <T extends ElementType = "div">({
   as,
   className,
   ...props
-}: { as?: T } & Omit<ComponentProps<T>, "as">) {
+}: { as?: T } & Omit<ComponentProps<T>, "as">) => {
   const Tag = (as ?? "div") as ElementType;
   return (
     <Tag
@@ -31,67 +29,59 @@ export function Grid<T extends ElementType = "div">({
       {...props}
     />
   );
-}
+};
 
 /** Horizontal rule: 1px between rows, 2px above groups. */
-export function Rule({
+export const Rule = ({
   weight = 1,
   className,
 }: {
   weight?: 1 | 2;
   className?: string;
-}) {
-  return (
-    <hr
-      className={cn(
-        "border-0 border-rule",
-        weight === 2 ? "border-t-2" : "border-t",
-        className,
-      )}
-    />
-  );
-}
+}) => (
+  <hr
+    className={cn(
+      "border-0 border-rule",
+      weight === 2 ? "border-t-2" : "border-t",
+      className,
+    )}
+  />
+);
 
 /** Small meta label (dates, stacks, captions). */
-export function Label({ className, ...props }: ComponentProps<"span">) {
-  return (
-    <span className={cn("text-label font-medium", className)} {...props} />
-  );
-}
+export const Label = ({ className, ...props }: ComponentProps<"span">) => (
+  <span className={cn("text-label font-medium", className)} {...props} />
+);
 
 /** The accent full stop after headlines. Decorative only. */
-export function Mark({ className }: { className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={cn(
-        "ml-[0.05em] inline-block size-[0.16em] rounded-full bg-accent align-baseline",
-        className,
-      )}
-    />
-  );
-}
+export const Mark = ({ className }: { className?: string }) => (
+  <span
+    aria-hidden
+    className={cn(
+      "ml-[0.05em] inline-block size-[0.16em] rounded-full bg-accent align-baseline",
+      className,
+    )}
+  />
+);
 
 /** The page headline. */
-export function Display({ className, ...props }: ComponentProps<"h1">) {
-  return (
-    <h1
-      className={cn(
-        "font-display text-display font-semibold text-balance break-words",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+export const Display = ({ className, ...props }: ComponentProps<"h1">) => (
+  <h1
+    className={cn(
+      "font-display text-display font-semibold text-balance break-words",
+      className,
+    )}
+    {...props}
+  />
+);
 
 /** Groups page sections (kept as a wrapper so pages can add spacing). */
-export function Sections({ className, ...props }: ComponentProps<"div">) {
-  return <div className={className} {...props} />;
-}
+export const Sections = ({ className, ...props }: ComponentProps<"div">) => (
+  <div className={className} {...props} />
+);
 
 /** A page section: large display title (with an optional `aside` beside it), content underneath. */
-export function Section({
+export const Section = ({
   title,
   id,
   aside,
@@ -103,24 +93,22 @@ export function Section({
   aside?: ReactNode;
   children: ReactNode;
   className?: string;
-}) {
-  return (
-    <section
-      id={id}
-      aria-label={title}
-      className={cn("scroll-mt-24 pt-16 lg:pt-24", className)}
-    >
-      <div className="relative z-20 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <h2 className="font-display text-section font-bold">{title}</h2>
-        {aside}
-      </div>
-      <div className="mt-8 lg:mt-10">{children}</div>
-    </section>
-  );
-}
+}) => (
+  <section
+    id={id}
+    aria-label={title}
+    className={cn("scroll-mt-24 pt-16 lg:pt-24", className)}
+  >
+    <div className="relative z-20 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <h2 className="font-display text-section font-bold">{title}</h2>
+      {aside}
+    </div>
+    <div className="mt-8 lg:mt-10">{children}</div>
+  </section>
+);
 
 /** "All work →" style link under a section: an outlined pill. */
-export function MoreLink({
+export const MoreLink = ({
   href,
   children,
   className,
@@ -128,22 +116,18 @@ export function MoreLink({
   href: string;
   children: ReactNode;
   className?: string;
-}) {
-  return (
-    <p className={cn("mt-8", className)}>
-      <Link
-        href={href}
-        className="inline-flex items-center rounded-full border border-rule px-5 py-2.5 text-small font-semibold transition-colors hover:border-ink hover:bg-wash"
-      >
-        {children}
-      </Link>
-    </p>
-  );
-}
+}) => (
+  <p className={cn("mt-8", className)}>
+    <Link
+      href={href}
+      className="inline-flex items-center rounded-full border border-rule px-5 py-2.5 text-small font-semibold transition-colors hover:border-ink hover:bg-wash"
+    >
+      {children}
+    </Link>
+  </p>
+);
 
 /** A table-like row with a 1px top rule. Pass column spans to the children. */
-export function Row({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <Grid className={cn("border-t border-rule py-5", className)} {...props} />
-  );
-}
+export const Row = ({ className, ...props }: ComponentProps<"div">) => (
+  <Grid className={cn("border-t border-rule py-5", className)} {...props} />
+);

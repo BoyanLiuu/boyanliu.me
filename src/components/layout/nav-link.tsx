@@ -10,11 +10,11 @@ import type { ComponentProps } from "react";
  * `homeActive` shows it as active on the home page too (visual only, no aria-current),
  * the way the header highlights its first item there.
  */
-export function NavLink({
+export const NavLink = ({
   href,
   homeActive = false,
   ...props
-}: ComponentProps<typeof Link> & { href: string; homeActive?: boolean }) {
+}: ComponentProps<typeof Link> & { href: string; homeActive?: boolean }) => {
   const pathname = usePathname();
   const current = pathname === href || pathname.startsWith(`${href}/`);
   const active = current || (homeActive && pathname === "/");
@@ -26,4 +26,4 @@ export function NavLink({
       {...props}
     />
   );
-}
+};

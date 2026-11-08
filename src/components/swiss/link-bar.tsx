@@ -18,7 +18,7 @@ const lgCols: Record<number, string> = {
 };
 
 /** Equal cells separated by 1px rules. The primary cell is red. An odd last cell spans both columns on phones. */
-export function LinkBar({
+export const LinkBar = ({
   cells,
   label,
   className,
@@ -26,7 +26,7 @@ export function LinkBar({
   cells: LinkCell[];
   label: string;
   className?: string;
-}) {
+}) => {
   const visible = cells.filter((cell) => cell.href);
   return (
     <nav
@@ -68,4 +68,4 @@ export function LinkBar({
       })}
     </nav>
   );
-}
+};

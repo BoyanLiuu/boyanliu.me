@@ -17,13 +17,13 @@ const card =
  * the art, and hovering the pill turns it accent and slides its arrow in. On desktop the cards stick and stack
  * as you scroll (`.stack-card`); `index` sets each card's stacking offset and alternating tilt.
  */
-export function ProjectShowcase({
+export const ProjectShowcase = ({
   project,
   index = 0,
 }: {
   project: Project;
   index?: number;
-}) {
+}) => {
   const first = index === 0;
   const href = `/projects/${project.slug}`;
   const content = (
@@ -84,4 +84,4 @@ export function ProjectShowcase({
       {content}
     </Reveal>
   );
-}
+};

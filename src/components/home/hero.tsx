@@ -11,7 +11,7 @@ const availabilityDot: Record<string, string> = {
 };
 
 /** Tilted photo card with a handwritten caption; drops in on load (`.polaroid`). Shows initials until `author.photo` is set. */
-function Polaroid() {
+const Polaroid = () => {
   const { photo, name, location } = siteConfig.author;
   const initials = name
     .split(/\s+/)
@@ -46,13 +46,13 @@ function Polaroid() {
       </figcaption>
     </figure>
   );
-}
+};
 
 /**
  * Availability badge, two-tone headline (the accent phrase can cycle), bio and contact pills,
  * with the photo card beside them. Each piece enters in sequence on load.
  */
-export function Hero() {
+export const Hero = () => {
   const { author } = siteConfig;
   const headline = author.headline ?? `${author.name},`;
   const accent = author.headlineAccent ?? `${author.jobTitle.toLowerCase()}.`;
@@ -115,4 +115,4 @@ export function Hero() {
       <Polaroid />
     </section>
   );
-}
+};

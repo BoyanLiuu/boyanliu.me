@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 import { Container, Grid } from "./layout";
 
 /** Development aid: press Ctrl+G to show the 12/8/4 column grid over the page. */
-export function GridOverlay() {
+export const GridOverlay = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ export function GridOverlay() {
       </Container>
     </div>
   );
-}
+};

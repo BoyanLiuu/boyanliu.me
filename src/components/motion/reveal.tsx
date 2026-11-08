@@ -17,7 +17,7 @@ const variants = {
  * The attribute is written to the DOM directly, so React re-renders never reset it.
  * Reduced motion and no-JS are handled in CSS (globals.css and the layout's <noscript> rule).
  */
-export function Reveal({
+export const Reveal = ({
   as = "div",
   variant = "fade",
   className,
@@ -25,7 +25,7 @@ export function Reveal({
 }: {
   as?: "div" | "article" | "section" | "ul";
   variant?: keyof typeof variants;
-} & ComponentProps<"div">) {
+} & ComponentProps<"div">) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const element = ref.current;
@@ -47,4 +47,4 @@ export function Reveal({
   return (
     <Tag ref={ref} className={cn(variants[variant], className)} {...props} />
   );
-}
+};

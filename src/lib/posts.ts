@@ -3,20 +3,15 @@ import { collectTags, includeDrafts, sortByDateDesc, visible } from "./content";
 
 export type Post = (typeof allPosts)[number];
 
-export function getPosts(): Post[] {
-  return sortByDateDesc(visible(allPosts, includeDrafts));
-}
+export const getPosts = (): Post[] =>
+  sortByDateDesc(visible(allPosts, includeDrafts));
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return getPosts().find((post) => post.slug === slug);
-}
+export const getPostBySlug = (slug: string): Post | undefined =>
+  getPosts().find((post) => post.slug === slug);
 
-export function getFeaturedPosts(limit = 3): Post[] {
-  return getPosts()
+export const getFeaturedPosts = (limit = 3): Post[] =>
+  getPosts()
     .filter((post) => post.featured)
     .slice(0, limit);
-}
 
-export function getAllTags(): string[] {
-  return collectTags(getPosts());
-}
+export const getAllTags = (): string[] => collectTags(getPosts());

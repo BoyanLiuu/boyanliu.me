@@ -13,15 +13,15 @@ const fonts = Promise.all([
 ]);
 
 /** Title size that keeps up to ~4 lines inside the card. */
-export function ogTitleSize(title: string): number {
+export const ogTitleSize = (title: string): number => {
   if (title.length <= 24) return 120;
   if (title.length <= 48) return 92;
   if (title.length <= 80) return 72;
   return 58;
-}
+};
 
 /** Swiss share card: top bar, giant title with the red square, footer line. Rendered at build time. */
-export async function ogImage({
+export const ogImage = async ({
   kicker,
   title,
   footer,
@@ -29,7 +29,7 @@ export async function ogImage({
   kicker: string;
   title: string;
   footer?: string;
-}) {
+}) => {
   const [bold, medium] = await fonts;
   const text = title.length > 110 ? `${title.slice(0, 107)}…` : title;
   const size = ogTitleSize(text);
@@ -137,4 +137,4 @@ export async function ogImage({
       ],
     },
   );
-}
+};

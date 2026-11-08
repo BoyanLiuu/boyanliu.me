@@ -3,13 +3,13 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
 
 /** Round portrait from `author.photo`, or the author's initials when no photo is set. Decorative: the name is always shown next to it. */
-export function Avatar({
+export const Avatar = ({
   size = 36,
   className,
 }: {
   size?: number;
   className?: string;
-}) {
+}) => {
   const { photo, name } = siteConfig.author;
   if (photo) {
     return (
@@ -40,4 +40,4 @@ export function Avatar({
       {initials}
     </span>
   );
-}
+};

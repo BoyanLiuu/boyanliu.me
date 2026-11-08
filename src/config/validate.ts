@@ -7,11 +7,10 @@ import { join } from "node:path";
 import { z } from "zod";
 import { bookmarksSchema, experienceSchema, siteSchema } from "./schema";
 
-function readJson(file: string): unknown {
-  return JSON.parse(readFileSync(join(process.cwd(), file), "utf8"));
-}
+const readJson = (file: string): unknown =>
+  JSON.parse(readFileSync(join(process.cwd(), file), "utf8"));
 
-export function validateContentFiles(): void {
+export const validateContentFiles = (): void => {
   const checks: [string, z.ZodType][] = [
     ["content/site.json", siteSchema],
     ["content/experience.json", experienceSchema],
@@ -28,4 +27,4 @@ export function validateContentFiles(): void {
       `Invalid content configuration:\n\n${errors.join("\n\n")}\n`,
     );
   }
-}
+};

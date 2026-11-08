@@ -4,14 +4,11 @@ import { siteConfig } from "@/config/site";
  * Plausible "tagged events": a class on a link records a named event when it is clicked.
  * Returns "" when analytics is off, so markup is unchanged.
  */
-export function eventClass(
+export const eventClass = (
   name: string,
   enabled: boolean = siteConfig.features.analytics,
-): string {
-  return enabled
-    ? `plausible-event-name=${name.trim().replace(/\s+/g, "+")}`
-    : "";
-}
+): string =>
+  enabled ? `plausible-event-name=${name.trim().replace(/\s+/g, "+")}` : "";
 
 export const events = {
   resumeView: "Resume View",

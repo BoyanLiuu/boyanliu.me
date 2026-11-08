@@ -13,7 +13,7 @@ type Row = { kind: string; key: string; node: ReactNode };
  * Kind filter and pager for the bookmarks page. Rows are rendered on the server and passed in with their kind and
  * section; the filter applies first, then the pager, then rows are regrouped under their section headings.
  */
-export function BookmarkFilter({
+export const BookmarkFilter = ({
   kinds,
   sections,
   perPage = BOOKMARKS_PER_PAGE,
@@ -21,7 +21,7 @@ export function BookmarkFilter({
   kinds: { kind: string; count: number }[];
   sections: { title: string; rows: Row[] }[];
   perPage?: number;
-}) {
+}) => {
   const [active, setActive] = useState<string>("all");
   const [page, setPage] = useState(1);
   const top = useRef<HTMLDivElement>(null);
@@ -90,4 +90,4 @@ export function BookmarkFilter({
       />
     </>
   );
-}
+};

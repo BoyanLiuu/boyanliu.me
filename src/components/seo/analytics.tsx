@@ -2,7 +2,7 @@ import Script from "next/script";
 import { siteConfig } from "@/config/site";
 
 /** Cookie-free Plausible analytics (pageviews, outbound links, tagged events). Off unless features.analytics. */
-export function Analytics() {
+export const Analytics = () => {
   if (!siteConfig.features.analytics) return null;
   return (
     <Script
@@ -12,4 +12,4 @@ export function Analytics() {
       strategy="afterInteractive"
     />
   );
-}
+};

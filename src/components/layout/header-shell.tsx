@@ -11,7 +11,7 @@ const subscribe = (onChange: () => void) => {
  * Sticky header frame. At the top of the page it is a transparent full-width bar;
  * once the page scrolls it narrows into a frosted floating pill. It slides down into place on load.
  */
-export function HeaderShell({ children }: { children: ReactNode }) {
+export const HeaderShell = ({ children }: { children: ReactNode }) => {
   const scrolled = useSyncExternalStore(
     subscribe,
     () => window.scrollY > 24,
@@ -27,4 +27,4 @@ export function HeaderShell({ children }: { children: ReactNode }) {
       </div>
     </header>
   );
-}
+};

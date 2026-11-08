@@ -10,7 +10,7 @@ const tones = { accent: "", ink: "pill-ink" } as const;
  * Filled pill link. On hover or keyboard focus the label shrinks and a circle with the icon
  * slides in on its right. Styles: `.pill` in globals.css.
  */
-export function Pill({
+export const Pill = ({
   href,
   children,
   icon = <ArrowRightIcon size={18} weight="bold" />,
@@ -26,7 +26,7 @@ export function Pill({
   size?: keyof typeof sizes;
   className?: string;
   title?: string;
-}) {
+}) => {
   const classes = cn("pill", sizes[size], tones[tone], className);
   const content = (
     <>
@@ -54,4 +54,4 @@ export function Pill({
       {content}
     </a>
   );
-}
+};

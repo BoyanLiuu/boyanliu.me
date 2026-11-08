@@ -3,16 +3,16 @@
 import { useRef, useState, type ComponentProps } from "react";
 
 /** <pre> with a copy-to-clipboard button. Used for every fenced code block. */
-export function CodeBlock(props: ComponentProps<"pre">) {
+export const CodeBlock = (props: ComponentProps<"pre">) => {
   const ref = useRef<HTMLPreElement>(null);
   const [copied, setCopied] = useState(false);
 
-  async function copy() {
+  const copy = async () => {
     const text = ref.current?.textContent ?? "";
     await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
-  }
+  };
 
   return (
     <div className="group relative">
@@ -26,4 +26,4 @@ export function CodeBlock(props: ComponentProps<"pre">) {
       </button>
     </div>
   );
-}
+};

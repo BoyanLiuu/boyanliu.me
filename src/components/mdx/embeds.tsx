@@ -5,7 +5,7 @@ import { Label } from "@/components/swiss/layout";
 import { isAllowedPlayground, isYouTubeId } from "@/lib/embed";
 
 /** Click-to-load YouTube: nothing is requested from YouTube until the reader presses play. */
-export function YouTube({ id, title }: { id: string; title: string }) {
+export const YouTube = ({ id, title }: { id: string; title: string }) => {
   const [loaded, setLoaded] = useState(false);
   if (!isYouTubeId(id)) return null;
   return (
@@ -35,10 +35,10 @@ export function YouTube({ id, title }: { id: string; title: string }) {
       </div>
     </figure>
   );
-}
+};
 
 /** Sandboxed code playground (StackBlitz / CodeSandbox only), lazy-loaded. */
-export function Playground({
+export const Playground = ({
   src,
   title,
   height = 480,
@@ -46,7 +46,7 @@ export function Playground({
   src: string;
   title: string;
   height?: number;
-}) {
+}) => {
   if (!isAllowedPlayground(src)) return null;
   return (
     <figure className="my-8">
@@ -64,4 +64,4 @@ export function Playground({
       </figcaption>
     </figure>
   );
-}
+};

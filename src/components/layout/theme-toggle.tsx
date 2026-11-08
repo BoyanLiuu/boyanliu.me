@@ -6,13 +6,13 @@ import { useSyncExternalStore } from "react";
 const subscribe = () => () => {};
 
 /** Toggle between light and dark (icon, plus a text label unless `compact`). Renders a stable placeholder until mounted to avoid a hydration mismatch. */
-export function ThemeToggle({
+export const ThemeToggle = ({
   className,
   compact = false,
 }: {
   className?: string;
   compact?: boolean;
-}) {
+}) => {
   const { resolvedTheme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(
     subscribe,
@@ -51,4 +51,4 @@ export function ThemeToggle({
       )}
     </button>
   );
-}
+};

@@ -14,7 +14,7 @@ const subscribe = (onChange: () => void) => {
  * "GIF-like" muted loop. Visitors who prefer reduced motion see the poster with
  * controls instead, and can choose to play it.
  */
-export function VideoLoop({
+export const VideoLoop = ({
   src,
   poster,
   label,
@@ -22,7 +22,7 @@ export function VideoLoop({
   src: string;
   poster?: string;
   label: string;
-}) {
+}) => {
   const reduced = useSyncExternalStore(
     subscribe,
     () => window.matchMedia(query).matches,
@@ -47,4 +47,4 @@ export function VideoLoop({
       <source src={src} type="video/mp4" />
     </video>
   );
-}
+};
