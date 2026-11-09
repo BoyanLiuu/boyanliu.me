@@ -36,20 +36,22 @@ export const Pill = ({
       </span>
     </>
   );
-  if (href.startsWith("/")) {
+  // Pages navigate in place; files such as /resume.pdf and external URLs open in a new tab.
+  const isFile = /\.[a-z0-9]{2,4}$/i.test(href);
+  if (href.startsWith("/") && !isFile) {
     return (
       <Link href={href} className={classes} title={title}>
         {content}
       </Link>
     );
   }
-  const external = /^https?:/.test(href);
+  const newTab = isFile || /^https?:/.test(href);
   return (
     <a
       href={href}
       className={classes}
       title={title}
-      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+      {...(newTab && { target: "_blank", rel: "noopener noreferrer" })}
     >
       {content}
     </a>

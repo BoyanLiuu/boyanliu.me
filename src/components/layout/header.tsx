@@ -91,7 +91,7 @@ export const Header = () => (
       )}
       <ThemeToggle className={iconButton} compact />
       <Pill
-        href="/resume"
+        href="/resume.pdf"
         size="sm"
         icon={<DownloadSimpleIcon size={17} weight="bold" />}
         className="ml-1.5 text-small"

@@ -38,9 +38,14 @@ export const MobileNav = ({ className }: { className?: string }) => (
             </Dialog.Close>
           ))}
           <Dialog.Close asChild>
-            <Link href="/resume" className="text-night-accent">
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-night-accent"
+            >
               {siteConfig.ui.resume}
-            </Link>
+            </a>
           </Dialog.Close>
         </nav>
         <div className="mt-auto flex items-center justify-between border-t border-night-rule pt-4 text-small text-night-muted">

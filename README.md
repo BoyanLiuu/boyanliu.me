@@ -20,7 +20,7 @@ pnpm test:e2e     # Playwright smoke tests against the production build (run `pn
 | `pnpm new:project "Title"`                            | Creates `content/projects/<slug>.mdx` as a draft                                                                        |
 | `pnpm new:bookmark <url> [--note "…"] [--tags a,b]`   | Adds a bookmark with title, description and kind fetched from the link (GitHub repos via the API); `--dry-run` previews |
 | `pnpm media:video <in> public/projects/<slug>/<name>` | Converts a screen recording to MP4 + WebM + poster (needs `ffmpeg`)                                                     |
-| `pnpm resume:pdf`                                     | Prints `/resume` to `public/resume.pdf` (run after `pnpm build`)                                                        |
+| `pnpm resume:pdf --force`                             | Replaces `public/resume.pdf` with a printout of `/resume` (run after `pnpm build`)                                      |
 | `pnpm format`                                         | Prettier with Tailwind class sorting                                                                                    |
 
 ## Make it yours (replace the TODOs)
@@ -32,7 +32,7 @@ Everything personal lives in `content/` (see [TEMPLATE.md](TEMPLATE.md)):
 3. **`content/bookmarks.json`**: useful repos, blogs, articles and sites, each with a one-line note (shown on `/bookmarks` and the home page).
 4. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
 5. **`content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
-6. Run `pnpm build && pnpm resume:pdf` and commit the new `public/resume.pdf`.
+6. Put your résumé at `public/resume.pdf`; every Résumé button opens it. (Or generate one from `/resume` with `pnpm build && pnpm resume:pdf --force`.)
 
 Invalid JSON or frontmatter stops `pnpm dev`/`pnpm build` with a readable error. Drafts (`draft: true`) appear in `pnpm dev` only.
 

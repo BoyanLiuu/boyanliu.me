@@ -2,29 +2,79 @@
   "$schema": "./experience.schema.json",
   "roles": [
     {
-      "company": "TODO Company",
-      "title": "Software Engineer",
-      "start": "2023-01",
+      "company": "Amazon Web Services (AWS)",
+      "title": "Frontend Engineer",
+      "start": "2022-09",
       "location": "Seattle, WA",
       "highlights": [
-        "TODO: impact bullet with a number, e.g. cut p99 latency 40% for 20M daily requests.",
-        "TODO: scope bullet, e.g. led a team of 4 on the payments ledger."
+        "Led end-to-end development of the Bedrock AgentCore Identity Console with React, TypeScript and Cloudscape, delivering a fully tested, production-ready experience with backend, design and platform teams.",
+        "Architected and launched the Managed Login Customization Studio, a no-code branding editor built from reusable components (color picker, preview control, asset manager) in Storybook, now adopted across multiple product areas.",
+        "Led customer-facing features in the Cognito Console (Terms & Conditions, Access Token Customization, Advanced Security Settings) with Jest and Playwright test automation at 90%+ coverage, for releases used by thousands of customers.",
+        "Optimized CDK pipeline automation, cutting infrastructure deployment time by 32% across 30 AWS regions and saving over 600 minutes per rollout.",
+        "Remediated 249+ accessibility violations to reach full WCAG compliance for assistive-technology users.",
+        "Migrated 7,000+ unit tests from Jest to Vitest, improving CI reliability and cutting execution time by over 100 seconds."
       ],
-      "stack": ["go", "postgres", "aws"]
+      "stack": [
+        "react",
+        "typescript",
+        "cloudscape",
+        "storybook",
+        "jest",
+        "playwright",
+        "vitest",
+        "aws-cdk"
+      ]
     },
     {
-      "company": "TODO Previous Company",
-      "title": "Software Engineer",
-      "start": "2020-06",
-      "end": "2022-12",
-      "highlights": ["TODO: one or two results from this role."]
+      "company": "Curated",
+      "title": "Frontend Developer",
+      "start": "2022-04",
+      "end": "2022-09",
+      "location": "San Francisco, CA",
+      "highlights": ["Built an e-commerce website with React and GraphQL."],
+      "stack": ["react", "graphql"]
+    },
+    {
+      "company": "Bullpen Strategy Group",
+      "title": "Frontend Developer",
+      "start": "2021-10",
+      "end": "2022-04",
+      "location": "Virginia",
+      "highlights": [
+        "Built a political intelligence analysis tool with Next.js and Material UI.",
+        "Improved page rendering time from 2 s to 0.5 s by refactoring the implementation logic."
+      ],
+      "stack": ["nextjs", "material-ui"]
+    },
+    {
+      "company": "Maryland Transportation Institute",
+      "title": "Web Developer",
+      "start": "2021-03",
+      "end": "2021-07",
+      "location": "College Park, MD",
+      "highlights": [
+        "Developed a prototype that visualizes transportation information with React, Mapbox and the Context API.",
+        "Refactored React components to hooks, making the code cleaner and about 15% smaller."
+      ],
+      "stack": ["react", "mapbox"]
+    },
+    {
+      "company": "Fraunhofer USA CESE",
+      "title": "Full Stack Software Engineer",
+      "start": "2020-09",
+      "end": "2021-03",
+      "location": "Riverdale Park, MD",
+      "highlights": [
+        "Engineered a Vue.js app with Vuex and OpenCV for product inspection, boosting manufacturing efficiency by 30%."
+      ],
+      "stack": ["vue", "vuex", "opencv"]
     }
   ],
   "education": [
     {
-      "school": "TODO University",
-      "degree": "TODO Degree",
-      "year": "TODO"
+      "school": "University of Maryland, College Park",
+      "degree": "B.S. in Computer Science",
+      "year": "2020"
     }
   ]
 }

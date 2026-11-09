@@ -4,18 +4,18 @@ The code is generic; everything specific to one person lives in **`content/`** (
 
 ## What is template, what is yours
 
-| Path                                     | Owner     | Notes                                                                      |
-| ---------------------------------------- | --------- | -------------------------------------------------------------------------- |
-| `content/site.json`                      | **yours** | Name, URL, role, bio, links, nav, feature flags, accent colours, UI labels |
-| `content/experience.json`                | **yours** | Roles (YYYY-MM dates, impact bullets) and education                        |
-| `content/bookmarks.json`                 | **yours** | Saved links (repos, blogs, articles, sites) with a note on why             |
-| `content/posts/*.mdx`                    | **yours** | Blog posts (frontmatter validated by `content-collections.ts`)             |
-| `content/projects/*.mdx`                 | **yours** | Case studies (frontmatter validated by `content-collections.ts`)           |
-| `public/projects/<slug>/`                | **yours** | Covers (16:10), screenshots, videos, diagrams                              |
-| `public/resume.pdf`                      | **yours** | Generated with `pnpm resume:pdf`                                           |
-| `src/app/favicon.ico`                    | **yours** | Replace with your own mark                                                 |
-| `LICENSE` (content notice), `README.md`  | **yours** | Copyright holder and description                                           |
-| `src/`, `scripts/`, `e2e/`, config files | template  | Reusable code; no personal values                                          |
+| Path                                     | Owner     | Notes                                                                                         |
+| ---------------------------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| `content/site.json`                      | **yours** | Name, URL, role, bio, links, nav, feature flags, accent colours, UI labels                    |
+| `content/experience.json`                | **yours** | Roles (YYYY-MM dates, impact bullets) and education                                           |
+| `content/bookmarks.json`                 | **yours** | Saved links (repos, blogs, articles, sites) with a note on why                                |
+| `content/posts/*.mdx`                    | **yours** | Blog posts (frontmatter validated by `content-collections.ts`)                                |
+| `content/projects/*.mdx`                 | **yours** | Case studies (frontmatter validated by `content-collections.ts`)                              |
+| `public/projects/<slug>/`                | **yours** | Covers (16:10), screenshots, videos, diagrams                                                 |
+| `public/resume.pdf`                      | **yours** | Your résumé; the Résumé buttons open it (`pnpm resume:pdf --force` prints one from `/resume`) |
+| `src/app/favicon.ico`                    | **yours** | Replace with your own mark                                                                    |
+| `LICENSE` (content notice), `README.md`  | **yours** | Copyright holder and description                                                              |
+| `src/`, `scripts/`, `e2e/`, config files | template  | Reusable code; no personal values                                                             |
 
 The `*.schema.json` files in `content/` are generated from `src/config/schema.ts` (`pnpm schemas`); don't edit them by hand.
 
@@ -25,7 +25,7 @@ The `*.schema.json` files in `content/` are generated from `src/config/schema.ts
 2. Edit `content/site.json` and `content/experience.json`. VS Code autocompletes keys and shows what each one is for.
 3. Replace or delete the sample posts and projects; scaffold new ones with `pnpm new:post "Title"` and `pnpm new:project "Title"`.
 4. Replace the images in `public/` and `src/app/favicon.ico`.
-5. `pnpm check && pnpm test:e2e`, then `pnpm resume:pdf`.
+5. `pnpm check && pnpm test:e2e`, and add your résumé as `public/resume.pdf`.
 6. Deploy (see README) and set `NEXT_PUBLIC_SITE_URL`.
 
 ## Guard rails

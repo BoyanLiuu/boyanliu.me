@@ -6,7 +6,7 @@ import { siteConfig } from "./site";
 export const contactCells: LinkCell[] = [
   {
     label: siteConfig.ui.resume,
-    href: "/resume",
+    href: "/resume.pdf",
     primary: true,
     event: events.resumeView,
   },
