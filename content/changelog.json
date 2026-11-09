@@ -1,0 +1,40 @@
+{
+  "$schema": "./changelog.schema.json",
+  "entries": [
+    {
+      "version": "2.2.0",
+      "date": "2026-11-08",
+      "emoji": "📄",
+      "title": "Real projects & a fresh résumé",
+      "summary": "The work section now shows real projects: Dark Room, a movie discovery site built on the TMDB API, and a Frontend Mentor case study with a gallery of 19 design-to-code builds, each with its live site and code. Every Résumé button opens my latest résumé, and the experience section on the home page expands into the details of each role."
+    },
+    {
+      "version": "2.1.0",
+      "date": "2026-11-08",
+      "emoji": "🧩",
+      "title": "Stacked work & a GitHub pulse",
+      "summary": "Case-study cards now stack on top of each other as you scroll. Next to them sits a small GitHub tile that shimmers, draws a heart and says hello; hover it for a full year of contributions."
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-11-08",
+      "emoji": "🎨",
+      "title": "A warm editorial redesign",
+      "summary": "A complete visual refresh: warmer colours, Bricolage Grotesque and DM Sans, a floating pill header, a tilted photo card and a rotating headline. Sections fade in as you scroll, buttons slide in an arrow on hover, and the footer ends with two hands reaching for each other."
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-11-06",
+      "emoji": "🔖",
+      "title": "Bookmarks",
+      "summary": "A new Bookmarks page collects the repos, articles and tools I keep coming back to, each with a short note on why it's useful. Filter by kind, browse ten at a time, and find the latest few on the home page."
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-11-05",
+      "emoji": "🚀",
+      "title": "Hello world",
+      "summary": "The site went live with writing (series, tags and RSS feeds), case studies, an about page with a printable résumé, ⌘K search and a dark mode, all wrapped in a bold Swiss-style design."
+    }
+  ]
+}

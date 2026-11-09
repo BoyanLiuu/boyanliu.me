@@ -44,6 +44,11 @@ export const buildSitemap = ({
     },
     { url: absoluteUrl("/about"), changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/resume"), changeFrequency: "monthly", priority: 0.7 },
+    {
+      url: absoluteUrl("/changelog"),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
     ...projects.map((p) => ({
       url: absoluteUrl(`/projects/${p.slug}`),
       changeFrequency: "monthly" as const,

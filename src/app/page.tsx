@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ExperienceRow } from "@/components/about/experience-row";
+import { ExperienceAccordion } from "@/components/about/experience-accordion";
 import { BookmarkRow } from "@/components/bookmarks/bookmark-row";
 import { PostRow } from "@/components/blog/post-row";
 import { GithubActivity } from "@/components/home/github-activity";
@@ -60,7 +60,7 @@ export default function Home() {
         <Section title={siteConfig.ui.experience} id="experience">
           <Reveal variant="stagger">
             {experience.slice(0, 3).map((role) => (
-              <ExperienceRow
+              <ExperienceAccordion
                 key={`${role.company}-${role.start}`}
                 role={role}
               />

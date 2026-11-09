@@ -270,3 +270,58 @@ export const bookmarksSchema = z
   .describe("Bookmarks: useful repos, blogs, articles and sites");
 
 export type BookmarksData = z.infer<typeof bookmarksSchema>;
+
+const semver = z
+  .string()
+  .regex(/^\d+\.\d+\.\d+$/, "must be a version like 2.1.0");
+
+export const changelogSchema = z
+  .strictObject({
+    $schema: z.string().optional(),
+    entries: z
+      .array(
+        z.strictObject({
+          version: semver.describe(
+            "Site version: major = rebuild or redesign, minor = new section or feature, patch = notable polish",
+          ),
+          date: z.iso.date().describe("Release date, YYYY-MM-DD"),
+          emoji: z
+            .string()
+            .min(1)
+            .max(8)
+            .optional()
+            .describe("One emoji shown before the title"),
+          title: z.string().min(1).describe("A few words, e.g. 'Bookmarks'"),
+          summary: z
+            .string()
+            .min(1)
+            .describe(
+              "One short paragraph for visitors: what changed and why. Group related commits; don't list them",
+            ),
+        }),
+      )
+      .min(1)
+      .superRefine((entries, ctx) => {
+        const seen = new Set<string>();
+        entries.forEach((entry, index) => {
+          if (seen.has(entry.version))
+            ctx.addIssue({
+              code: "custom",
+              path: [index, "version"],
+              message: `version ${entry.version} appears twice`,
+            });
+          seen.add(entry.version);
+          const next = entries[index + 1];
+          if (next && next.date > entry.date)
+            ctx.addIssue({
+              code: "custom",
+              path: [index + 1, "date"],
+              message: "entries must be newest first",
+            });
+        });
+      })
+      .describe("Newest first"),
+  })
+  .describe("Changelog: visitor-facing milestones of this site, not commits");
+
+export type ChangelogData = z.infer<typeof changelogSchema>;

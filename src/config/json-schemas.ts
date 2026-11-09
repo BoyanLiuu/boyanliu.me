@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { bookmarksSchema, experienceSchema, siteSchema } from "./schema.ts";
+import {
+  bookmarksSchema,
+  changelogSchema,
+  experienceSchema,
+  siteSchema,
+} from "./schema.ts";
 
 /** Generated JSON Schema files, keyed by path. */
 export const jsonSchemas: Record<string, unknown> = {
@@ -8,6 +13,9 @@ export const jsonSchemas: Record<string, unknown> = {
     io: "input",
   }),
   "content/bookmarks.schema.json": z.toJSONSchema(bookmarksSchema, {
+    io: "input",
+  }),
+  "content/changelog.schema.json": z.toJSONSchema(changelogSchema, {
     io: "input",
   }),
 };

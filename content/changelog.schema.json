@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "entries": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+            "description": "Site version: major = rebuild or redesign, minor = new section or feature, patch = notable polish"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$",
+            "description": "Release date, YYYY-MM-DD"
+          },
+          "emoji": {
+            "description": "One emoji shown before the title",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A few words, e.g. 'Bookmarks'"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "description": "One short paragraph for visitors: what changed and why. Group related commits; don't list them"
+          }
+        },
+        "required": [
+          "version",
+          "date",
+          "title",
+          "summary"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Newest first"
+    }
+  },
+  "required": [
+    "entries"
+  ],
+  "additionalProperties": false,
+  "description": "Changelog: visitor-facing milestones of this site, not commits"
+}

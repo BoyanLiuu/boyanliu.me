@@ -5,7 +5,12 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
-import { bookmarksSchema, experienceSchema, siteSchema } from "./schema";
+import {
+  bookmarksSchema,
+  changelogSchema,
+  experienceSchema,
+  siteSchema,
+} from "./schema";
 
 const readJson = (file: string): unknown =>
   JSON.parse(readFileSync(join(process.cwd(), file), "utf8"));
@@ -15,6 +20,7 @@ export const validateContentFiles = (): void => {
     ["content/site.json", siteSchema],
     ["content/experience.json", experienceSchema],
     ["content/bookmarks.json", bookmarksSchema],
+    ["content/changelog.json", changelogSchema],
   ];
   const errors: string[] = [];
   for (const [file, schema] of checks) {

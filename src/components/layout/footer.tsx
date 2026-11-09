@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
+import Link from "next/link";
 import { FooterReveal } from "@/components/motion/footer-reveal";
 import {
   type HandImages,
@@ -7,6 +8,7 @@ import {
 } from "@/components/motion/reaching-hands";
 import { Container } from "@/components/swiss/layout";
 import { siteConfig } from "@/config/site";
+import { currentVersion } from "@/data/changelog";
 import { ContactLinks } from "./contact-links";
 
 /**
@@ -67,6 +69,12 @@ export const Footer = () => {
             <a href="/rss.xml" className="hover:text-night-ink">
               RSS
             </a>
+            <Link href="/changelog" className="group hover:text-night-ink">
+              Changelog{" "}
+              <span className="rounded-full border border-night-rule px-2 py-0.5 font-mono text-label transition-colors group-hover:border-night-ink">
+                v{currentVersion}
+              </span>
+            </Link>
             <a href="#top" className="hover:text-night-ink">
               Back to top ↑
             </a>

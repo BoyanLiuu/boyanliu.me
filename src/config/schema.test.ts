@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import experience from "../../content/experience.json";
 import site from "../../content/site.json";
 import { jsonSchemas } from "./json-schemas";
-import { experienceSchema, siteSchema } from "./schema";
+import { changelogSchema, experienceSchema, siteSchema } from "./schema";
 
 describe("content/site.json", () => {
   it("matches the site schema", () => {
@@ -55,5 +55,38 @@ describe("generated JSON Schemas", () => {
         JSON.parse(JSON.stringify(schema)),
       );
     }
+  });
+});
+
+describe("changelogSchema", () => {
+  const entry = (version: string, date: string) => ({
+    version,
+    date,
+    title: "Title",
+    summary: "What changed.",
+  });
+
+  it("accepts the committed changelog", async () => {
+    const { default: data } = await import("../../content/changelog.json");
+    expect(changelogSchema.safeParse(data).success).toBe(true);
+  });
+
+  it("rejects entries that are not newest first", () => {
+    const result = changelogSchema.safeParse({
+      entries: [entry("1.0.0", "2026-01-01"), entry("1.1.0", "2026-02-01")],
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects duplicate versions and non-semver versions", () => {
+    expect(
+      changelogSchema.safeParse({
+        entries: [entry("1.0.0", "2026-02-01"), entry("1.0.0", "2026-01-01")],
+      }).success,
+    ).toBe(false);
+    expect(
+      changelogSchema.safeParse({ entries: [entry("v1", "2026-01-01")] })
+        .success,
+    ).toBe(false);
   });
 });
