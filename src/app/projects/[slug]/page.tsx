@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MediaFrame } from "@/components/media/media-frame";
 import { Markdown } from "@/components/mdx/markdown";
+import { ProjectGallery } from "@/components/projects/project-gallery";
 import { PostRow } from "@/components/blog/post-row";
 import { Frame } from "@/components/swiss/frame";
 import {
@@ -151,6 +152,9 @@ export default async function CaseStudy({ params }: Props) {
             </figcaption>
           </figure>
           <Markdown code={project.mdx} className="mt-10 max-w-[68ch]" />
+          {project.gallery.length > 0 && (
+            <ProjectGallery items={project.gallery} />
+          )}
           {project.media.length > 0 && (
             <div className="mt-12 grid gap-8 border-t-2 border-rule pt-6 md:grid-cols-2">
               {project.media.map((item) => (

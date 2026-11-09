@@ -64,6 +64,20 @@ const projects = defineCollection({
     approach: z.string().min(1),
     result: z.string().min(1),
     media: z.array(mediaItem).default([]),
+    // Optional set of smaller builds shown as a thumbnail grid on the project page
+    // (e.g. a collection of challenges). Items without an image are listed as links.
+    gallery: z
+      .array(
+        z.object({
+          title: z.string().min(1),
+          image: z.string().optional(),
+          stack: z.array(z.string()).default([]),
+          live: z.string().url().optional(),
+          repo: z.string().url().optional(),
+          featured: z.boolean().default(false),
+        }),
+      )
+      .default([]),
     links: z
       .object({
         repo: z.string().url().optional(),

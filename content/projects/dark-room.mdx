@@ -1,0 +1,46 @@
+---
+title: Dark Room
+summary: A movie discovery site that pulls live data from The Movie Database (TMDB) API, letting you browse what's in theaters, explore trending and top-rated titles, read about the cast and watch trailers.
+outcome: Live on GitHub Pages
+year: 2019
+role: Solo
+stack: [javascript, jquery, bootstrap, tmdb-api, html, css]
+status: live
+featured: true
+order: 0
+cover: /projects/dark-room/cover.png
+coverAlt: The Dark Room home page, a dark movie catalog with poster carousels for now-playing, trending, upcoming and top-rated films.
+problem: Movie listings, trailers, reviews and cast details usually live on different sites; the goal was one place to discover a film and everything about it.
+approach: A multi-page static site in plain JavaScript and jQuery that requests TMDB API data with AJAX and renders it into Bootstrap 4 layouts and Slick carousels.
+result: A live catalog on GitHub Pages where you can browse by category, search any title, open a movie for its cast, reviews and trailer, and jump into an actor's filmography.
+links:
+  repo: https://github.com/BoyanLiuu/movie-websit
+  demo: https://boyanliuu.github.io/movie-websit/
+---
+
+Dark Room is a movie discovery website built on [The Movie Database (TMDB) API](https://www.themoviedb.org/documentation/api). Everything you see, from posters and ratings to cast lists and trailers, is requested live from TMDB in the browser.
+
+## What it does
+
+- **Browse the catalog:** carousels for _Now Playing_, _Trending_, _Upcoming_ and _Top Rated_ movies on the home page, plus a browse page for paging through popular titles.
+- **Search:** find any movie by title.
+- **Movie pages:** overview and details, the cast, user reviews and the official trailer, embedded from YouTube.
+- **Cast pages:** an actor's profile and filmography, so you can hop from one film to the next.
+
+## How it's built
+
+| Layer      | Choice                                                |
+| ---------- | ----------------------------------------------------- |
+| Markup     | Five HTML pages: home, browse, search, movie and cast |
+| Styling    | Custom CSS on Bootstrap 4, Font Awesome, Animate.css  |
+| Behaviour  | JavaScript and jQuery 3.3, with AJAX calls to TMDB v3 |
+| UI plugins | Slick carousel, Smooth Scroll, Sticky-kit             |
+| Hosting    | GitHub Pages (static files, no build step)            |
+
+A small `config.js` holds the API base URLs and key; `main.js` contains the page logic: fetching each catalog list, the movie details, credits, reviews and trailer for a title, and an actor's movie credits, then building the cards and carousels with jQuery.
+
+## What I'd do differently
+
+- Keep the API key out of the browser by calling TMDB through a small serverless proxy.
+- Rebuild the pages as components (for example in React) instead of assembling HTML strings with jQuery.
+- Lazy-load posters and cache API responses to make browsing faster on slow connections.
