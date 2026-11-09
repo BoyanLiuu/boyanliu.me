@@ -31,7 +31,9 @@ export const RotatingWords = ({
   const count = words.length;
   return (
     <span className={className}>
-      <style dangerouslySetInnerHTML={{ __html: keyframes(count) }} />
+      <style href={`rotator-${count}`} precedence="default">
+        {keyframes(count)}
+      </style>
       <span className="sr-only">{words[0]}</span>
       <span
         aria-hidden

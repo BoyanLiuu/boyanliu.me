@@ -1,4 +1,14 @@
-import type { LinkCell } from "@/components/swiss/link-bar";
+/** A contact link: the résumé, email or a social profile. */
+export type LinkCell = {
+  label: string;
+  /** Longer text, e.g. the email address (shown as the link's tooltip). */
+  detail?: string;
+  href: string;
+  primary?: boolean;
+  /** Plausible tagged-event name recorded on click (when analytics is on). */
+  event?: string;
+};
+
 import { events } from "@/lib/analytics";
 import { siteConfig } from "./site";
 

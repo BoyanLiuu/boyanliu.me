@@ -47,7 +47,7 @@ export const BookmarkFilter = ({
         ref={top}
         role="toolbar"
         aria-label="Filter bookmarks by kind"
-        className="mt-8 flex scroll-mt-6 flex-wrap gap-x-5 gap-y-2 text-small"
+        className="mt-8 flex scroll-mt-6 flex-wrap gap-x-5 text-small"
       >
         {options.map(({ kind, count }) => (
           <button
@@ -59,7 +59,7 @@ export const BookmarkFilter = ({
               setPage(1);
             }}
             className={cn(
-              "capitalize hover:text-accent",
+              "py-1.5 capitalize hover:text-accent",
               active === kind &&
                 "font-bold text-accent underline underline-offset-4",
             )}

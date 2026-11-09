@@ -64,7 +64,10 @@ export default async function PostPage({ params }: Props) {
     <Container>
       <JsonLd data={blogPostingJsonLd(post)} />
       <div className="flex justify-between border-b border-rule py-3.5 text-small">
-        <Link href="/blog" className="hover:text-accent">
+        <Link
+          href="/blog"
+          className="-my-1 inline-block py-1 hover:text-accent"
+        >
           ← Writing
         </Link>
         <span>

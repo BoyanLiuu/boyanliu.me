@@ -71,7 +71,10 @@ export default async function CaseStudy({ params }: Props) {
   return (
     <Container>
       <div className="flex justify-between border-b border-rule py-3.5 text-small">
-        <Link href="/projects" className="hover:text-accent">
+        <Link
+          href="/projects"
+          className="-my-1 inline-block py-1 hover:text-accent"
+        >
           ← Work
         </Link>
         <span>

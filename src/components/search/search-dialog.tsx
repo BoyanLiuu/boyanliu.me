@@ -97,11 +97,11 @@ export const SearchDialog = () => {
                     onSelect={() => go(item.href)}
                     className="flex cursor-pointer items-baseline justify-between gap-4 rounded-sm px-3 py-2.5 data-[selected=true]:bg-wash"
                   >
-                    <span className="font-display text-body font-bold">
+                    <span className="shrink-0 font-display text-body font-bold">
                       {item.title}
                     </span>
                     {item.summary && (
-                      <span className="truncate text-small opacity-70">
+                      <span className="min-w-0 truncate text-small opacity-70">
                         {item.summary}
                       </span>
                     )}

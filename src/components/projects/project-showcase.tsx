@@ -29,12 +29,12 @@ export const ProjectShowcase = ({
   const content = (
     <>
       <div className="flex flex-col p-6 md:p-10 lg:py-12 lg:pr-8 lg:pl-12">
-        <Label className="text-muted">
-          {project.year} · {project.role}
-        </Label>
-        <h3 className="mt-3 font-display text-h2 font-bold text-balance">
+        <h3 className="font-display text-h2 font-bold text-balance">
           {project.title}
         </h3>
+        <Label className="mt-2 block text-muted">
+          {project.year} · {project.role}
+        </Label>
         <p className="mt-4 text-body text-muted">{project.summary}</p>
         <p className="mt-4 font-display text-h3 font-bold text-accent">
           {project.outcome}

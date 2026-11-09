@@ -18,7 +18,7 @@ export const Callout = ({
   title?: string;
   children: ReactNode;
 }) => (
-  <aside className="rounded-card border-l-[3px] border-accent bg-wash px-5 py-4">
+  <aside className="rounded-card border border-rule bg-wash px-5 py-4">
     {title && (
       <p className="mb-1 text-small font-semibold text-accent">{title}</p>
     )}

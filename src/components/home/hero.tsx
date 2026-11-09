@@ -35,7 +35,7 @@ const Polaroid = () => {
             aria-hidden
             className="absolute inset-0 grid place-items-center bg-[radial-gradient(color-mix(in_srgb,var(--color-ink)_14%,transparent)_1px,transparent_1px)] bg-[size:14px_14px]"
           >
-            <span className="font-display text-[7rem] leading-none font-bold tracking-[-0.05em] text-accent">
+            <span className="font-display text-[7rem] leading-none font-bold tracking-[-0.04em] text-accent">
               {initials}
             </span>
           </div>

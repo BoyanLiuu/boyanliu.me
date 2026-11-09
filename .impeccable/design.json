@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T05:28:10.003Z",
+  "title": "Design System: boyanliu.me",
+  "extensions": {
+    "colorMeta": {
+      "oxblood": {
+        "role": "primary",
+        "displayName": "Oxblood",
+        "purpose": "The single light-mode accent: hero phrase, Résumé pill, title full stops, outcomes, links, focus rings.",
+        "canonical": "oklch(39.2% 0.127 17.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.022 17.7)",
+          "oklch(26.0% 0.071 17.7)",
+          "oklch(37.0% 0.120 17.7)",
+          "oklch(48.0% 0.127 17.7)",
+          "oklch(60.0% 0.127 17.7)",
+          "oklch(72.0% 0.124 17.7)",
+          "oklch(84.0% 0.071 17.7)",
+          "oklch(95.0% 0.022 17.7)"
+        ]
+      },
+      "lamplight-amber": {
+        "role": "primary",
+        "displayName": "Lamplight Amber",
+        "purpose": "The accent on every dark surface: dark mode, the footer and the mobile menu.",
+        "canonical": "oklch(78.2% 0.158 72.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.028 72.3)",
+          "oklch(26.0% 0.089 72.3)",
+          "oklch(37.0% 0.150 72.3)",
+          "oklch(48.0% 0.158 72.3)",
+          "oklch(60.0% 0.158 72.3)",
+          "oklch(72.0% 0.155 72.3)",
+          "oklch(84.0% 0.089 72.3)",
+          "oklch(95.0% 0.028 72.3)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "purpose": "The page and the inside of controls, chips and the photo card.",
+        "canonical": "oklch(100.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(37.0% 0.000 0)",
+          "oklch(48.0% 0.000 0)",
+          "oklch(60.0% 0.000 0)",
+          "oklch(72.0% 0.000 0)",
+          "oklch(84.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "purpose": "Warm off-black for primary text and the ink pill.",
+        "canonical": "oklch(19.0% 0.009 59.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.005 59.1)",
+          "oklch(37.0% 0.008 59.1)",
+          "oklch(48.0% 0.009 59.1)",
+          "oklch(60.0% 0.009 59.1)",
+          "oklch(72.0% 0.009 59.1)",
+          "oklch(84.0% 0.005 59.1)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "Pencil",
+        "purpose": "Secondary text: summaries, meta lines, labels, inactive nav items.",
+        "canonical": "oklch(53.3% 0.006 67.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 0)",
+          "oklch(26.0% 0.003 67.7)",
+          "oklch(37.0% 0.006 67.7)",
+          "oklch(48.0% 0.006 67.7)",
+          "oklch(60.0% 0.006 67.7)",
+          "oklch(72.0% 0.006 67.7)",
+          "oklch(84.0% 0.003 67.7)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "purpose": "Every divider and 1px border.",
+        "canonical": "oklch(91.6% 0.009 84.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.005 84.6)",
+          "oklch(37.0% 0.008 84.6)",
+          "oklch(48.0% 0.009 84.6)",
+          "oklch(60.0% 0.009 84.6)",
+          "oklch(72.0% 0.009 84.6)",
+          "oklch(84.0% 0.005 84.6)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "Workbench Grey",
+        "purpose": "Case-study cards, the nav track, code and callouts, hover fills.",
+        "canonical": "oklch(96.4% 0.004 91.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 0)",
+          "oklch(26.0% 0.002 91.4)",
+          "oklch(37.0% 0.004 91.4)",
+          "oklch(48.0% 0.004 91.4)",
+          "oklch(60.0% 0.004 91.4)",
+          "oklch(72.0% 0.004 91.4)",
+          "oklch(84.0% 0.002 91.4)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night",
+        "purpose": "Footer and mobile-menu surface; always dark.",
+        "canonical": "oklch(19.0% 0.009 59.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.005 59.1)",
+          "oklch(37.0% 0.008 59.1)",
+          "oklch(48.0% 0.009 59.1)",
+          "oklch(60.0% 0.009 59.1)",
+          "oklch(72.0% 0.009 59.1)",
+          "oklch(84.0% 0.005 59.1)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "purpose": "Text on Night surfaces.",
+        "canonical": "oklch(100.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(37.0% 0.000 0)",
+          "oklch(48.0% 0.000 0)",
+          "oklch(60.0% 0.000 0)",
+          "oklch(72.0% 0.000 0)",
+          "oklch(84.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "night-muted": {
+        "role": "neutral",
+        "displayName": "Night Pencil",
+        "purpose": "Secondary text on Night surfaces.",
+        "canonical": "oklch(71.5% 0.012 71.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 71.9)",
+          "oklch(26.0% 0.007 71.9)",
+          "oklch(37.0% 0.012 71.9)",
+          "oklch(48.0% 0.012 71.9)",
+          "oklch(60.0% 0.012 71.9)",
+          "oklch(72.0% 0.012 71.9)",
+          "oklch(84.0% 0.007 71.9)",
+          "oklch(95.0% 0.002 71.9)"
+        ]
+      },
+      "night-rule": {
+        "role": "neutral",
+        "displayName": "Night Hairline",
+        "purpose": "Dividers on Night surfaces.",
+        "canonical": "oklch(32.9% 0.013 67.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 67.3)",
+          "oklch(26.0% 0.008 67.3)",
+          "oklch(37.0% 0.013 67.3)",
+          "oklch(48.0% 0.013 67.3)",
+          "oklch(60.0% 0.013 67.3)",
+          "oklch(72.0% 0.013 67.3)",
+          "oklch(84.0% 0.008 67.3)",
+          "oklch(95.0% 0.002 67.3)"
+        ]
+      },
+      "dark-paper": {
+        "role": "neutral",
+        "displayName": "Charred Paper",
+        "purpose": "Dark-mode page.",
+        "canonical": "oklch(19.0% 0.009 59.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.005 59.1)",
+          "oklch(37.0% 0.008 59.1)",
+          "oklch(48.0% 0.009 59.1)",
+          "oklch(60.0% 0.009 59.1)",
+          "oklch(72.0% 0.009 59.1)",
+          "oklch(84.0% 0.005 59.1)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "dark-ink": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "purpose": "Dark-mode primary text.",
+        "canonical": "oklch(95.1% 0.009 78.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.005 78.3)",
+          "oklch(37.0% 0.009 78.3)",
+          "oklch(48.0% 0.009 78.3)",
+          "oklch(60.0% 0.009 78.3)",
+          "oklch(72.0% 0.009 78.3)",
+          "oklch(84.0% 0.005 78.3)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "purpose": "Dark-mode secondary text.",
+        "canonical": "oklch(69.9% 0.012 71.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 71.8)",
+          "oklch(26.0% 0.007 71.8)",
+          "oklch(37.0% 0.012 71.8)",
+          "oklch(48.0% 0.012 71.8)",
+          "oklch(60.0% 0.012 71.8)",
+          "oklch(72.0% 0.012 71.8)",
+          "oklch(84.0% 0.007 71.8)",
+          "oklch(95.0% 0.002 71.8)"
+        ]
+      },
+      "dark-rule": {
+        "role": "neutral",
+        "displayName": "Dark Hairline",
+        "purpose": "Dark-mode dividers and borders.",
+        "canonical": "oklch(31.2% 0.010 73.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.006 73.5)",
+          "oklch(37.0% 0.010 73.5)",
+          "oklch(48.0% 0.010 73.5)",
+          "oklch(60.0% 0.010 73.5)",
+          "oklch(72.0% 0.010 73.5)",
+          "oklch(84.0% 0.006 73.5)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "dark-wash": {
+        "role": "neutral",
+        "displayName": "Soot",
+        "purpose": "Dark-mode cards and hover fills.",
+        "canonical": "oklch(24.7% 0.010 67.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.005 67.4)",
+          "oklch(37.0% 0.009 67.4)",
+          "oklch(48.0% 0.010 67.4)",
+          "oklch(60.0% 0.010 67.4)",
+          "oklch(72.0% 0.009 67.4)",
+          "oklch(84.0% 0.005 67.4)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "dark-night": {
+        "role": "neutral",
+        "displayName": "Deep Night",
+        "purpose": "Footer and menu surface in dark mode.",
+        "canonical": "oklch(14.6% 0.006 69.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 0)",
+          "oklch(26.0% 0.003 69.2)",
+          "oklch(37.0% 0.005 69.2)",
+          "oklch(48.0% 0.006 69.2)",
+          "oklch(60.0% 0.006 69.2)",
+          "oklch(72.0% 0.006 69.2)",
+          "oklch(84.0% 0.003 69.2)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline and page titles; every cycling hero phrase fits one line at 390px."
+      },
+      "headline": {
+        "displayName": "Section",
+        "purpose": "Section titles such as Selected work, Experience, Bookmarks."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Case-study card titles and prose h2."
+      },
+      "title-sm": {
+        "displayName": "Title small",
+        "purpose": "List-row titles and prose h3."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero bio and page intros, about 34rem wide."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Summaries and prose, 62–68ch measure."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Nav, controls, captions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Sentence-case meta lines: year · role, dates, stacks."
+      },
+      "hand": {
+        "displayName": "Hand",
+        "purpose": "The photo card's caption only."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code blocks and version numbers only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft",
+        "value": "0 1px 2px rgb(23 19 16 / 0.06), 0 8px 24px rgb(23 19 16 / 0.06)",
+        "purpose": "Scrolled header pill, active nav segment, stacked case-study cards."
+      },
+      {
+        "name": "lift",
+        "value": "0 2px 4px rgb(23 19 16 / 0.06), 0 18px 40px rgb(23 19 16 / 0.12)",
+        "purpose": "Photo card, case-study screenshots, search palette."
+      },
+      {
+        "name": "popover",
+        "value": "0 28px 56px -28px rgb(31 35 40 / 0.3)",
+        "purpose": "GitHub year popup."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-soft",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Default easing for every reveal, lift, tilt and settle."
+      },
+      {
+        "name": "ease-pill",
+        "value": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+        "purpose": "Pill hover: label shrink and circle slide."
+      },
+      {
+        "name": "pill-duration",
+        "value": "0.5s (icon 0.3s, 0.1s delay)",
+        "purpose": "Pill hover timing."
+      },
+      {
+        "name": "reveal",
+        "value": "enter-up 0.9s, 0.14s step between siblings",
+        "purpose": "Scroll reveals for sections, cards and the footer."
+      },
+      {
+        "name": "stack-pop",
+        "value": "pop-in 0.65s, 70ms stagger, 0.6s start",
+        "purpose": "Hero stack badges on load."
+      },
+      {
+        "name": "rotator",
+        "value": "3s per phrase, 28ms per letter",
+        "purpose": "Hero headline accent phrase."
+      },
+      {
+        "name": "header-narrow",
+        "value": "240ms at scrollY > 24px",
+        "purpose": "Header turns into the floating pill."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "phone",
+        "value": "48rem (max-width, motion and type simplify)"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "stack",
+        "value": "min-width 64rem and min-height 40rem (stacking cards)"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Oxblood Pill",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action (Résumé). On hover or focus of the pill itself, the label shrinks and a circle with the arrow slides in on its right.",
+      "html": "<a href=\"#\" class=\"ds-btn-primary\"><span class=\"ds-pill__inner\">Résumé</span><span class=\"ds-pill__circle\" aria-hidden=\"true\"><span><svg width=\"18\" height=\"18\" viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z\"/></svg></span></span></a>",
+      "css": ".ds-btn-primary { --pill-h: 2.75rem; --pill-pad: 2rem; --pill-bg: var(--color-accent, #7b1e2b); --pill-fg: var(--color-paper, #ffffff); position: relative; display: inline-flex; align-items: center; height: var(--pill-h); color: var(--pill-fg); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 0.9rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; text-decoration: none; cursor: pointer; }  .ds-btn-primary .ds-pill__inner, .ds-btn-primary .ds-pill__circle { display: flex; align-items: center; justify-content: center; height: var(--pill-h); border-radius: 9999px; background-color: var(--pill-bg); transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); } .ds-btn-primary .ds-pill__inner { position: relative; z-index: 1; width: 100%; padding-inline: var(--pill-pad); } .ds-btn-primary .ds-pill__circle { position: absolute; right: 0; width: var(--pill-h); overflow: hidden; scale: 0; transform-origin: 0 50%; } .ds-btn-primary .ds-pill__circle > span { display: grid; place-items: center; width: 100%; height: 100%; transform: translateX(-100%); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s; } .ds-btn-primary:is(:hover, :focus-visible) .ds-pill__inner { width: calc(100% - var(--pill-h) - 4px); } .ds-btn-primary:is(:hover, :focus-visible) .ds-pill__circle { scale: 1; } .ds-btn-primary:is(:hover, :focus-visible) .ds-pill__circle > span { transform: none; } .ds-btn-primary:focus-visible { outline: 2px solid var(--pill-bg); outline-offset: 3px; border-radius: 9999px; }"
+    },
+    {
+      "name": "Ink Pill",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Large secondary action on case-study cards (\"Read case study\"); turns Oxblood as the arrow slides in.",
+      "html": "<a href=\"#\" class=\"ds-btn-ink\"><span class=\"ds-pill__inner\">Read case study</span><span class=\"ds-pill__circle\" aria-hidden=\"true\"><span><svg width=\"18\" height=\"18\" viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z\"/></svg></span></span></a>",
+      "css": ".ds-btn-ink { --pill-h: 3rem; --pill-pad: 2.5rem; --pill-bg: var(--color-ink, #171310); --pill-fg: var(--color-paper, #ffffff); position: relative; display: inline-flex; align-items: center; height: var(--pill-h); color: var(--pill-fg); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; text-decoration: none; cursor: pointer; } .ds-btn-ink:is(:hover, :focus-visible) { --pill-bg: var(--color-accent, #7b1e2b); } .ds-btn-ink .ds-pill__inner, .ds-btn-ink .ds-pill__circle { display: flex; align-items: center; justify-content: center; height: var(--pill-h); border-radius: 9999px; background-color: var(--pill-bg); transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); } .ds-btn-ink .ds-pill__inner { position: relative; z-index: 1; width: 100%; padding-inline: var(--pill-pad); } .ds-btn-ink .ds-pill__circle { position: absolute; right: 0; width: var(--pill-h); overflow: hidden; scale: 0; transform-origin: 0 50%; } .ds-btn-ink .ds-pill__circle > span { display: grid; place-items: center; width: 100%; height: 100%; transform: translateX(-100%); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s; } .ds-btn-ink:is(:hover, :focus-visible) .ds-pill__inner { width: calc(100% - var(--pill-h) - 4px); } .ds-btn-ink:is(:hover, :focus-visible) .ds-pill__circle { scale: 1; } .ds-btn-ink:is(:hover, :focus-visible) .ds-pill__circle > span { transform: none; } .ds-btn-ink:focus-visible { outline: 2px solid var(--pill-bg); outline-offset: 3px; border-radius: 9999px; }"
+    },
+    {
+      "name": "Outline Pill",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Quiet link action (Email, LinkedIn, Live site, Code). Hairline border that darkens to Ink and lifts 2px on hover.",
+      "html": "<a href=\"#\" class=\"ds-btn-outline\">Live site <svg width=\"13\" height=\"13\" viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z\"/></svg></a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 0.4rem; height: 2.75rem; padding: 0 1.25rem; border: 1px solid var(--color-rule, #e6e3dd); border-radius: 9999px; background: var(--color-paper, #ffffff); color: var(--color-ink, #171310); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: border-color 0.2s, background-color 0.2s, transform 0.25s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-btn-outline:hover { border-color: var(--color-ink, #171310); background: var(--color-wash, #f4f3f0); transform: translateY(-2px); } .ds-btn-outline:active { transform: translateY(0); } .ds-btn-outline:focus-visible { outline: 2px solid var(--color-accent, #7b1e2b); outline-offset: 3px; }"
+    },
+    {
+      "name": "Segmented Nav",
+      "kind": "nav",
+      "refersTo": "nav-segmented",
+      "description": "Header navigation: a Workbench Grey track; the current page is a Paper pill with Soft shadow and its icon grows in.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"#\" class=\"ds-nav__item\" aria-current=\"page\"><svg class=\"ds-nav__icon\" width=\"15\" height=\"15\" viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M216,52H40A20,20,0,0,0,20,72V184a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V72A20,20,0,0,0,216,52Zm-4,128H44V76H212Z\"/></svg>Work</a><a href=\"#\" class=\"ds-nav__item\">Writing</a><a href=\"#\" class=\"ds-nav__item\">Bookmarks</a><a href=\"#\" class=\"ds-nav__item\">About</a></nav>",
+      "css": ".ds-nav { display: inline-flex; gap: 0.125rem; padding: 0.25rem; border-radius: 9999px; background: var(--color-wash, #f4f3f0); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); } .ds-nav__item { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: 9999px; color: var(--color-muted, #6f6c69); font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: color 0.2s, background-color 0.24s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)), box-shadow 0.24s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-nav__item:hover { color: var(--color-ink, #171310); } .ds-nav__item[aria-current=\"page\"] { background: var(--color-paper, #ffffff); color: var(--color-ink, #171310); box-shadow: var(--shadow-soft, 0 1px 2px rgb(23 19 16 / 0.06), 0 8px 24px rgb(23 19 16 / 0.06)); } .ds-nav__icon { animation: ds-grow 0.3s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)) both; } .ds-nav__item:focus-visible { outline: 2px solid var(--color-accent, #7b1e2b); outline-offset: 2px; } @keyframes ds-grow { from { opacity: 0; scale: 0.4; } }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "⌘K search palette input: borderless, Title-small size, inside a Paper panel with Lift; results highlight in Workbench Grey.",
+      "html": "<div class=\"ds-search\"><label class=\"ds-search__field\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.08,68.08,0,0,1,44,112Z\"/></svg><input type=\"search\" placeholder=\"Search pages, posts and projects\" aria-label=\"Search\"></label><ul class=\"ds-search__list\"><li class=\"ds-search__row\" aria-selected=\"true\"><span class=\"ds-search__title\">Dark Room</span><span class=\"ds-search__summary\">A movie discovery site on the TMDB API</span></li><li class=\"ds-search__row\"><span class=\"ds-search__title\">Changelog</span><span class=\"ds-search__summary\">Milestones for this site</span></li></ul></div>",
+      "css": ".ds-search { width: min(34rem, 100%); overflow: hidden; border: 1px solid var(--color-rule, #e6e3dd); border-radius: 1rem; background: var(--color-paper, #ffffff); box-shadow: var(--shadow-lift, 0 2px 4px rgb(23 19 16 / 0.06), 0 18px 40px rgb(23 19 16 / 0.12)); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); color: var(--color-ink, #171310); } .ds-search__field { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--color-rule, #e6e3dd); color: var(--color-muted, #6f6c69); } .ds-search__field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--color-ink, #171310); font-family: var(--font-display, \"Bricolage Grotesque\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 1.375rem; font-weight: 600; letter-spacing: -0.015em; caret-color: var(--color-accent, #7b1e2b); } .ds-search__field input::placeholder { color: var(--color-muted, #6f6c69); font-weight: 500; } .ds-search__field:focus-within { color: var(--color-ink, #171310); } .ds-search__list { margin: 0; padding: 0.5rem; list-style: none; } .ds-search__row { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.6rem 0.75rem; border-radius: 0.6rem; cursor: pointer; } .ds-search__row:hover, .ds-search__row[aria-selected=\"true\"] { background: var(--color-wash, #f4f3f0); } .ds-search__title { flex-shrink: 0; font-weight: 600; } .ds-search__summary { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-muted, #6f6c69); font-size: 0.9rem; }"
+    },
+    {
+      "name": "Stack Badge",
+      "kind": "chip",
+      "refersTo": "chip-stack",
+      "description": "Hero tool badge: a Paper circle with a brand logo; hover lifts and tilts it and shows an Ink name tooltip.",
+      "html": "<div class=\"ds-stack\"><button type=\"button\" class=\"ds-stack__icon\" aria-label=\"TypeScript\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"#3178C6\" aria-hidden=\"true\"><path d=\"M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z\"/></svg><span class=\"ds-stack__tip\" role=\"tooltip\">TypeScript</span></button></div>",
+      "css": ".ds-stack { display: inline-flex; padding-bottom: 2.5rem; } .ds-stack__icon { position: relative; display: grid; place-items: center; width: 3.1rem; height: 3.1rem; padding: 0.75rem; border: 1px solid var(--color-rule, #e6e3dd); border-radius: 9999px; background: var(--color-paper, #ffffff); color: var(--color-ink, #171310); cursor: default; transition: transform 0.18s; animation: ds-pop 0.65s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)) backwards; } .ds-stack__icon:is(:hover, :focus-visible) { transform: translateY(-3px) rotate(-3deg); } .ds-stack__icon:focus-visible { outline: 2px solid var(--color-accent, #7b1e2b); outline-offset: 3px; } .ds-stack__tip { position: absolute; top: calc(100% + 0.5rem); left: 50%; translate: -50% 0; padding: 0.3rem 0.7rem; border-radius: 9999px; background: var(--color-ink, #171310); color: var(--color-paper, #ffffff); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 0.8125rem; font-weight: 500; white-space: nowrap; opacity: 0; scale: 0.9; transform: rotate(3deg); pointer-events: none; transition: opacity 0.18s, scale 0.18s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-stack__icon:is(:hover, :focus-visible) .ds-stack__tip { opacity: 1; scale: 1; } @keyframes ds-pop { from { opacity: 0; scale: 0.5; } }"
+    },
+    {
+      "name": "Role Badge",
+      "kind": "chip",
+      "refersTo": "badge-role",
+      "description": "The hero's small Paper pill naming the role, with an Oxblood dot; the one label allowed above a heading.",
+      "html": "<span class=\"ds-badge\"><span class=\"ds-badge__dot\" aria-hidden=\"true\"></span>Frontend engineer @ amazon</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid var(--color-rule, #e6e3dd); border-radius: 9999px; background: var(--color-paper, #ffffff); color: var(--color-muted, #6f6c69); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 0.9rem; transition: transform 0.25s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-badge:hover { transform: rotate(-2deg); } .ds-badge__dot { width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: var(--color-accent, #7b1e2b); }"
+    },
+    {
+      "name": "Case-study Card",
+      "kind": "card",
+      "refersTo": "card-case-study",
+      "description": "Selected-work card: Workbench Grey, copy beside a screenshot with Lift that bleeds off the edge and zooms on hover.",
+      "html": "<article class=\"ds-case\"><div class=\"ds-case__copy\"><h3 class=\"ds-case__title\">Dark Room</h3><p class=\"ds-case__meta\">2019 · Solo</p><p class=\"ds-case__summary\">A movie discovery site that pulls live data from The Movie Database (TMDB) API, with trending titles, cast and trailers.</p></div><div class=\"ds-case__art\"><div class=\"ds-case__shot\"></div></div></article>",
+      "css": ".ds-case { display: grid; grid-template-columns: 5fr 7fr; gap: 2rem; overflow: hidden; padding: 3rem 0 0 3rem; border: 1px solid var(--color-rule, #e6e3dd); border-radius: 1rem; background: var(--color-wash, #f4f3f0); color: var(--color-ink, #171310); font-family: var(--font-sans, \"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); } .ds-case__copy { padding-bottom: 3rem; } .ds-case__title { margin: 0; font-family: var(--font-display, \"Bricolage Grotesque\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 2rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; } .ds-case__meta { margin: 0.5rem 0 0; color: var(--color-muted, #6f6c69); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.01em; } .ds-case__summary { margin: 1rem 0 0; color: var(--color-muted, #6f6c69); font-size: 1.0625rem; line-height: 1.6; } .ds-case__art { align-self: end; overflow: hidden; border-top-left-radius: 0.6rem; box-shadow: var(--shadow-lift, 0 2px 4px rgb(23 19 16 / 0.06), 0 18px 40px rgb(23 19 16 / 0.12)); } .ds-case__shot { aspect-ratio: 16 / 10; background: linear-gradient(var(--color-ink, #171310) 0 14%, var(--color-paper, #ffffff) 14%); transition: transform 0.7s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-case:hover .ds-case__shot { transform: scale(1.06); } @media (max-width: 40rem) { .ds-case { grid-template-columns: 1fr; padding: 1.5rem 0 0 1.5rem; } }"
+    },
+    {
+      "name": "Photo Card",
+      "kind": "custom",
+      "refersTo": "photo-card",
+      "description": "Hero polaroid: Paper with Lift, dropped in from 12° to a 4° tilt, captioned in Caveat; initials until a portrait exists.",
+      "html": "<figure class=\"ds-polaroid\"><div class=\"ds-polaroid__photo\" aria-hidden=\"true\">SL</div><figcaption class=\"ds-polaroid__caption\">Based in Seattle — Remote</figcaption></figure>",
+      "css": ".ds-polaroid { width: 14rem; margin: 0; padding: 0.75rem 0.75rem 0.5rem; border-radius: 0.6rem; background: var(--color-paper, #ffffff); box-shadow: var(--shadow-lift, 0 2px 4px rgb(23 19 16 / 0.06), 0 18px 40px rgb(23 19 16 / 0.12)); rotate: 4deg; animation: ds-drop 0.9s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)) both; transition: rotate 0.4s var(--ease-out-soft, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-polaroid:hover { rotate: 1deg; } .ds-polaroid__photo { display: grid; place-items: center; aspect-ratio: 1; border-radius: 0.35rem; background: var(--color-wash, #f4f3f0); color: var(--color-ink, #171310); font-family: var(--font-display, \"Bricolage Grotesque\", \"Helvetica Neue\", Helvetica, Arial, sans-serif); font-size: 3.5rem; font-weight: 700; letter-spacing: -0.04em; } .ds-polaroid__caption { padding: 0.5rem 0 0.15rem; color: var(--color-ink, #171310); font-family: var(--font-hand, Caveat, \"Comic Sans MS\", cursive); font-size: 1.45rem; font-weight: 600; text-align: center; } @keyframes ds-drop { from { opacity: 0; translate: 0 -2rem; rotate: 12deg; } } @media (prefers-reduced-motion: reduce) { .ds-polaroid { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Warm Workshop",
+    "overview": "The site is a craftsperson's bench. Warm off-black ink sits on white paper and a pale workbench grey, and a single oxblood stamp of colour marks what matters: the end of the headline, the primary button, an outcome, a full stop. When the lights go down (dark mode, the footer, the mobile menu), the bench is lit by lamplight amber. Everything is made by hand and meant to be handled: pill controls that slide an arrow in, tool badges that tilt when touched, a photo card dropped onto the desk, case-study cards stacking like sheets of work.\n\nThe density is unhurried. Headlines are big, confident grotesques set tight; body copy is a friendly geometric sans at a comfortable measure; whitespace is generous and sections breathe. The mood is playful and crafted rather than corporate: small, physical surprises (a GitHub tile that says hello, two hands reaching across the footer) are part of the identity, but each lives in its own place and never competes with the work.\n\nThis system explicitly rejects three looks. The first is **the old Swiss grid** it replaced: pure black and white, red squares, uppercase labels, numbered sections, heavy rules. The second is **the generic SaaS template**: gradient heroes, icon-card grids, stat strips, glassy blobs. The third is **the dark \"developer\" cliché**: neon on black, monospace everywhere, code-rain decoration.",
+    "keyCharacteristics": [
+      "One accent per theme: Oxblood on paper, Lamplight Amber in the dark.",
+      "Bricolage Grotesque headlines; DM Sans for everything you read; Caveat only on the photo's caption.",
+      "Depth from paper layers (paper, wash, night) and a rounded page sheet over a dark footer, not from shadows.",
+      "Every control is a pill or a circle; every container is softly rounded.",
+      "Motion is physical and eased (`cubic-bezier(0.22, 1, 0.36, 1)`): things rise, drop, tilt, slide and settle."
+    ],
+    "rules": [
+      {
+        "name": "The One Stamp Rule",
+        "section": "colors",
+        "body": "A screen carries one accent and uses it sparingly: Oxblood on paper, Lamplight Amber on dark. Never introduce a second accent hue for UI. The only exceptions are the third-party palettes embedded in content: GitHub's greens in the activity tile, and brand colours on the stack logos."
+      },
+      {
+        "name": "The Night Stays Night Rule",
+        "section": "colors",
+        "body": "The footer and the mobile menu are always dark, and their accent is always Lamplight Amber, even in light mode."
+      },
+      {
+        "name": "The Contrast Gate Rule",
+        "section": "colors",
+        "body": "An accent must clear 4.5:1 against its surface. The build fails when `content/site.json` sets an accent that doesn't."
+      },
+      {
+        "name": "The Grotesque Speaks Rule",
+        "section": "typography",
+        "body": "Bricolage Grotesque is for headings, titles and the mobile-menu links. Everything a visitor reads in sentences is DM Sans."
+      },
+      {
+        "name": "The No Shouting Rule",
+        "section": "typography",
+        "body": "Labels are sentence case. Uppercase tracking belongs to the old Swiss look. The only exception is the printable résumé page's section labels, a résumé convention."
+      },
+      {
+        "name": "The Stack Rule",
+        "section": "layout",
+        "body": "On screens at least 1024px wide and 640px tall, case-study cards stick 6rem from the top, each one 20px lower than the last, so the next card covers the previous and leaves a strip showing. Cards after the first tilt ±1° alternately; the first stays level. Never enable this where a card is taller than the viewport."
+      },
+      {
+        "name": "The Only Things That Lift Rule",
+        "section": "elevation",
+        "body": "A shadow means \"this object is above the page\": a photo, a screenshot, a floating header, a popover. Cards, rows and buttons stay flat."
+      },
+      {
+        "name": "The Hairline Rule",
+        "section": "shapes",
+        "body": "Borders are 1px and neutral. No thick or coloured side borders on cards, callouts or list items."
+      }
+    ],
+    "dos": [
+      "Do keep one accent per theme (The One Stamp Rule) and route every accent use through the theme token, never a literal hex.",
+      "Do give new sections at most one signature interaction, and make it physical (rise, drop, tilt, slide, settle) using `cubic-bezier(0.22, 1, 0.36, 1)`.",
+      "Do use pills for controls, circles for icon badges and `card` corners for containers, all with 1px Hairline borders.",
+      "Do take UI icons from Phosphor (bold weight) and brand logos from Simple Icons.",
+      "Do make every animated element readable in its final state under `prefers-reduced-motion` and without JavaScript."
+    ],
+    "donts": [
+      "Don't bring back the old Swiss grid: pure black/white, red squares, uppercase labels, numbered sections, heavy rules.",
+      "Don't use generic SaaS patterns: gradient heroes, icon-card grids, stat strips, glassy blobs.",
+      "Don't use the dark \"developer\" cliché: neon on black, monospace as decoration, code-rain or terminal theming.",
+      "Don't put a coloured or thick side border on cards, callouts or list rows (The Hairline Rule).",
+      "Don't put a label above a heading. Meta lines go below titles; the hero's role badge is the one owner-chosen exception.",
+      "Don't use emoji as icons. Emoji appear only in changelog entry titles."
+    ]
+  }
+}

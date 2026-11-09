@@ -24,7 +24,7 @@ export const ExperienceRow = ({
       {roleDates(role)}
     </Label>
     {detailed && (
-      <ul className="col-span-4 list-[square] pl-5 text-body marker:text-accent md:col-span-8 lg:col-span-8 lg:col-start-5 [&>li+li]:mt-1">
+      <ul className="col-span-4 list-disc pl-5 text-body marker:text-accent md:col-span-8 lg:col-span-8 lg:col-start-5 [&>li+li]:mt-1">
         {role.highlights.map((highlight) => (
           <li key={highlight}>{highlight}</li>
         ))}

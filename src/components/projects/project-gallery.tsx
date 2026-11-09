@@ -83,16 +83,16 @@ export const ProjectGallery = ({
               />
             </div>
             <div className="flex flex-1 flex-col p-4">
-              {item.featured && (
-                <span className="mb-2 self-start rounded-full bg-accent px-2.5 py-0.5 text-label font-semibold text-paper">
-                  Multi-page
-                </span>
-              )}
               <h3 className="font-display text-h3 font-bold text-balance">
                 {item.title}
               </h3>
-              {item.stack.length > 0 && (
-                <p className="mt-1 text-label text-muted">
+              {(item.featured || item.stack.length > 0) && (
+                <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-label text-muted">
+                  {item.featured && (
+                    <span className="rounded-full bg-accent px-2.5 py-0.5 font-semibold text-paper">
+                      Multi-page
+                    </span>
+                  )}
                   {item.stack.join(" · ")}
                 </p>
               )}

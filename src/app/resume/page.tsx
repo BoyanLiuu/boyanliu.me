@@ -31,7 +31,7 @@ export default function Resume() {
           {author.location && <span className="block">{author.location}</span>}
           <a
             href={`mailto:${author.email}`}
-            className="block underline underline-offset-4"
+            className="block py-0.5 underline underline-offset-4"
           >
             {author.email}
           </a>
@@ -85,7 +85,7 @@ export default function Resume() {
               </h3>
               <Label>{roleDates(role)}</Label>
             </div>
-            <ul className="mt-2 list-[square] pl-5 text-body marker:text-accent">
+            <ul className="mt-2 list-disc pl-5 text-body marker:text-accent">
               {role.highlights.map((highlight) => (
                 <li key={highlight}>{highlight}</li>
               ))}

@@ -23,16 +23,16 @@ export default function ProjectsIndex() {
       </Display>
       <nav
         aria-label="Filter by stack"
-        className="mt-8 flex flex-wrap gap-x-4 gap-y-2 border-b border-rule pb-4 text-small"
+        className="mt-8 flex flex-wrap gap-x-4 border-b border-rule pb-3 text-small"
       >
-        <span className="font-bold text-accent underline underline-offset-4">
+        <span className="inline-block py-1.5 font-bold text-accent underline underline-offset-4">
           All
         </span>
         {stacks.map((stack) => (
           <Link
             key={stack}
             href={`/tags/${stack}`}
-            className="hover:text-accent"
+            className="inline-block py-1.5 hover:text-accent"
           >
             #{stack}
           </Link>

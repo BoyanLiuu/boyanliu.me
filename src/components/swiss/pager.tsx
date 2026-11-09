@@ -22,7 +22,8 @@ export const Pager = ({
   control: PagerControl;
 }) => {
   if (pages <= 1) return null;
-  const link = "underline underline-offset-4 hover:text-accent";
+  const link =
+    "inline-block py-1 underline underline-offset-4 hover:text-accent";
   return (
     <nav
       aria-label="Pagination"

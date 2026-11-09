@@ -34,7 +34,7 @@ export const BookmarkRow = ({
           <Link
             key={tag}
             href={`/tags/${tag}`}
-            className="inline-block py-0.5 hover:text-accent lg:block"
+            className="inline-block min-w-6 py-0.5 hover:text-accent lg:block"
           >
             #{tag}
           </Link>

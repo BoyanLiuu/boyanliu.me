@@ -9,24 +9,20 @@ import { VideoLoop } from "./video-loop";
  * - raster images: next/image (AVIF/WebP, responsive sizes, lazy unless `priority`)
  * - SVG diagrams: served as-is
  * - video: muted loop (poster only under reduced motion)
- * `muted` renders greyscale that turns to colour on hover (secondary projects).
  */
 export const MediaFrame = ({
   item,
-  muted = false,
   priority = false,
   sizes = "(min-width: 1024px) 66vw, 100vw",
   className,
 }: {
   item: MediaItem;
-  muted?: boolean;
   priority?: boolean;
   sizes?: string;
   className?: string;
 }) => {
   const visual = cn(
     "size-full object-cover object-top-left transition-[filter] duration-150",
-    muted && "grayscale group-hover:grayscale-0",
   );
 
   return (

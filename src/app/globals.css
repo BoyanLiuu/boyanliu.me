@@ -46,7 +46,7 @@
   --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --text-display: clamp(2.75rem, 5.6vw, 4.5rem);
+  --text-display: clamp(2.4rem, 1.4rem + 4.2vw, 4.5rem);
   --text-display--line-height: 1.08;
   --text-display--letter-spacing: -0.03em;
   --text-section: clamp(2.25rem, 4.2vw, 3.25rem);
@@ -89,6 +89,10 @@
   html {
     @apply bg-paper font-sans text-ink antialiased;
     color-scheme: light;
+    caret-color: var(--color-accent);
+    accent-color: var(--color-accent);
+    scrollbar-color: color-mix(in srgb, var(--color-ink) 28%, transparent)
+      transparent;
   }
   ::selection {
     @apply bg-accent text-paper;
@@ -154,6 +158,14 @@
   }
   32% {
     transform: scale(1.3);
+  }
+}
+@keyframes menu-unroll {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 @keyframes settle {
@@ -738,6 +750,16 @@
     }
   }
 
+  /* Mobile menu: the sheet unrolls from the top, then its links rise in one after another. */
+  .menu-sheet[data-state="open"] {
+    animation: menu-unroll 0.45s var(--ease-out-soft);
+  }
+  .menu-sheet[data-state="open"] .menu-link {
+    --enter-y: 0.75rem;
+    animation: enter-up 0.5s var(--ease-out-soft) backwards;
+    animation-delay: calc(0.12s + var(--i, 0) * 45ms);
+  }
+
   /* Header nav: the icon grows in beside the label on hover and on the active item. */
   .nav-icon {
     display: inline-flex;
@@ -937,7 +959,7 @@
     margin-right: 0.5rem;
   }
   .prose-swiss blockquote {
-    border-left: 3px solid var(--color-accent);
+    border-left: 1px solid var(--color-rule);
     padding-left: 1.25rem;
     color: var(--color-muted);
   }

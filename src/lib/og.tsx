@@ -45,7 +45,7 @@ export const ogImage = async ({
         flexDirection: "column",
         justifyContent: "space-between",
         background: "#ffffff",
-        color: "#000000",
+        color: "#171310",
         padding: "56px 64px",
         fontFamily: "Inter Tight",
       }}
@@ -55,7 +55,7 @@ export const ogImage = async ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
-          borderBottom: "4px solid #000",
+          borderBottom: "2px solid #e6e3dd",
           paddingBottom: 18,
           fontSize: 30,
           fontWeight: 700,
@@ -67,17 +67,17 @@ export const ogImage = async ({
             style={{
               width: 11,
               height: 11,
+              borderRadius: 999,
               background: siteConfig.theme.accent,
-              marginLeft: 2,
+              marginLeft: 3,
             }}
           />
         </div>
         <div
           style={{
             fontWeight: 500,
-            textTransform: "uppercase",
-            letterSpacing: 2,
-            fontSize: 24,
+            color: "#6f6c69",
+            fontSize: 26,
           }}
         >
           {kicker}
@@ -91,7 +91,7 @@ export const ogImage = async ({
           fontSize: size,
           fontWeight: 700,
           lineHeight: 0.95,
-          letterSpacing: "-0.045em",
+          letterSpacing: "-0.03em",
         }}
       >
         {words.map((word, i) => (
@@ -109,6 +109,7 @@ export const ogImage = async ({
                 style={{
                   width: size * 0.16,
                   height: size * 0.16,
+                  borderRadius: 999,
                   background: siteConfig.theme.accent,
                   marginLeft: 3,
                 }}

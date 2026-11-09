@@ -36,7 +36,7 @@ export const ExperienceAccordion = ({
     </summary>
     <div className="role__body grid grid-cols-4 gap-x-4 pb-7 md:grid-cols-8 md:gap-x-6 lg:grid-cols-12">
       <div className="col-span-4 md:col-span-8 lg:col-span-8 lg:col-start-5">
-        <ul className="list-[square] pl-5 text-body marker:text-accent [&>li+li]:mt-2">
+        <ul className="list-disc pl-5 text-body marker:text-accent [&>li+li]:mt-2">
           {role.highlights.map((highlight) => (
             <li key={highlight}>{highlight}</li>
           ))}
