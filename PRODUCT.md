@@ -62,7 +62,7 @@ What the site should make Shawn known for (confirmed by the owner; facts from `p
 - **Case studies:** `content/projects/dark-room.mdx` (TMDB movie site, with repo and GitHub Pages demo) and `content/projects/frontend-mentor.mdx` (19 builds, screenshots in `public/projects/frontend-mentor/`, with live and code links).
 - **Live data and lists:** GitHub contributions, and 13 bookmarks in `content/bookmarks.json`.
 - **Hand illustration:** `public/hands/left.png` and `right.png`. This is third-party artwork from Vaibhav Verma's portfolio, used at the owner's request; its licence is not confirmed.
-- **Placeholders that must never be presented as real work:** the Ledgerline, Pulse and Splitter projects (marked "SAMPLE"), and the TODO line in the "Hello, world" post.
+- **Placeholders that must never be presented as real work:** the TODO line in the "Hello, world" post.
 - **Absent, do not fabricate:** a portrait photo, testimonials, metrics beyond the résumé, client logos, and live URLs for the unlisted Frontend Mentor builds (Skilled e-learning, Sunnyside, Todo app).
 
 ## Product Principles

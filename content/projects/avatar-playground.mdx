@@ -1,0 +1,28 @@
+---
+title: Avatar Playground
+summary: A playground for making avatars in six styles. Roll random ones, tweak any part, lock what you like so the next roll keeps it, then download a PNG or SVG, or share a link that recreates the exact avatar.
+outcome: Six styles, one engine, no backend
+year: 2026
+role: Solo
+stack: [nextjs, react, typescript, tailwind, zustand, svg]
+status: live
+featured: true
+order: 0
+cover: /projects/avatar-playground/cover.png
+coverAlt: The Avatar Playground with the style list on the left, the current Flat Cartoon avatar on a white print above a film strip of earlier rolls, and the customize panel of option tiles on the right.
+problem: Avatar generators usually hand you one random result or a long form of options; I wanted to play with it, keeping the parts I like and rolling the rest.
+approach: A small TypeScript engine draws each avatar as SVG from a short config, so the history, undo, share links and exports all come from the same data. The site is a static Next.js export with no server.
+result: A static site with six styles, locks, a film-strip history with undo and redo, share links and PNG or SVG export, tested in Chrome, Firefox and Safari.
+links:
+  repo: https://github.com/BoyanLiuu/avatar-playground
+  demo: https://avatar-playground-v31p.vercel.app/
+---
+
+Avatar Playground generates avatars in six styles: Flat Cartoon, Pixel Art, Robots, Line Doodle, Monsters and Geometric. Everything runs in the browser.
+
+## What it does
+
+- **Roll and lock:** randomize within a style or across all six, and lock the parts you want to keep.
+- **Tweak any part:** every option is previewed on your own avatar.
+- **History:** a film strip of your rolls, with undo and redo.
+- **Share and export:** a link that recreates the avatar, PNG and SVG downloads, and Copy SVG.
