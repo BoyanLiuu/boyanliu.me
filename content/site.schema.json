@@ -216,7 +216,7 @@
         },
         "analytics": {
           "type": "boolean",
-          "description": "Load Plausible analytics (needs a Plausible site)"
+          "description": "Vercel Web Analytics page views (also enable Analytics in the Vercel project)"
         }
       },
       "required": [
@@ -229,20 +229,13 @@
     "analytics": {
       "type": "object",
       "properties": {
-        "domain": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Plausible site domain"
-        },
-        "scriptSrc": {
-          "type": "string",
-          "format": "uri",
-          "description": "Plausible script URL"
+        "customEvents": {
+          "type": "boolean",
+          "description": "Send Résumé, Email, LinkedIn and GitHub clicks as custom events (needs a Vercel Pro plan)"
         }
       },
       "required": [
-        "domain",
-        "scriptSrc"
+        "customEvents"
       ],
       "additionalProperties": false
     },

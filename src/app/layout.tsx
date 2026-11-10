@@ -90,7 +90,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
           <Footer />
           {siteConfig.features.search && <SearchDialog />}
-          <Analytics />
+          {siteConfig.features.analytics && (
+            <Analytics clickEvents={siteConfig.analytics.customEvents} />
+          )}
           {process.env.NODE_ENV === "development" && <GridOverlay />}
         </ThemeProvider>
       </body>

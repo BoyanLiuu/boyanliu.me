@@ -5,7 +5,7 @@ export type LinkCell = {
   detail?: string;
   href: string;
   primary?: boolean;
-  /** Plausible tagged-event name recorded on click (when analytics is on). */
+  /** Custom event sent on click (when analytics.customEvents is on). */
   event?: string;
 };
 
@@ -26,6 +26,14 @@ export const contactCells: LinkCell[] = [
     href: `mailto:${siteConfig.author.email}`,
     event: events.emailClick,
   },
-  { label: "LinkedIn", href: siteConfig.social.linkedin },
-  { label: "GitHub", href: siteConfig.social.github },
+  {
+    label: "LinkedIn",
+    href: siteConfig.social.linkedin,
+    event: events.linkedinClick,
+  },
+  {
+    label: "GitHub",
+    href: siteConfig.social.github,
+    event: events.githubClick,
+  },
 ];

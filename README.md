@@ -47,7 +47,7 @@ Posts (`content/posts/`) and projects (`content/projects/`) are Markdown/MDX wit
 
 ## Features
 
-Swiss design system (12/8/4-column grid, token-locked colours, light and dark themes) · writing archive with pagination, series, related posts, tags shared with projects · case studies with screenshot, video-loop and SVG media · ⌘K search · printable résumé and PDF · résumé short links `/r` and `/p/<slug>` · Open Graph images, JSON-LD, RSS/Atom/JSON feeds, sitemap · optional cookie-free analytics (Plausible, off by default).
+Swiss design system (12/8/4-column grid, token-locked colours, light and dark themes) · writing archive with pagination, series, related posts, tags shared with projects · case studies with screenshot, video-loop and SVG media · ⌘K search · printable résumé and PDF · résumé short links `/r` and `/p/<slug>` · Open Graph images, JSON-LD, RSS/Atom/JSON feeds, sitemap · cookie-free Vercel Web Analytics (résumé visits filed under `/from-resume`).
 
 ## CI
 
@@ -61,7 +61,7 @@ Swiss design system (12/8/4-column grid, token-locked colours, light and dark th
 3. Add the domain `boyanliu.me` (and `www.boyanliu.me` redirecting to it) and update DNS as Vercel instructs.
 4. Pull requests get preview deployments automatically.
 
-To turn on analytics, create the site in Plausible and set `features.analytics` to `true` in `content/site.json`.
+**Analytics:** `features.analytics` in `content/site.json` loads Vercel Web Analytics; also turn on **Analytics → Web Analytics** in the Vercel project (free on Hobby: page views, referrers, countries, devices; 50k events a month, one month of history). Visits from the résumé short links show in the **Pages** panel under `/from-resume/…`. Click events for the Résumé, Email, LinkedIn and GitHub links are wired up but need a Pro plan: set `analytics.customEvents` to `true` after upgrading.
 
 ## Licence
 

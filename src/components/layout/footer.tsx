@@ -63,7 +63,7 @@ export const Footer = () => {
             © {copyright} {siteConfig.author.name}. Code MIT · content all
             rights reserved.
             {siteConfig.features.analytics &&
-              " Cookie-free analytics by Plausible."}
+              " Cookie-free analytics by Vercel."}
           </span>
           <span className="flex gap-5">
             <a href="/rss.xml" className="hover:text-night-ink">

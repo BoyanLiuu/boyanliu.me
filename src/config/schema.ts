@@ -118,11 +118,16 @@ export const siteSchema = z
       search: z.boolean().describe("⌘K search palette"),
       analytics: z
         .boolean()
-        .describe("Load Plausible analytics (needs a Plausible site)"),
+        .describe(
+          "Vercel Web Analytics page views (also enable Analytics in the Vercel project)",
+        ),
     }),
     analytics: z.strictObject({
-      domain: z.string().min(1).describe("Plausible site domain"),
-      scriptSrc: url.describe("Plausible script URL"),
+      customEvents: z
+        .boolean()
+        .describe(
+          "Send Résumé, Email, LinkedIn and GitHub clicks as custom events (needs a Vercel Pro plan)",
+        ),
     }),
     theme: z
       .strictObject({

@@ -59,11 +59,10 @@
   "features": {
     "comments": false,
     "search": true,
-    "analytics": false
+    "analytics": true
   },
   "analytics": {
-    "domain": "boyanliu.me",
-    "scriptSrc": "https://plausible.io/js/script.outbound-links.tagged-events.js"
+    "customEvents": false
   },
   "theme": {
     "accent": "#7b1e2b",

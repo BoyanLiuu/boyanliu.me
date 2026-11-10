@@ -44,7 +44,7 @@ Other checks: a post that links to an unknown project fails the build; nested po
 ## Customising beyond content
 
 - **Accent colours:** `theme.accent` and `theme.accentDark` in `content/site.json`.
-- **Features:** `features.search`, `features.analytics` (Plausible) in `content/site.json`.
+- **Features:** `features.search`, `features.analytics` (Vercel Web Analytics) and `analytics.customEvents` (click events, Vercel Pro) in `content/site.json`.
 - **Fonts, grid, type scale:** `src/app/layout.tsx` (fonts) and the `@theme` tokens in `src/app/globals.css`.
 - **New frontmatter fields:** add them to `content-collections.ts`; new site settings go in `src/config/schema.ts`, then run `pnpm schemas`.
 

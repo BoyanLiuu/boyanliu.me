@@ -10,6 +10,7 @@ import type { ComponentType } from "react";
 import { SearchTrigger } from "@/components/search/search-trigger";
 import { Pill } from "@/components/ui/pill";
 import { siteConfig } from "@/config/site";
+import { events } from "@/lib/analytics";
 import { Avatar } from "./avatar";
 import { HeaderShell } from "./header-shell";
 import { MobileNav } from "./mobile-nav";
@@ -95,6 +96,7 @@ export const Header = () => (
         size="sm"
         icon={<DownloadSimpleIcon size={17} weight="bold" />}
         className="ml-1.5 text-small"
+        event={events.resumeView}
       >
         {siteConfig.ui.resume}
       </Pill>

@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { eventAttrs } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 const sizes = { sm: "pill-sm", md: "", lg: "pill-lg" } as const;
@@ -18,6 +19,7 @@ export const Pill = ({
   size = "md",
   className,
   title,
+  event,
 }: {
   href: string;
   children: ReactNode;
@@ -26,6 +28,8 @@ export const Pill = ({
   size?: keyof typeof sizes;
   className?: string;
   title?: string;
+  /** Custom event sent on click (when analytics.customEvents is on). */
+  event?: string;
 }) => {
   const classes = cn("pill", sizes[size], tones[tone], className);
   const content = (
@@ -40,7 +44,12 @@ export const Pill = ({
   const isFile = /\.[a-z0-9]{2,4}$/i.test(href);
   if (href.startsWith("/") && !isFile) {
     return (
-      <Link href={href} className={classes} title={title}>
+      <Link
+        href={href}
+        className={classes}
+        title={title}
+        {...eventAttrs(event)}
+      >
         {content}
       </Link>
     );
@@ -52,6 +61,7 @@ export const Pill = ({
       className={classes}
       title={title}
       {...(newTab && { target: "_blank", rel: "noopener noreferrer" })}
+      {...eventAttrs(event)}
     >
       {content}
     </a>

@@ -2,7 +2,7 @@ import { DownloadSimpleIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { Pill } from "@/components/ui/pill";
 import { contactCells } from "@/config/links";
-import { eventClass } from "@/lib/analytics";
+import { eventAttrs } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 /**
@@ -40,10 +40,8 @@ export const ContactLinks = ({
               <Pill
                 href={cell.href}
                 icon={<DownloadSimpleIcon size={18} weight="bold" />}
-                className={cn(
-                  "text-small",
-                  cell.event && eventClass(cell.event),
-                )}
+                className="text-small"
+                event={cell.event}
               >
                 {cell.label}
               </Pill>
@@ -56,7 +54,6 @@ export const ContactLinks = ({
             ? "border border-night-rule text-night-ink hover:border-night-ink"
             : "border border-rule hover:border-ink hover:bg-wash",
           entrance.className,
-          cell.event && eventClass(cell.event),
         );
         const external = /^https?:/.test(cell.href);
         const content = (
@@ -71,6 +68,7 @@ export const ContactLinks = ({
             href={cell.href}
             className={classes}
             style={entrance.style}
+            {...eventAttrs(cell.event)}
           >
             {content}
           </Link>
@@ -82,6 +80,7 @@ export const ContactLinks = ({
             style={entrance.style}
             title={cell.detail}
             {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+            {...eventAttrs(cell.event)}
           >
             {content}
           </a>
