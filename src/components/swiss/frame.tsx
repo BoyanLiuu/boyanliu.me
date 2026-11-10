@@ -6,16 +6,19 @@ export const Frame = ({
   alt,
   priority = false,
   className,
+  morph,
 }: {
   src: string;
   alt: string;
   priority?: boolean;
   className?: string;
+  morph?: string;
 }) => (
   <MediaFrame
     item={{ type: "image", src, alt }}
     priority={priority}
     sizes="(min-width: 1024px) 50vw, 100vw"
     className={className}
+    morph={morph}
   />
 );

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { Morph, projectMorph } from "@/components/motion/morph";
 import { Reveal } from "@/components/motion/reveal";
 import { Label } from "@/components/swiss/layout";
 import { Pill } from "@/components/ui/pill";
@@ -26,11 +27,14 @@ export const ProjectShowcase = ({
 }) => {
   const first = index === 0;
   const href = `/projects/${project.slug}`;
+  const morph = projectMorph(project.slug);
   const content = (
     <>
       <div className="flex flex-col p-6 md:p-10 lg:py-12 lg:pr-8 lg:pl-12">
         <h3 className="font-display text-h2 font-bold text-balance">
-          {project.title}
+          <Morph name={morph.title} kind="text">
+            <span className="inline-block">{project.title}</span>
+          </Morph>
         </h3>
         <Label className="mt-2 block text-muted">
           {project.year} · {project.role}
@@ -51,26 +55,28 @@ export const ProjectShowcase = ({
         aria-hidden
         className="relative mx-6 aspect-[16/10] md:mx-10 lg:m-0 lg:aspect-auto"
       >
-        <span className="absolute inset-x-0 top-0 bottom-0 overflow-hidden rounded-t-sm border border-b-0 border-rule bg-paper shadow-lift lg:top-12 lg:right-0 lg:rounded-tr-none lg:border-r-0">
-          {isSvg(project.cover) ? (
-            // eslint-disable-next-line @next/next/no-img-element -- SVGs don't benefit from the image optimiser
-            <img
-              src={project.cover}
-              alt=""
-              loading={first ? "eager" : "lazy"}
-              className="card-art size-full object-cover object-top-left"
-            />
-          ) : (
-            <Image
-              src={project.cover}
-              alt=""
-              fill
-              priority={first}
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="card-art object-cover object-top-left"
-            />
-          )}
-        </span>
+        <Morph name={morph.cover}>
+          <span className="morph-cover absolute inset-x-0 top-0 bottom-0 overflow-hidden rounded-t-sm border border-b-0 border-rule bg-paper shadow-lift lg:top-12 lg:right-0 lg:rounded-tr-none lg:border-r-0">
+            {isSvg(project.cover) ? (
+              // eslint-disable-next-line @next/next/no-img-element -- SVGs don't benefit from the image optimiser
+              <img
+                src={project.cover}
+                alt=""
+                loading={first ? "eager" : "lazy"}
+                className="card-art size-full object-cover object-top-left"
+              />
+            ) : (
+              <Image
+                src={project.cover}
+                alt=""
+                fill
+                priority={first}
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="card-art object-cover object-top-left"
+              />
+            )}
+          </span>
+        </Morph>
       </Link>
     </>
   );

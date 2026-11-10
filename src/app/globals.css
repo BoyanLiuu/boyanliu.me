@@ -826,8 +826,86 @@
   }
 }
 
+/*
+ * Page transitions (React <ViewTransition>, see components/motion/morph.tsx). Only navigations
+ * between pages that share an element animate: a project's cover and title morph from the card
+ * to the case study (and back), the rest of the page crossfades, and the header pill stays put.
+ */
+:root {
+  /* Page-transition timing; raise both to watch the morph in slow motion. */
+  --morph-duration: 480ms; /* cover and title morph */
+  --page-fade-duration: 300ms; /* crossfade of the rest of the page */
+}
+::view-transition {
+  pointer-events: none; /* clicks during the animation reach the new page */
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--page-fade-duration);
+}
+::view-transition-group(.morph),
+::view-transition-group(.morph-text) {
+  animation-duration: var(--morph-duration);
+  animation-timing-function: var(--ease-out-soft);
+}
+/* Covers: both snapshots fill the moving box, cropped from the top left like the screenshots. */
+::view-transition-group(.morph) {
+  overflow: clip;
+  border-radius: var(--radius-card);
+}
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+/*
+ * Below desktop size the case study's screenshot starts below the fold, so a cover morph would
+ * sweep across the text and out of view: there only the title morphs. React sets the name as an
+ * inline style, which this !important rule overrides.
+ */
+@media (width < 64rem), (height < 40rem) {
+  .morph-cover {
+    view-transition-name: none !important;
+  }
+}
+/* A soft blur mid-flight hides the scaling between the two snapshots. */
+::view-transition-image-pair(.morph),
+::view-transition-image-pair(.morph-text) {
+  animation-name: morph-blur;
+}
+@keyframes morph-blur {
+  40% {
+    filter: blur(2px);
+  }
+}
+/*
+ * The header pill is its own layer and never animates. The name sits on the pill, not on
+ * <header>: a named element is a backdrop root, which would stop the pill's frosted blur.
+ */
+.header-pill {
+  view-transition-name: site-header;
+}
+::view-transition-group(site-header) {
+  z-index: 100;
+  animation: none;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
 /* Reduced motion: everything is shown in its final state; the rotator shows only its first word. */
 @media (prefers-reduced-motion: reduce) {
+  /* Page transitions swap instantly. */
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
   .enter-up,
   .enter-down,
   .pop-in,

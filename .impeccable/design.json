@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-09T05:28:10.003Z",
+  "generatedAt": "2026-11-10T04:21:21.947Z",
   "title": "Design System: boyanliu.me",
   "extensions": {
     "colorMeta": {
@@ -371,6 +371,11 @@
         "name": "header-narrow",
         "value": "240ms at scrollY > 24px",
         "purpose": "Header turns into the floating pill."
+      },
+      {
+        "name": "page-morph",
+        "value": "480ms ease-out-soft (2px blur mid-flight); root crossfade 300ms",
+        "purpose": "Shared cover and title between work cards and case studies (React <ViewTransition>); covers only from 64rem wide and 40rem tall."
       }
     ],
     "breakpoints": [

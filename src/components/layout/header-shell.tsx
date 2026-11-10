@@ -22,7 +22,7 @@ export const HeaderShell = ({ children }: { children: ReactNode }) => {
       data-scrolled={scrolled ? "" : undefined}
       className="group/header enter-down sticky top-0 z-40 px-3 pt-3 print:hidden"
     >
-      <div className="mx-auto flex max-w-[calc(72rem+2rem)] items-center gap-3 rounded-full border border-transparent py-1.5 pr-1.5 pl-3 transition-[max-width,background-color,border-color,box-shadow,padding] duration-[240ms] ease-out group-data-[scrolled]/header:max-w-[56rem] group-data-[scrolled]/header:border-rule group-data-[scrolled]/header:bg-paper/85 group-data-[scrolled]/header:shadow-soft group-data-[scrolled]/header:backdrop-blur-md md:px-4 md:group-data-[scrolled]/header:pr-1.5 md:group-data-[scrolled]/header:pl-3">
+      <div className="header-pill mx-auto flex max-w-[calc(72rem+2rem)] items-center gap-3 rounded-full border border-transparent py-1.5 pr-1.5 pl-3 transition-[max-width,background-color,border-color,box-shadow,padding] duration-[240ms] ease-out group-data-[scrolled]/header:max-w-[56rem] group-data-[scrolled]/header:border-rule group-data-[scrolled]/header:bg-paper/85 group-data-[scrolled]/header:shadow-soft group-data-[scrolled]/header:backdrop-blur-md md:px-4 md:group-data-[scrolled]/header:pr-1.5 md:group-data-[scrolled]/header:pl-3">
         {children}
       </div>
     </header>

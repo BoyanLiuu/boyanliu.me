@@ -4,6 +4,7 @@ import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MediaFrame } from "@/components/media/media-frame";
+import { Morph, projectMorph } from "@/components/motion/morph";
 import { Markdown } from "@/components/mdx/markdown";
 import { ProjectGallery } from "@/components/projects/project-gallery";
 import { PostRow } from "@/components/blog/post-row";
@@ -67,6 +68,7 @@ export default async function CaseStudy({ params }: Props) {
   const index = projects.findIndex((p) => p.slug === slug);
   const links = Object.entries(project.links).filter(([, href]) => href);
   const related = postsForProject(getPosts(), project.slug);
+  const morph = projectMorph(project.slug);
 
   return (
     <Container>
@@ -85,8 +87,13 @@ export default async function CaseStudy({ params }: Props) {
 
       <Grid className="border-b border-rule pt-10 pb-8">
         <Display className="col-span-4 md:col-span-8 lg:col-span-9">
-          {project.title}
-          <Mark />
+          {/* The Mark sits inside the morphing span so it stays on the title's last line. */}
+          <Morph name={morph.title} kind="text">
+            <span className="inline-block">
+              {project.title}
+              <Mark />
+            </span>
+          </Morph>
         </Display>
         <div className="col-span-4 mt-6 self-end text-body md:col-span-6 lg:col-span-3 lg:mt-0">
           <p className="flex items-center gap-2 font-bold">
@@ -149,7 +156,12 @@ export default async function CaseStudy({ params }: Props) {
             ))}
           </div>
           <figure className="mt-8">
-            <Frame src={project.cover} alt={project.coverAlt} priority />
+            <Frame
+              src={project.cover}
+              alt={project.coverAlt}
+              priority
+              morph={morph.cover}
+            />
             <figcaption className="mt-2">
               <Label>Fig. 1 — {project.title} overview</Label>
             </figcaption>

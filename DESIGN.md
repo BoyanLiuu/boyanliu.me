@@ -289,6 +289,7 @@ Playful and crafted: every control answers the hand with a small physical motion
 - **Photo card:** a polaroid on Paper with Lift, dropped in on load from 12° to its 4° tilt, captioned in Caveat ("Based in …"). It shows initials until a portrait is provided.
 - **GitHub pulse tile:** a 15×7 mini contribution grid in GitHub's greens. It shimmers, draws a beating heart, and spells "hello" on hover. Hover, click or focus opens a Paper popover with the year's calendar in two rows of months.
 - **Reaching hands:** an Oxblood (Lamplight in dark mode) card in the footer where two line-art hands slide together as the page reaches its end.
+- **Page morph:** opening a case study from a work card (home, Work, tag pages) morphs the card's title into the page heading and, on desktop, its screenshot into Fig. 1 (480ms, `ease-out-soft`, a 2px blur mid-flight). The rest of the page crossfades in 300ms and the header pill stays still. It runs on React's `<ViewTransition>`; the browser back button, unrelated links and reduced motion switch pages instantly.
 - **Experience accordion:** rows of company, title and dates with a round caret. They open one at a time to bullets, location and stack chips, with a height animation.
 
 ## Do's and Don'ts
