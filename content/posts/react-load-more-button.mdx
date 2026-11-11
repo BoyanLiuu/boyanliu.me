@@ -1,0 +1,136 @@
+---
+title: "Build a load more functionality using react hook"
+date: "2021-11-18"
+summary: "A step-by-step load more button in React with useState and useEffect, fetching one more page of images on each click."
+tags: [react, react-hooks]
+series: "Loading lists in React"
+seriesOrder: 1
+canonical: "https://boyanliu.hashnode.dev/build-a-load-more-functionality-using-react-hook"
+---
+
+In this article, we will learn how to implement a load more button using react hooks and functional components in a step-by-step way.
+
+I hosted the working code on codesandbox. Feel free to fork and play around. I am using this [api](https://picsum.photos/) in our example.
+
+<Playground
+  src="https://codesandbox.io/embed/load-more-functionality-using-react-hooks-kllwg?view=editor&module=/src/List.jsx&hidenavigation=1"
+  title="Load more with React hooks: the code on CodeSandbox"
+/>
+
+## Background
+
+In modern web design, there are three ways to display content: infinite scroll, pagination, and “load more button”. Today we focus on implementing load more functionality.
+
+### What is the load more button?
+
+It consists of a button at the bottom of the page that will feed more content when clicked. Initially, only some contents are shown on page, and when we click on the Load more button, then the remaining content is loaded in the browser.
+
+## File structure
+
+Here is the file structure screenshot
+
+<Figure
+  src="/blog/react-load-more-button/file-structure.png"
+  alt="Project file tree: a public folder; a src folder with App.js, App.scss, Card.jsx, List.jsx and index.js; and package.json."
+  width={276}
+  height={244}
+/>
+
+All the CSS styling is written inside `App.scss`. Every single card is a `Card` component. The _List_ component wraps all the cards we want to display. The `App.js` just display the _List_ component. We gonna write our load more functionality inside `List.jsx`.
+
+## Implementing load more functionality
+
+Here is the logic behind the load more functionality:
+
+We initially fetch data from API on page 0. Once We click the load more button, we would increase the page by one and also fire up another API call to fetch more data. After we got additional data, we just append the new data at the end of the current list.
+
+### 1. Declare necessary variables using useState hook
+
+```js
+const [data, setData] = useState([]);
+const [loading, setLoading] = useState(false);
+const [hasMore, setHasMore] = useState(true);
+const [curPage, setCurPage] = useState(1);
+const [errorMsg, setErrorMsg] = useState("");
+```
+
+We would continue to append fetched data at the end of the `data` variable, `loading`variable is used to tell us whether we are fetching data or not at that moment or not. The `hasMore` variable would tell us when to stop fetching. The `curPage` variable helps us track which page of data to fetch. The errorMsg variable track the error we got during fetching.
+
+### 2. Fetch data inside useEffect hook
+
+```js
+const getData = async (url) => {
+  const res = await fetch(url);
+  return res.json();
+};
+useEffect(() => {
+  const url = `https://picsum.photos/v2/list?page=${curPage}&limit=10`;
+  setLoading(true);
+  getData(url)
+    .then((res) => {
+      setHasMore(res.length > 0);
+      setData((prev) => [...prev, ...res]);
+      setErrorMsg("");
+    })
+    .catch((err) => {
+      // set the error msg
+      setErrorMsg("Something went wrong, Please try again later");
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, [curPage]);
+```
+
+The `getData` function returns the fetched data from API. If we successfully got the data we would go to the `.then` block. Inside the block, we would do three things:
+
+1. We set the `hasMore` flag based on the data we fetched. If we fetched data that has no content. Then it means we do not have additional data to fetch.
+2. `[...prev, ...res]` here is the ES6 way to append the fetched data into the `data` array.
+3. Since we do not encounter any errors, we just reset the error msg to an empty string.
+
+In the catch block, we would set the error message. Then, we're using the .finally block to set the `loading` state to false. As you can see, the useEffect have `[curPage]` as the dependency. That is mean this useEffect hook would run on the first render and also run when `curPage` is changed. This is crucial in the loading more functionality.
+
+### 3. Create the load more function when we click the load more button
+
+```js
+const loadMoreOnClick = () => {
+  // prevent click if the state is loading
+  if (loading) return;
+  setCurPage((prev) => prev + 1);
+};
+```
+
+Here, we use `useState` hook to increment the page count. Whenever we increment the page number we would call the `useEffect` hook we define above to fetch more data.
+
+### 4. Wrap everything and render the list
+
+Here is how we create the list from the fetched data.
+
+```jsx
+const createLists = () => {
+  return data.map((ele) => {
+    return <Card key={ele.id} url={ele.download_url} name={ele.author} />;
+  });
+};
+```
+
+Here is what we would return in the `List.jsx`
+
+```jsx
+<div className="main-container">
+  <h1>Random Images</h1>
+  <div className="cardlist-container">
+    {createLists()}
+    {errorMsg && <p className="error-msg">{errorMsg}</p>}
+    {hasMore && (
+      <button className="loading-more-btn" onClick={loadMoreOnClick}>
+        {loading ? "Loading..." : "Load More"}
+      </button>
+    )}
+  </div>
+</div>
+```
+
+Here we would display error message only if the `errorMsg` flag is true. We would display the button at the end of the page only if the `hasMore` button is true. If the loading flag is true we would display Loading text inside the button.
+
+Congratulations, we just implemented the basic version of load more functionality. Thank you for reading, I hope it has been a piece of useful information. Cheers!

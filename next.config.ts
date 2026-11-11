@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Tools that ask for /favicon.ico directly get the generated tab icon (src/app/icon.tsx).
+  async rewrites() {
+    return [{ source: "/favicon.ico", destination: "/icon" }];
+  },
   async headers() {
     return [
       {

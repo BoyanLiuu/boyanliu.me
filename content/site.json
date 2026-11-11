@@ -29,6 +29,8 @@
       "graphql",
       "git"
     ],
+    "photo": "/me.jpg",
+    "avatar": "/me-avatar.jpg",
     "availability": "hidden",
     "availabilityNote": "Open to new roles",
     "copyrightStart": 2026

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
+import { initials } from "@/lib/initials";
 
-/** Round portrait from `author.photo`, or the author's initials when no photo is set. Decorative: the name is always shown next to it. */
+/** Round portrait from `author.avatar` (or `author.photo`), or the author's initials when neither is set. Decorative: the name is always shown next to it. */
 export const Avatar = ({
   size = 36,
   className,
@@ -10,7 +11,8 @@ export const Avatar = ({
   size?: number;
   className?: string;
 }) => {
-  const { photo, name } = siteConfig.author;
+  const { name } = siteConfig.author;
+  const photo = siteConfig.author.avatar ?? siteConfig.author.photo;
   if (photo) {
     return (
       <Image
@@ -23,11 +25,6 @@ export const Avatar = ({
       />
     );
   }
-  const initials = name
-    .split(/\s+/)
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("");
   return (
     <span
       aria-hidden
@@ -37,7 +34,7 @@ export const Avatar = ({
       )}
       style={{ width: size, height: size, fontSize: size * 0.38 }}
     >
-      {initials}
+      {initials(name)}
     </span>
   );
 };

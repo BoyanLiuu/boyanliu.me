@@ -85,6 +85,13 @@ export const siteSchema = z
         .describe(
           "Portrait under public/, e.g. /me.jpg (4:5). Omit to show initials",
         ),
+      avatar: z
+        .string()
+        .startsWith("/")
+        .optional()
+        .describe(
+          "Round header avatar: a square crop of your face under public/, e.g. /me-avatar.jpg. Defaults to photo",
+        ),
       availability: z
         .enum(["open", "busy", "hidden"])
         .describe("Hero badge: open, busy or hidden"),

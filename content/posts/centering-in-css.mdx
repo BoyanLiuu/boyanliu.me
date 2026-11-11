@@ -1,0 +1,495 @@
+---
+title: "How many ways can you come up with centering horizontally, vertically, or both?"
+date: "2021-06-20"
+summary: "Every CSS technique I know for centering an element horizontally, vertically or both, with the code for each."
+tags: [css, html]
+featured: true
+canonical: "https://boyanliu.hashnode.dev/how-many-ways-can-you-come-up-with-centering-horizontally-vertically-or-both"
+---
+
+This is a very common frontend developer interview question and we all have the experience to center elements in our daily developer tasks. You might be used to one way to complete the tasks, but have you ever think about what alternative ways to center the element?
+
+Here is the starter code we gonna use :
+
+```html
+<div class="container">
+  <div class="box position">
+    <span class="text"> center </span>
+  </div>
+</div>
+```
+
+```css
+:root {
+  box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+}
+
+.box {
+  background: lightblue;
+  width: 100px;
+  height: 100px;
+}
+```
+
+This is what it looks like at the beginning:
+
+<Figure
+  src="/blog/centering-in-css/starter.png"
+  alt="A 400 by 400 pixel container with a red border; the light blue 100 pixel box with the word center sits in its top-left corner."
+  width={465}
+  height={461}
+/>
+
+You can play around at [fiddle playground](https://jsfiddle.net/Boyanliuu/4n9szcmw/1/)
+
+## Guide to horizontal centering
+
+1\. If it is inline elements such as text,link, img tag inside a block element or table-cell box: just use the **_text-align_** property with the value **_center_**:
+
+```css
+.text {
+  text-align: center;
+}
+```
+
+2\. If you know the width of the child elements you want to center, we have 3 possible ways to center elements:
+
+- **position absolute & negative margin**. We give its parent relative position and give the light blue box the absolute position. We use `left:50%` to center the box horizontally, right now, we only center the vertex in the upper right corner of the child element, not the center of the child element. We then use the negative margin to adjust the position of the lightblue box.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+}
+```
+
+<Figure
+  src="/blog/centering-in-css/horizontal-negative-margin.png"
+  alt="The light blue box now sits at the top of the red container, centred horizontally."
+  width={454}
+  height={452}
+/>
+
+- **position absolute & calc**. This way applies a very similar concept as the previous one. Instead of manually change to the correct position using `margin-left` with the negative value we can calculate where we want to move.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  left: calc(50% - 50px);
+}
+```
+
+- **margin auto**. It is shorthand for setting the top and bottom margins to zero and the left and right margins to auto.
+
+```css
+.position {
+  margin: 0 auto;
+}
+```
+
+3\. If we do not know the width of the child element, we have four ways to center the child element horizontally:
+
+- **position absolute & transform**. It uses absolute positioning of the inner element at 50% from the left of their parent, then translating it `left: -50%` of its width.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+
+.position {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+```
+
+- **flex property** . If we can use flex layout, we can set parent div as a flex container and use the `justify-content` property. We do not need to write anything for the child element.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+}
+```
+
+- **text align** . Since text-align only work for inline-element, we can convert a block element into an inline-element and use `text-align` property
+
+  ```css
+  .container {
+    border: 1px solid red;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+  }
+  .position {
+    display: inline-block;
+  }
+  ```
+
+- **grid property** . We can use the power of grid layout to center the element.
+  ```css
+  .container {
+    border: 1px solid red;
+    width: 400px;
+    height: 400px;
+    display: grid;
+  }
+  .position {
+    justify-self: center;
+  }
+  ```
+
+## Guide to vertical centering
+
+1\. If it is inline elements:
+
+- **line height**. If the inner content only one line of text, we can set a tall `line height` equal to the desired container height. This will force the container to grow to contain the line height, If the contents aren't inline, you can set them to inline-block.
+  ```css
+  .text {
+    line-height: 100px;
+  }
+  ```
+
+<Figure
+  src="/blog/centering-in-css/vertical-line-height.png"
+  alt="The box stays in the top-left corner, and the word center is now vertically centred inside it."
+  width={472}
+  height={457}
+/>
+
+- **padding top & padding bottom**. If you can use a natural height container, we can apply an equal top and bottom padding to the container to center its contents, it works well for a single line or multiple lines.
+
+  ```css
+  .text {
+    display: block;
+    padding: 40px 0;
+  }
+  ```
+
+- **display:table-cell & vertical-align** . If we need to avoid using padding, we can use `display:table-cell` and `vertical-align: middle` on the container. The div can take on the characteristics of a (table cell). This allows us to style it as you might style a table cell.
+
+```css
+.box {
+  background: lightblue;
+  width: 100px;
+  height: 100px;
+  display: table-cell;
+  vertical-align: middle;
+}
+```
+
+2\. If it is a block element: we can use similar methods as we discussed in the horizontal centering.
+
+- **position absolute & negative margin**
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+}
+```
+
+<Figure
+  src="/blog/centering-in-css/vertical-negative-margin.png"
+  alt="The light blue box sits against the left edge of the red container, centred vertically."
+  width={452}
+  height={446}
+/>
+
+- **position absolute & calc**.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  top: calc(50% - 50px);
+}
+```
+
+- **position absolute & margin auto** .
+  When we center the element horizontal we use `margin: 0 auto;` If we want to center an element vertically we need to add few more styles. If you are wondering why need to use `margin: auto 0;` with position absolute to center vertically, you can check the answer from this [stackoverflow answer](https://stackoverflow.com/questions/34552116/why-doesnt-margin-auto-center-an-element-vertically)
+
+```css
+.position {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+```
+
+- **display flex & margin auto** .
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: flex;
+}
+.position {
+  margin: auto 0;
+}
+```
+
+- **display flex** .
+
+If the flex-direction is the column we can use`justify-content: center;`
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+```
+
+If the flex-direction is row we can use `align-items: center;`
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+```
+
+- **grid** . we can apply style on the grid item
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: grid;
+}
+.position {
+  align-self: center;
+}
+```
+
+we can apply style on the grid container just like what we do in the flex container
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: grid;
+  align-items: center;
+}
+```
+
+## Guide to horizontal & vertical centering
+
+We can combine the techniques we learn above to achieve horizontal & vertical centering. There are two categories:
+
+1\. If the element has fixed width and height:
+
+- **position absolute & negative margin**.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+```
+
+- **position absolute & margin auto**.
+
+If we do not give the element a fixed width and height, the centering technique will not work.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+
+.box {
+  background: lightblue;
+  width: 100px;
+  height: 100px;
+}
+
+.position {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+```
+
+- **position absolute & calc**.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+}
+```
+
+2\. If the element has an unknown width and height:
+
+- **position absolute & transform**.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+.position {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+```
+
+- **display:table-cell & vertical-align & text-align**.
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.position {
+  display: inline-block;
+}
+```
+
+- **grid property** .
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: grid;
+}
+.position {
+  align-self: center;
+  justify-self: center;
+}
+```
+
+- **display grid & margin auto** .
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: grid;
+}
+.position {
+  margin: auto;
+}
+```
+
+- **flex property** .
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+```
+
+- **display flex & margin auto** .
+
+```css
+.container {
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+  display: flex;
+}
+.position {
+  margin: auto;
+}
+```
+
+## Conclusion
+
+There are few factors that help you decide which technique you want to use for centering. You need to think about browser compatibility, mobile compatibility, whether the element has a fixed width/ height. If you have no requirements at all, I suggest using the flex property technique.

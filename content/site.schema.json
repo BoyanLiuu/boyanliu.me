@@ -97,6 +97,12 @@
           "format": "starts_with",
           "pattern": "^\\/.*"
         },
+        "avatar": {
+          "description": "Round header avatar: a square crop of your face under public/, e.g. /me-avatar.jpg. Defaults to photo",
+          "type": "string",
+          "format": "starts_with",
+          "pattern": "^\\/.*"
+        },
         "availability": {
           "type": "string",
           "enum": [

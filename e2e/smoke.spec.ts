@@ -24,18 +24,25 @@ test("every listed post and project page renders its title", async ({
   }
 });
 
-test("code and math render (style guide post, when published)", async ({
+test("code blocks in posts are syntax highlighted", async ({
   page,
+  request,
 }) => {
-  const response = await page.goto("/blog/markdown-style-guide");
-  test.skip(
-    response?.status() === 404,
-    "style guide is a draft or was removed",
-  );
-  await expect(
-    page.locator("[data-rehype-pretty-code-figure]").first(),
-  ).toBeVisible();
-  await expect(page.locator(".katex").first()).toBeVisible();
+  const posts = (await searchIndex(request)).filter((i) => i.kind === "post");
+  let checked = false;
+  for (const post of posts) {
+    await page.goto(post.href);
+    const figure = page.locator("[data-rehype-pretty-code-figure]").first();
+    if ((await figure.count()) === 0) continue;
+    await expect(figure).toBeVisible();
+    // Shiki colours tokens with inline CSS variables, one per theme.
+    await expect(
+      figure.locator("span[style*='--shiki']").first(),
+    ).toBeAttached();
+    checked = true;
+    break;
+  }
+  test.skip(!checked, "no published post has a code block");
 });
 
 test("an unknown page returns 404", async ({ page }) => {

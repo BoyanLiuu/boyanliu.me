@@ -984,7 +984,20 @@
     margin-top: 2rem;
     scroll-margin-top: 6rem;
   }
-  .prose-swiss :is(h2, h3) a {
+  /* Deeper headings (imported posts use h4 and h5 for steps and terms). */
+  .prose-swiss :is(h4, h5, h6) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-body);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-top: 1.75rem;
+    scroll-margin-top: 6rem;
+  }
+  .prose-swiss h4 {
+    font-size: 1.125rem;
+  }
+  .prose-swiss :is(h2, h3, h4, h5, h6) a {
     color: inherit;
     font-weight: inherit;
     text-decoration: none;

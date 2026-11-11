@@ -1,0 +1,370 @@
+---
+title: "Implementing an infinite scroll component in React & hooks"
+date: "2021-12-15"
+summary: "An infinite scroll component in React, built two ways: a throttled window scroll listener and the Intersection Observer API."
+tags: [react, react-hooks]
+series: "Loading lists in React"
+seriesOrder: 2
+featured: true
+canonical: "https://boyanliu.hashnode.dev/implementing-an-infinite-scroll-component-in-react-and-hooks"
+---
+
+In the previous post, we implemented [a load more functionality in React](/blog/react-load-more-button). Today, We will implement an infinite scroll component with react hooks in two approaches.
+
+## What is Infinite Scroll?
+
+> Infinite Scroll is a technique that automatically adds the next page as the user scrolls down through content. It is a common way to deal with large collections of data. It could provide a better user experience and avoid slow rendering for large lists.
+
+## What are we going to build
+
+<Playground
+  src="https://codesandbox.io/embed/react-infinity-scroll-with-scroll-event-most-updated-tj9vq?view=editor&module=/src/InfinityScrollComponent.jsx&hidenavigation=1"
+  title="Infinite scroll with the window scroll event: the code on CodeSandbox"
+/>
+
+### Two options
+
+- Utilize [Window scroll event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event)
+- Utilize [Intersection Observer Api](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+
+Before getting started, we need data to load continuously, so for that, we will use this [dummy API](https://picsum.photos/)
+
+### Window Scroll Event Approach
+
+#### 1. Create a load more function to fetch additional data.
+
+```js
+const loadMore = () => {
+  const url = `https://picsum.photos/v2/list?page=${curPage}&limit=10`;
+  setLoading(true);
+  getData(url)
+    .then((res) => {
+      setHasMore(res.length > 0);
+      setData((prev) => [...prev, ...res]);
+      setCurPage((prev) => prev + 1);
+    })
+    .catch(() => console.log("err"))
+    .finally(() => setLoading(false));
+};
+```
+
+After we get data on the current page, we would update hasMore flag and also append data at the end of the current data list and update the page number.
+
+#### 2. Declare the props in `InfinityScrollComponent`
+
+```js
+InfinityScrollComponent.propTypes = {
+  loadMore: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  loadOnMount: PropTypes.bool,
+};
+```
+
+`loadMore`: A callback when more items are requested by the user. We declare this function in the `List.jsx` component.
+
+`isLoading`: Whether the data is loading or not.
+
+`hasMore`: Whether there are more items to be loaded.
+
+`loadOnMount`: Whether the component should load the first set of items, Default is true. If it is false, the data will only display after we perform a single scroll-down event.
+
+#### 3. Create a reference using useRef hook for DOM element that wrap the whole list
+
+```jsx
+export default function InfinityScrollComponent({
+  loadMore,
+  isLoading,
+  hasMore,
+  loadOnMount = true,
+  children,
+}) {
+  const contentRef = useRef(null);
+  return (
+    <div ref={contentRef} className="infinity-scroll-component-container">
+      {children}
+    </div>
+  );
+}
+```
+
+#### 4. Create a function to detect when the user has scrolled to the bottom of the page
+
+```js
+const isBottom = () => {
+  if (!listRef.current) {
+    return false;
+  }
+
+  return listRef.current.getBoundingClientRect().bottom <= window.innerHeight;
+};
+```
+
+In order to understand what we did here. There are a few terms we need to get familiar with.
+
+##### ref.current
+
+It references the dom element that we wrap the whole cards.
+
+##### Element.getBoundingClientRect()
+
+> The [Element.getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) method returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
+
+<Figure
+  src="/blog/react-infinite-scroll/get-bounding-client-rect.png"
+  alt="Diagram of an element inside the viewport: x/left and y/top measure from the viewport's top-left corner to the element; right and bottom measure to its right and bottom edges."
+  width={1554}
+  height={1176}
+  caption="Diagram: MDN Web Docs"
+/>
+
+##### window.innerHeight
+
+> The [window.innerHeight](https://developer.mozilla.org/en-US/docs/Web/API/Window/innerHeight) returns the interior height of the window in pixels, including the height of the horizontal scroll bar, if present.
+
+<Figure
+  src="/blog/react-infinite-scroll/inner-height.png"
+  alt="A browser window annotated with outerHeight, the whole window including its toolbars, and innerHeight, only the area that shows the page."
+  width={1532}
+  height={888}
+  caption="Diagram: MDN Web Docs"
+/>
+
+##### How do we know if we hit the bottom?
+
+Let's change the `isBottom()` to the following and then scroll the page.
+
+```js
+const isBottom = () => {
+  if (!listRef.current) {
+    return false;
+  } else {
+    console.log(
+      `getBoundingClientRect: ${
+        listRef.current.getBoundingClientRect().bottom
+      }`,
+    );
+    console.log(`window inner height: ${window.innerHeight}`);
+  }
+
+  return false;
+};
+```
+
+Here is the screenshot of the console message when we scroll the page from the beginning of the page
+
+<Figure
+  src="/blog/react-infinite-scroll/console-top.png"
+  alt="Console log at the start of scrolling: getBoundingClientRect bottom falls from 2142 to 2129 while window inner height stays 821."
+  width={430}
+  height={416}
+/>
+
+Here is the screenshot of the console message when we scroll the page at bottom of the list.
+
+<Figure
+  src="/blog/react-infinite-scroll/console-bottom.png"
+  alt="Console log at the bottom of the list: getBoundingClientRect bottom falls from 916 to 811 while window inner height stays 821."
+  width={446}
+  height={288}
+/>
+
+As you can see, as we scroll down, the number of `Element.getBoundingClientRect().bottom` is decreasing and it stops at 811.
+
+Why do we get 811 instead of 821? It is because we give CSS styling `padding :10px;` to the `main-container` class. If you remove the padding, the `Element.getBoundingClientRect().bottom` will end up at exact same number as `window.innerHeight`.
+
+<Figure
+  src="/blog/react-infinite-scroll/box-model.png"
+  alt="DevTools box model of the main container: an 845 by 2133 pixel content box with 10 pixels of padding on every side."
+  width={416}
+  height={270}
+/>
+
+**Now we can conclude if the `Element.getBoundingClientRect().bottom` is smaller or equal to the `window.innerHeight` then we hit the bottom and return true.**
+
+#### 5. Load the first set of items based on the `loadOnMount` props
+
+```js
+const [initialLoad, setInitialLoad] = useState(true);
+
+useEffect(() => {
+  if (loadOnMount && initialLoad) {
+    loadMore();
+    setInitialLoad(false);
+  }
+}, [loadMore, loadOnMount, initialLoad]);
+```
+
+#### 6. Register a scroll event when the `InfinityScrollComponent` is mounted the first time.
+
+```jsx
+// comment out this section if you want to try throttle implementation
+
+useEffect(() => {
+  const onScroll = () => {
+    if (!isLoading && hasMore && isBottom()) {
+      loadMore();
+    }
+  };
+  document.addEventListener("scroll", onScroll);
+  return () => document.removeEventListener("scroll", onScroll);
+}, [loadMore, isLoading, hasMore]);
+```
+
+we only call the loadMore function when we are not loading anything and we do have additional data and we are at the bottom of the page. We use `hasMore` variable to make sure we Stop calling loadMore function when the API has no additional data. The `isBottom` and `isLoading` make sure we do not call the load more function redundantly
+
+#### Refining Our Implementation using _lodash_ throttle function.
+
+Since scroll events can fire at a high rate, it is recommended to throttle the event using `lodash` package.
+
+> Throttling is a technique with which a function is invoked at most once in a given time frame regardless of how many times a user tries to invoke it.
+
+```jsx
+/*Uncomment below section to use throttl implementation */
+const onScroll = () => {
+  if (!isLoading && hasMore && isBottom()) {
+    loadMore();
+  }
+};
+const throttledOnScroll = useCallback(_.throttle(onScroll, 1000), [
+  loadMore,
+  isLoading,
+  hasMore,
+]);
+
+useEffect(() => {
+  document.addEventListener("scroll", throttledOnScroll);
+  return () => document.removeEventListener("scroll", throttledOnScroll);
+}, [throttledOnScroll]);
+```
+
+In the above code snippet, we created a `throttledOnScoll` function and wrap it with useCallback. We use `useCallback` hook because we do not want multiple instances of our throttled function to get created after each render cycle.
+
+According to the React docs on [useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback) :
+
+> _Pass an inline callback and an array of dependencies. `useCallback` will return a memoized version of the callback that only changes if one of the dependencies has changed_
+
+### Intersection Observer Api Approach
+
+> The [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.
+
+Here is the [codesandbox](https://codesandbox.io/s/react-infinity-scroll-with-intersection-observer-api-ci0p8?file=/src/InfinityScrollComponent.jsx).
+
+The concept of this approach is that you give a ref to the last element of the list. This is the target we want to observe. Once the element is visible to the user. We would fetch new data. The overall structure is pretty similar as the first approach, we just need to modify it a little bit.
+
+#### 1. Get a ref of the last element of the list
+
+Inside `List.jsx`
+
+```js
+const [lastElement, setLastElement] = useState(null);
+```
+
+We would save the dom element into the lastElement variable, thus the page would re-render once we update the lastElement.
+
+```jsx
+const isLastItem = (idx) => {
+  return idx === data.length - 1;
+};
+const createLists = () => {
+  return data.map((ele, idx) => {
+    return isLastItem(idx) ? (
+      <Card
+        key={ele.id}
+        url={ele.download_url}
+        name={ele.author}
+        // new content
+        ref={setLastElement}
+      />
+    ) : (
+      <Card key={ele.id} url={ele.download_url} name={ele.author} />
+    );
+  });
+};
+```
+
+Here we check every card element , if it is the last element, we would update lastElement state variable. Since we pass down refs to the children component, we need to update the `Card.jsx` with `React forwardRef` as following code snippet.
+
+```jsx
+import React, { forwardRef } from "react";
+
+function Card(props, ref) {
+  const { url, name } = props;
+  return (
+    <div className="card-container" ref={ref}>
+      <div className="card_img">
+        <img src={url} alt={name} />
+      </div>
+      <div className="card_title">
+        <p> {name}</p>
+      </div>
+    </div>
+  );
+}
+
+export default forwardRef(Card);
+```
+
+We will pass the lastItemRef as props for the `InfinityScrollComponent`, we will use that ref for intersection observer inside `InfinityScrollComponent`
+
+```jsx
+<InfinityScrollComponent
+  hasMore={hasMore}
+  isLoading={loading}
+  loadMore={loadMore}
+  loadOnMount={true}
+  // new content
+  lastItemRef={lastElement}
+>
+  {createLists()}
+</InfinityScrollComponent>
+```
+
+Of course, we need to update prop types in the `InfinityScrollComponent`
+
+```js
+InfinityScrollComponent.propTypes = {
+  loadMore: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  loadOnMount: PropTypes.bool,
+  lastItemRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
+```
+
+#### 2. Intersection Observer logic
+
+```jsx
+useEffect(() => {
+  const handleObserver = (entries) => {
+    // 2 .intersection Observer object callback handler
+    const { isIntersecting } = entries[0];
+    // fetch new data when the element is intersecting with the last element
+    if (!isLoading && hasMore && isIntersecting) {
+      loadMore();
+    }
+  };
+
+  // 1. Instantiate an intersection Observer object
+  const observer = new IntersectionObserver(handleObserver);
+
+  // 3. Targeting an element to be observed
+  if (lastItemRef) {
+    observer.observe(lastItemRef);
+  }
+
+  return () => {
+    if (lastItemRef) {
+      observer.unobserve(lastItemRef);
+    }
+  };
+}, [lastItemRef, loadMore, isLoading, hasMore]);
+```
+
+In step one, we instantiate an intersection Observer object, it could take two arguments, one is a callback function, and another is options objects. In my example, I will use the default field. You can check more information about options we can pass in in this [article](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
+
+In step two, The callback would invoke whenever the target visibility status is changing. Inside the callback, we destruct intersecting field, from the entry object, this is a boolean value used to check if the element that currently intersects with the root or not. We would loadMore data when the element `intersecting` is true(_in the viewport_)
+
+In step three, We need to target an element to be observed. We want to target the last list element.
+
+That is it for now! Thanks for the reading!

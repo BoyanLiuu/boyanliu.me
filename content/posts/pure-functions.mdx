@@ -1,0 +1,141 @@
+---
+title: "The core feature of functional programming: pure function"
+date: "2021-06-04"
+summary: "What makes a function pure, the three rules it follows, and how to turn an impure function into a pure one."
+tags: [javascript, functional-programming]
+series: "Functional programming in JavaScript"
+seriesOrder: 1
+canonical: "https://boyanliu.hashnode.dev/the-core-feature-of-functional-programming-pure-function"
+---
+
+**Functional programming** is a programming paradigm or style It is a bunch of rules that you follow when writing code. If you are familiar with Java, You might already know another prominent paradigm, object-oriented programming. Mastering this paradigm will help you develop more readable, maintainable, and manageable codebases.
+
+Today, we are going to learn one of the core features of functional programming, Pure function.
+
+## What is a pure function?
+
+A pure function is a function if it follows the following 3 rules:
+
+1. Functions must be highly predictable, Given the same input, it should always return the same output.
+2. Functions must return exact value which is determined solely by its input.
+3. Has no side effects.
+
+Let's explain one by one.
+
+### 1. Functions must be highly predictable
+
+If the input we are given is the same, we will get the same result, regardless of where/when we call it. It must only depend on its input arguments, It can not depend on the global state or variables outside of itself.
+
+The function below is pure.
+
+```js
+//pure function
+const multiply = (a, b) => a * b;
+
+// 8
+multiply(2, 4);
+```
+
+This one is not a pure function, because the function depends on an external/global variable a
+
+```js
+let a = 10;
+//impure function
+const multiply = (b) => a * b;
+
+// 40
+multiply(4);
+```
+
+### 2. Functions must return exactly the value
+
+This is not a pure function because it does not return a value
+
+```js
+function func(num) {
+  var answer = temp * num;
+}
+```
+
+### 3. Has no side effects
+
+I think this rule is the most tricky one, You might cause a side effect but you did not realize it. ‌ A side effect is any observable state change outside the called function.
+
+Here are some common side effects:
+
+- Mutating external variable or object property.
+- Printing to console or screen
+- Writing to Disk
+- Dom manipulation
+- Make HTTP calls(AJAX/fetch)
+
+Here are some impure functions related to mutating external variables or object property.
+
+Here is our first example, this is pretty straightforward, we modify temp in the function which breaks our law of pure function.
+
+```js
+let temp = 20;
+function func(num) {
+  temp = 90;
+  return num * temp;
+}
+```
+
+How about this one? is func a pure function? The answer is no, Let's see why that is not a pure function.
+
+```js
+const func = (key, value, object) => {
+  object[key] = value;
+};
+
+function test() {
+  const people = {
+    name: "David",
+  };
+
+  const answer = func("age", 20, people);
+  console.log({ people, answer });
+}
+test();
+```
+
+func violates two rules:
+
+- It adds the key/value pair directly to the object; hence, modifying the people object, which is outside of its scope.
+- func does not return any final result. This violates the rule that a pure function must return the output. From the following output of the code that answer contains undefined, This means func does not return anything.
+
+<Figure
+  src="/blog/pure-functions/console-output.png"
+  alt='Console output: answer is undefined, and people is now {name: "David", age: 20}.'
+  width={250}
+  height={76}
+/>
+
+So how do we make the above impure function a pure function?
+
+Instead of directly adding a property to an object, we deep clone a new object by using _JSON.parse(JSON.stringify(object))_ Thus, we can safely add new properties to it and return this object.
+
+```js
+const func = (key, value, object) => {
+  // make a deep copy
+  let newObj = JSON.parse(JSON.stringify(object));
+  newObj[key] = value;
+  return newObj;
+};
+
+function test() {
+  const people = {
+    name: "David",
+  };
+
+  const answer = func("age", 20, people);
+  console.log({ people, answer });
+}
+test();
+```
+
+## Benefits of pure functions
+
+- **Easier to add features.** Every saved function should be safely used in other places. You are confident it won't break other parts of the app. The same function can be used in various contexts.
+- **More readable.** It is much easier to read and reason about. Since function output only relies on its input and there is no side effect. It is fully descriptive
+- **Easier to debug.** Since it does not interact with the external state, you do not need to look at thousands of interdependence.

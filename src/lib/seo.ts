@@ -20,6 +20,9 @@ export const personJsonLd = () => ({
   name: siteConfig.author.name,
   jobTitle: siteConfig.author.jobTitle,
   url: absoluteUrl("/"),
+  ...(siteConfig.author.photo && {
+    image: absoluteUrl(siteConfig.author.photo),
+  }),
   sameAs: sameAs(),
 });
 

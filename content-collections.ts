@@ -116,6 +116,9 @@ const posts = defineCollection({
     projects: z.array(z.string()).default([]),
     series: z.string().optional(),
     seriesOrder: z.number().int().positive().optional(),
+    // Where the post first appeared (e.g. a Hashnode copy). The post shows an "Originally published
+    // on …" note and uses this as its canonical URL, so search engines treat that copy as the original.
+    canonical: z.string().url().optional(),
     content: z.string(),
   }),
   transform: async (document, context) => {

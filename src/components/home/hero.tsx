@@ -4,6 +4,7 @@ import { RotatingWords } from "@/components/motion/rotating-words";
 import { TechStack } from "./tech-stack";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
+import { initials } from "@/lib/initials";
 
 const availabilityDot: Record<string, string> = {
   open: "bg-[#2f9e5b]",
@@ -13,11 +14,6 @@ const availabilityDot: Record<string, string> = {
 /** Tilted photo card with a handwritten caption; drops in on load (`.polaroid`). Shows initials until `author.photo` is set. */
 const Polaroid = () => {
   const { photo, name, location } = siteConfig.author;
-  const initials = name
-    .split(/\s+/)
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("");
   return (
     <figure className="polaroid mx-auto w-full max-w-[21rem] rounded-card border border-rule bg-paper p-3.5 pb-0 shadow-lift lg:mx-0 lg:ml-auto">
       <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-wash">
@@ -36,7 +32,7 @@ const Polaroid = () => {
             className="absolute inset-0 grid place-items-center bg-[radial-gradient(color-mix(in_srgb,var(--color-ink)_14%,transparent)_1px,transparent_1px)] bg-[size:14px_14px]"
           >
             <span className="font-display text-[7rem] leading-none font-bold tracking-[-0.04em] text-accent">
-              {initials}
+              {initials(name)}
             </span>
           </div>
         )}

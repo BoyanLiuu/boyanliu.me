@@ -26,23 +26,32 @@ export const Callout = ({
   </aside>
 );
 
-/** An image with a caption label. Usage in MDX: <Figure src="/…" alt="…" caption="Fig. 1 — …" /> */
+/**
+ * An image with an optional caption. Usage in MDX: <Figure src="/…" alt="…" width={800} height={600} caption="…" />
+ * Shown at its own size up to the column width (never stretched); width and height reserve its space.
+ */
 export const Figure = ({
   src,
   alt,
   caption,
+  width,
+  height,
 }: {
   src: string;
   alt: string;
   caption?: string;
+  width?: number;
+  height?: number;
 }) => (
   <figure className="my-8">
     {/* eslint-disable-next-line @next/next/no-img-element -- MDX images have unknown dimensions */}
     <img
       src={src}
       alt={alt}
+      width={width}
+      height={height}
       loading="lazy"
-      className="w-full rounded-card border border-rule"
+      className="h-auto max-w-full rounded-card border border-rule"
     />
     {caption && (
       <figcaption className="mt-2 text-label text-muted">{caption}</figcaption>

@@ -31,7 +31,7 @@ Everything personal lives in `content/` (see [TEMPLATE.md](TEMPLATE.md)):
 2. **`content/experience.json`**: real roles with impact bullets and dates; education.
 3. **`content/bookmarks.json`**: useful repos, blogs, articles and sites, each with a one-line note (shown on `/bookmarks` and the home page).
 4. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
-5. **`content/posts/`**: replace the sample posts (keep the style guide as `draft: true` for reference).
+5. **`content/posts/`**: your posts in Markdown or MDX. A post first published elsewhere sets `canonical` to the original URL.
 6. Put your résumé at `public/resume.pdf`; every Résumé button opens it. (Or generate one from `/resume` with `pnpm build && pnpm resume:pdf --force`.)
 
 Invalid JSON or frontmatter stops `pnpm dev`/`pnpm build` with a readable error. Drafts (`draft: true`) appear in `pnpm dev` only.

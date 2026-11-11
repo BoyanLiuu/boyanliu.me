@@ -46,7 +46,6 @@ What the site should make Shawn known for (confirmed by the owner; facts from `p
 - Lint enforces arrow functions and modern syntax; Next.js route files and `scripts/` are exempt.
 - GitHub activity is fetched at build time and revalidated daily, from GitHub GraphQL when `GITHUB_TOKEN` is set and otherwise from a public mirror. If both fail, the tile falls back to a profile link.
 - **Terminology:** Work (projects and case studies), Writing (posts), Bookmarks, Changelog, Résumé (always with the accents).
-- **Undecided:** whether the three sample projects and the Markdown style-guide post stay public (kept visible for now by the owner's choice). No portrait photo has been provided yet (`author.photo`).
 
 ## Brand Commitments
 
@@ -62,8 +61,9 @@ What the site should make Shawn known for (confirmed by the owner; facts from `p
 - **Case studies:** `content/projects/dark-room.mdx` (TMDB movie site, with repo and GitHub Pages demo) and `content/projects/frontend-mentor.mdx` (19 builds, screenshots in `public/projects/frontend-mentor/`, with live and code links).
 - **Live data and lists:** GitHub contributions, and 13 bookmarks in `content/bookmarks.json`.
 - **Hand illustration:** `public/hands/left.png` and `right.png`. This is third-party artwork from Vaibhav Verma's portfolio, used at the owner's request; its licence is not confirmed.
-- **Placeholders that must never be presented as real work:** the TODO line in the "Hello, world" post.
-- **Absent, do not fabricate:** a portrait photo, testimonials, metrics beyond the résumé, client logos, and live URLs for the unlisted Frontend Mentor builds (Skilled e-learning, Sunnyside, Todo app).
+- **Writing:** five posts first published on Hashnode (2021–2023), on functional programming in JavaScript, CSS centering and loading lists in React; each links back to its original (`canonical`).
+- **Portrait:** `public/me.jpg` (hero photo card, 4:5 crop of a beach photo) and `public/me-avatar.jpg` (header avatar, face crop).
+- **Absent, do not fabricate:** testimonials, metrics beyond the résumé, client logos, and live URLs for the unlisted Frontend Mentor builds (Skilled e-learning, Sunnyside, Todo app).
 
 ## Product Principles
 

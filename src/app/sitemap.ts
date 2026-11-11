@@ -6,7 +6,8 @@ import { allTopics } from "@/lib/relations";
 import { buildSitemap } from "@/lib/sitemap";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getPosts();
+  // Cross-posts are canonical elsewhere, so they stay out of the sitemap.
+  const posts = getPosts().filter((post) => !post.canonical);
   const projects = getProjects();
   return buildSitemap({
     posts,

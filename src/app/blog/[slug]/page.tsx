@@ -18,6 +18,7 @@ import {
   seriesParts,
 } from "@/lib/relations";
 import { blogPostingJsonLd, pageAlternates, pageOpenGraph } from "@/lib/seo";
+import { publisherName } from "@/lib/url";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -37,7 +38,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.summary,
     keywords: post.keywords ?? post.tags,
-    alternates: pageAlternates(url),
+    // A cross-posted article points search engines at the copy where it first appeared.
+    alternates: {
+      ...pageAlternates(url),
+      ...(post.canonical && { canonical: post.canonical }),
+    },
     openGraph: pageOpenGraph({
       type: "article",
       url,
@@ -83,6 +88,19 @@ export default async function PostPage({ params }: Props) {
         <p className="col-span-4 mt-5 text-h3 font-normal text-muted md:col-span-8 lg:col-span-8">
           {post.summary}
         </p>
+        {post.canonical && (
+          <p className="col-span-4 mt-4 text-small text-muted md:col-span-8">
+            Originally published on{" "}
+            <a
+              href={post.canonical}
+              className="underline underline-offset-4 hover:text-accent"
+            >
+              {publisherName(post.canonical)}
+              <span aria-hidden>&nbsp;↗</span>
+            </a>
+            .
+          </p>
+        )}
       </Grid>
 
       <Grid className="mt-10 lg:mt-12">

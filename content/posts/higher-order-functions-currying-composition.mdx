@@ -1,0 +1,157 @@
+---
+title: "JavaScript functional programming explained: Higher order functions, partial function, and currying, functional composition"
+date: "2023-09-30"
+summary: "Higher-order functions, partial application, currying and function composition in JavaScript, with a classic currying interview question."
+tags: [javascript, functional-programming]
+series: "Functional programming in JavaScript"
+seriesOrder: 2
+featured: true
+canonical: "https://boyanliu.hashnode.dev/javascript-functional-programming-explained-higher-order-functions-partial-function-and-currying-functional-composition"
+---
+
+Recently, I refactored our console CDK pipeline code using the functional programming idea and I would like to document my understanding of functional programming. In this article, I will discuss seven functional programming techniques that you can use with JavaScript to give you a better understanding of how to apply functional programming in your web development projects.
+
+## Higher order functions
+
+**Definition:** are functions that either take another function as the input or return a function as the output.
+
+- **map, filter,** and **reduce** functions are some common higher order array functions
+
+Here is a simple example of a higher order function use case:
+
+```js
+const double = (a) => a * 2;
+const numbers = [1, 2, 3];
+
+const doubledNumbers = numbers.map(double);
+
+console.log(doubledNumbers); // [2,4,6]
+```
+
+## Partial function
+
+- **Partial application** in JavaScript is the process of pre-defining values to one or more arguments of a function that returns another function that accepts the remaining, unbound arguments to be completed.
+
+Here is one example to explain the idea of partial function:
+
+- The function `multiplyBy2` pre-define value 2 and It needs to have one more input in order to complete the function.
+
+```js
+const multiply = (a, b) => a * b;
+
+const createPartialFn = (fn, prefilledValue) => {
+  // In this example, the newInput would be 5,
+  // the prefilledValue would be 2.
+  return (newInput) => {
+    const output = fn(newInput, prefilledValue);
+    return output;
+  };
+};
+
+const multiplyBy2 = createPartialFn(multiply, 2);
+const result = multiplyBy2(5);
+```
+
+## Currying
+
+- It involves taking a function with multiple arguments and returning a sequence of nested functions, each taking a single argument, eventually resolving to a value. Basically, it converts a function from this: `f(a,b,c)` to `f(a)(b)(c)`.
+
+Here is a classic interview question about currying:
+
+```js
+function multiply(a,b,c){
+    return a*b*c;
+}
+
+// Create a currying function that can take 1,2,3 parameters, and get the result.
+// If there are not enough arguments are passed, we need to return a function.
+const currying(){
+}
+const getResult = currying(multiply);
+console.log(getResult(2,3,4))  //24
+console.log(getResult(2,3)(4)) //24
+console.log(getResult(2)(3)(4)) //24
+
+// Solution
+const currying = (func) => {
+    function curriedFunc(...args){
+        // When the parameter we passed in is larger than the func length
+        if(args.length >= func.length){
+            return func(...args);
+        }
+        else{
+            return(...next) => {
+                // It will memorize arguments in a function and recursive calling
+                // curriedFunc until it get enough arguments.
+                return curriedFunc(...args,...next);
+            }
+        }
+
+    }
+    return curriedFunc;
+}
+```
+
+## Functional composition
+
+- Functional composition is a method of combining several functions' effects to create a pipeline through which our program's data can flow.
+- Composing functions allows us to build complex functions from many simple, generic functions
+
+Assuming we want to get the result of one number after it execute the following three functions.
+
+```js
+const multiplyBy2 = (x) => x * 2;
+const add10 = (x) => x + 10;
+const divideBy3 = (x) => x / 3;
+```
+
+### Traditional approach one
+
+```js
+const multiplyBy2 = (x) => x * 2;
+const add10 = (x) => x + 10;
+const divideBy3 = (x) => x / 3;
+const firstStepResult = multiplyBy2(10);
+const secondStepResult = add10(firstStepResult);
+const finalStepResult = divideBy3(secondStepResult);
+console.log("finalStepResult", finalStepResult); // 10
+```
+
+### Traditional approach two
+
+```js
+const multiplyBy2 = (x) => x * 2;
+const add10 = (x) => x + 10;
+const divideBy3 = (x) => x / 3;
+const result = divideBy3(add10(multiplyBy2(10)));
+```
+
+### Alternate approach
+
+```js
+const multiplyBy2 = (x) => x * 2;
+const add10 = (x) => x + 10;
+const divideBy3 = (x) => x / 3;
+
+const reduce = (array, accumulator) => {
+  for (const callBackFn of array) {
+    accumulator = callBackFn(accumulator);
+  }
+  return accumulator;
+};
+
+const steps = [multiplyBy2, add10, divideBy3];
+const output = reduce(steps, 10);
+
+// We can also use array built-in reduce function
+const output2 = steps.reduce(
+  (accumulator, callBackFn) => (accumulator = callBackFn(accumulator)),
+  10,
+);
+```
+
+### Benefits of using functional composition
+
+- **Easier to add features** - In the future if we want to add more steps, we can easily modify `steps` array.
+- **More readable**
+- **Easier to debug** - I know exactly the line of code my bug is in.
