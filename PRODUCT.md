@@ -58,7 +58,7 @@ What the site should make Shawn known for (confirmed by the owner; facts from `p
 
 - **Résumé:** `public/resume.pdf` (Sep 2025). It includes a home address and phone number, which the owner chose to publish.
 - **Work history:** `content/experience.json`, with 5 roles and education (University of Maryland, College Park, B.S. in Computer Science, 2020).
-- **Case studies:** `content/projects/dark-room.mdx` (TMDB movie site, with repo and GitHub Pages demo) and `content/projects/frontend-mentor.mdx` (19 builds, screenshots in `public/projects/frontend-mentor/`, with live and code links).
+- **Case studies:** `content/projects/movie-passport.mdx` (3D globe of world cinema, with repo and Vercel demo), `content/projects/avatar-playground.mdx` (avatar generator, with repo and Vercel demo), `content/projects/dark-room.mdx` (TMDB movie site, with repo and GitHub Pages demo) and `content/projects/frontend-mentor.mdx` (19 builds, screenshots in `public/projects/frontend-mentor/`, with live and code links).
 - **Live data and lists:** GitHub contributions, and 13 bookmarks in `content/bookmarks.json`.
 - **Hand illustration:** `public/hands/left.png` and `right.png`. This is third-party artwork from Vaibhav Verma's portfolio, used at the owner's request; its licence is not confirmed.
 - **Writing:** five posts first published on Hashnode (2021–2023), on functional programming in JavaScript, CSS centering and loading lists in React; each links back to its original (`canonical`).

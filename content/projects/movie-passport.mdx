@@ -1,0 +1,34 @@
+---
+title: Movie Passport
+summary: An interactive 3D globe for exploring world cinema country by country. Spin the Earth, pick a country to see the films it made and co-produced, open a film for its cast, trailer and where to watch it, and follow links from one country to the next.
+outcome: 1,171 films from 164 countries
+year: 2026
+role: Solo
+stack: [nextjs, react, typescript, tailwind, threejs, tmdb-api]
+status: live
+featured: true
+order: 0
+cover: /projects/movie-passport/cover.png
+coverAlt: Movie Passport's opening view, a dark globe in a starry sky with Europe and Africa facing the viewer, countries that have films lit in silver and small film posters standing on them.
+problem: Film sites sort by genre and popularity, so it is hard to see what a country makes, or how often it makes films with its neighbours. I wanted to browse cinema by place and travel from one country to the next.
+approach: A Next.js app built around a three.js globe (react-globe.gl). A build-time script fetches TMDB's most-voted films for every country into static files that are never committed, so the site has no server and the API token never reaches the browser. The URL holds the state, so every country, film and details view is a shareable link.
+result: Live on Vercel with 1,171 films, a details page for each with cast, trailer and where to stream or rent it, keyboard and screen-reader support, and 108 browser tests. Profiling took the globe from 23 to 60 fps on a 4× slowed CPU; Lighthouse scores 97–99 for performance on desktop and 100 for accessibility.
+links:
+  repo: https://github.com/BoyanLiuu/movie-passport
+  demo: https://movie-passport-eight.vercel.app/
+---
+
+Movie Passport puts world cinema on a 3D globe. Countries with films are lit in silver, and posters stand on them like small framed prints. Data comes from TMDB; it is a non-commercial project.
+
+## What it does
+
+- **Browse by country:** each country lists the films it made and the ones it co-produced, with counts and decades. A country with no films suggests nearby ones that do.
+- **Open a film:** the camera flies to it and every production country lights up. The details page adds cast and crew, the trailer (loaded from YouTube only when you press play), where to stream, rent or buy it in your region (JustWatch data), and similar films.
+- **Search:** countries and films by title, original title, director or country code.
+- **Links everywhere:** every view has its own URL, so Back, Forward and shared links all work.
+
+## How it's built
+
+- **Data at build time:** TMDB's terms forbid redistributing its data, so nothing is committed. Each deploy fetches the catalogue and one details file per film.
+- **Performance:** a CPU profile showed three.js re-checking the shaders of 646 translucent country meshes twice every frame. Opaque, pre-mixed colours that look the same removed the work and took the globe from about 23 to 60 fps with the CPU slowed 4×.
+- **Design:** a "Velvet Night" look, like a mezzotint print. Everything starts black, and only what has films is lit, in engraved Cinzel capitals and Spectral text.
