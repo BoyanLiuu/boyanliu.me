@@ -39,7 +39,7 @@ What the site should make Shawn known for (confirmed by the owner; facts from `p
 ## Capabilities and Constraints
 
 - Next.js 16 App Router, React 19, Tailwind CSS v4 and MDX via content-collections. Static-first (Cache Components off), deployed on Vercel, pnpm via Corepack.
-- **Template/content split:** `src/` stays generic and reusable; everything personal lives in `content/` and `public/` (see TEMPLATE.md). Content JSON is validated with zod at build time, and invalid content fails the build.
+- **Template/content split:** `src/` stays generic and reusable; everything personal lives in `content/` and `public/`. Content JSON is validated with zod at build time, and invalid content fails the build.
 - Accent colours must pass WCAG AA (at least 4.5:1); this is checked at build time.
 - The e2e "5-second test" at 1440×900 requires the headline, résumé and contact links above the fold, and the first project to start within half a screen below it.
 - Dev and production servers bind to 127.0.0.1 only.

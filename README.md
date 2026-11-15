@@ -23,18 +23,27 @@ pnpm test:e2e     # Playwright smoke tests against the production build (run `pn
 | `pnpm resume:pdf --force`                             | Replaces `public/resume.pdf` with a printout of `/resume` (run after `pnpm build`)                                      |
 | `pnpm format`                                         | Prettier with Tailwind class sorting                                                                                    |
 
-## Make it yours (replace the TODOs)
+## Content
 
-Everything personal lives in `content/` (see [TEMPLATE.md](TEMPLATE.md)):
+Everything personal lives in `content/`:
 
 1. **`content/site.json`**: role, email, location, bio, LinkedIn, availability, accent colours, feature flags. VS Code autocompletes it from `site.schema.json`.
 2. **`content/experience.json`**: real roles with impact bullets and dates; education.
 3. **`content/bookmarks.json`**: useful repos, blogs, articles and sites, each with a one-line note (shown on `/bookmarks` and the home page).
-4. **`content/projects/`**: replace the three `SAMPLE` case studies. Covers live in `public/projects/<slug>/` (16:10).
+4. **`content/projects/`**: the case studies. Covers live in `public/projects/<slug>/` (16:10).
 5. **`content/posts/`**: your posts in Markdown or MDX. A post first published elsewhere sets `canonical` to the original URL.
 6. Put your résumé at `public/resume.pdf`; every Résumé button opens it. (Or generate one from `/resume` with `pnpm build && pnpm resume:pdf --force`.)
 
 Invalid JSON or frontmatter stops `pnpm dev`/`pnpm build` with a readable error. Drafts (`draft: true`) appear in `pnpm dev` only.
+
+## Customising
+
+The `*.schema.json` files in `content/` are **generated** by `pnpm schemas` from the zod schemas in `src/config/schema.ts` (mapped to files in `src/config/json-schemas.ts`) — don't edit them by hand. A unit test fails if the committed copies are out of date.
+
+- **Accent colours:** `theme.accent` and `theme.accentDark` in `content/site.json` (both must pass WCAG AA; the build checks).
+- **Features:** `features.search`, `features.analytics` and `analytics.customEvents` in `content/site.json`.
+- **Fonts, grid, type scale:** `src/app/layout.tsx` for fonts, the `@theme` tokens in `src/app/globals.css` for the rest.
+- **New frontmatter fields:** add them to `content-collections.ts`. New site settings go in `src/config/schema.ts`, then run `pnpm schemas`.
 
 ## Writing
 
