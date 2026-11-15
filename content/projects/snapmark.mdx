@@ -1,0 +1,69 @@
+---
+title: Snapmark
+summary: A browser image annotator for people who need the export to be exact. Open a screenshot, draw boxes, arrows, highlights, labels and pixelated redactions on it, then copy a PNG at the image's own size. No account, no upload, no server.
+outcome: Byte-identical exports at any zoom
+year: 2026
+role: Solo
+stack: [nextjs, react, typescript, tailwind, shadcn, canvas, zustand, indexeddb]
+status: live
+featured: true
+order: 0
+cover: /projects/snapmark/cover.png
+coverAlt: Snapmark's opening screen, dark, with the headline "Annotate to the pixel, then paste" beside a lake photo marked up with an orange box, a blue arrow, a highlight and two labels, over readouts giving the view's zoom, the selected box's size and its top-left corner.
+problem: Annotation tools either upload your screenshots to a server to draw on them, or export at the size of the window you were looking at. I wanted to box a one-pixel table border at 400% zoom and get back a PNG at the screenshot's full resolution, with the box on exactly those pixels.
+approach: Canvas 2D by hand, no drawing library, with one rule holding the design together — every annotation coordinate is stored in the source image's own pixels, never in screen or device pixels. Export is then not a conversion, it is the same scene function re-run with the camera set to identity. Only one module is allowed to know about devicePixelRatio.
+result: Live on Vercel with six tools, zoom from 10% to 800%, undo by operation, a library kept in IndexedDB under the hash of each image's bytes, and PNG, JPEG or W3C Web Annotation JSON out. 61 unit tests and 124 browser tests, including the one that matters — the same rectangle drawn at 25% and at 400% exports byte-identical.
+media:
+  - type: image
+    src: /projects/snapmark/editor.png
+    alt: The Snapmark editor, with a toolbar of six tools, the lake photo at 22% zoom and its annotations, an inspector of colour, stroke and opacity on the right, and a layers list of the seven annotations with their sizes in image pixels.
+    caption: The editor. Stroke width is given in image pixels, so it exports at that width from any zoom.
+    theme: any
+  - type: image
+    src: /projects/snapmark/export.png
+    alt: Snapmark's export page with a preview at 19%, format choices of PNG, JPEG or annotations as JSON, and readouts giving the output as 4554 by 3036 pixels, 13.8 megapixels, against a 64 megapixel budget.
+    caption: Export states the real output size and the engine's budget, rather than handing back a blank file.
+    theme: any
+links:
+  repo: https://github.com/BoyanLiuu/Snapmark
+  demo: https://snapmark-gamma.vercel.app
+---
+
+Snapmark is a screenshot annotator that runs entirely in the browser. Open an image, mark it up, press `⌘C`, and paste a full-resolution PNG wherever you were going to paste it. Nothing is uploaded, and there is no account to make.
+
+## What it does
+
+- **Six tools:** select, rectangle, arrow, highlighter that multiplies so what is under it stays readable, text labels on a legibility plate, and a pixelate region that is recomputed from the original on every draw, so it stays editable rather than being burned in.
+- **Zoom to the pixel:** 10% to 800%, anchored at the pointer, with the image's own pixel grid showing past 200%. Space-drag, the middle button or two fingers pan.
+- **Edit what you drew:** select one or many, move, resize by eight handles, nudge by a single pixel, reorder or hide layers, and undo by operation — one drag is one step, not forty.
+- **Copy and export:** `⌘C` puts a PNG on the clipboard at the image's own size, or downloads it where the browser offers no clipboard. The export page also offers JPEG, or the annotations as W3C Web Annotation JSON that can be dropped back onto the same image later.
+- **Kept in this browser:** each image and its annotations are filed under the SHA-256 of its bytes in IndexedDB, so reopening the same file brings its annotations back whatever it has been renamed to.
+- **Reachable by address, keyboard and phone:** every screen has a URL, every shortcut the panel lists works, and the whole loop fits a 375px viewport by touch.
+
+## What I wanted to learn
+
+Three things, and the technology was chosen to force all three: **Canvas 2D, coordinate transforms, and export rendering.**
+
+That ruled out the sensible option. Konva or Fabric would have finished this product in two evenings — and removed every one of the goals, because the handle maths, the hit testing and the export would all have been theirs. So the canvas work is written by hand: about eighty lines of hit testing, the resize-anchor maths, and arrowheads that stay in proportion at any shaft length.
+
+## The one decision everything else follows from
+
+Annotation geometry is stored **only in image space**, as unrounded floats. Nothing in the document model knows the zoom, the viewport size, or the device pixel ratio.
+
+Storing geometry in view space is the obvious thing to do, because view coordinates are what a pointer event hands you. It also means every export is correct only at the zoom the annotation was drawn at — and the fix is not local. It needs a migration of every saved document plus a rewrite of every hit test, every resize handler and every draw function. The three spaces had to be separated on day one, in one module, with a test, before any tool code existed.
+
+A second rule falls out of the first: **geometry in image space, affordances in screen space.** A resize handle is 8 CSS pixels whether you are at 10% or 800%; the click-versus-drag threshold is 3; the hit tolerance is 6. All three are converted into image pixels at the moment of use and never stored. Store a handle size in image pixels and the handles vanish at low zoom and swallow the screen at high zoom.
+
+## Things that only break on someone else's machine
+
+- **Two matrices, not one.** The transform handed to `ctx.setTransform` folds in `devicePixelRatio`; the one used to read pointer events must not, because `clientX` is already in CSS pixels. Use the wrong one for hit testing and every click lands at half its intended position — on a Retina laptop, and nowhere else. `setTransform` is therefore called in exactly one file, and that file is the only reader of `devicePixelRatio`.
+- **Canvases fail silently.** Every engine caps canvas dimensions and total area, and over the cap you get no exception — just a blank or fully transparent image. A 108 MP photo exports fine on desktop Chrome and produces an empty PNG on an iPad. So the exporter reads a per-platform cap instead of probing, scales the scene to fit, and says what the real output size will be.
+- **Safari loses user activation across `await`.** Render the blob, await it, then write to the clipboard, and the write is rejected because the gesture has expired. `ClipboardItem` has to be handed the _promise_, synchronously from the click.
+- **`toDataURL` is the wrong call.** It blocks the main thread for several hundred milliseconds on an 8 MP PNG, returns a base64 string a third larger than the bytes, and on very large canvases can exceed the engine's maximum string length and quietly return nothing. `convertToBlob` is async, binary, and goes straight into a `ClipboardItem`.
+- **Phone photos arrive rotated.** `createImageBitmap(blob, { imageOrientation: "from-image" })` normalises EXIF orientation at decode, so image space matches what the user sees. Without it every annotation lands rotated 90° in the export.
+
+## The test that proves the architecture
+
+Draw the same rectangle at 25% zoom. Draw it again at 400%. Export both. The two PNGs must be byte-identical.
+
+It is the only test that catches a view-space value having leaked into stored geometry, which is the one bug in this project that is expensive to fix later rather than merely annoying. Everything else — 61 unit tests and 124 browser tests across 18 files, run at both 1× and 2× device pixel ratio — is there to keep that invariant from eroding.
