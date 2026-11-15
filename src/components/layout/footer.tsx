@@ -7,6 +7,7 @@ import {
   ReachingHands,
 } from "@/components/motion/reaching-hands";
 import { Container } from "@/components/swiss/layout";
+import { contactPath } from "@/config/links";
 import { siteConfig } from "@/config/site";
 import { currentVersion } from "@/data/changelog";
 import { ContactLinks } from "./contact-links";
@@ -50,7 +51,12 @@ export const Footer = () => {
           <p className="footer-line mt-12 font-display text-[clamp(1.6rem,3vw,1.9rem)] leading-[1.35] text-balance">
             {footerTitle}
             <br />
-            {footerSubtitle}
+            <Link
+              href={contactPath}
+              className="underline decoration-night-rule decoration-1 underline-offset-[6px] transition-colors duration-300 hover:text-night-accent hover:decoration-night-accent"
+            >
+              {footerSubtitle}
+            </Link>
           </p>
           <ContactLinks
             label="Contact (footer)"

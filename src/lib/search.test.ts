@@ -26,11 +26,13 @@ describe("buildSearchIndex", () => {
       "page",
       "page",
       "page",
+      "page",
       "topic",
       "topic",
     ]);
     for (const item of index) expect(item.href.startsWith("/")).toBe(true);
     expect(index.some((i) => i.href === "/changelog")).toBe(true);
+    expect(index.some((i) => i.href === "/contact")).toBe(true);
   });
 
   it("makes stacks and tags searchable", () => {

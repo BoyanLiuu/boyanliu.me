@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 export const events = {
   resumeView: "Resume View",
   resumeDownload: "Resume Download",
+  contactClick: "Contact Click",
   emailClick: "Email Click",
   linkedinClick: "LinkedIn Click",
   githubClick: "GitHub Click",

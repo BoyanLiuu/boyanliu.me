@@ -12,6 +12,9 @@ export type LinkCell = {
 import { events } from "@/lib/analytics";
 import { siteConfig } from "./site";
 
+/** The contact form, linked from the contact pills and the footer call to action. */
+export const contactPath = "/contact";
+
 /** The contact cells used by the hero and the footer. */
 export const contactCells: LinkCell[] = [
   {
@@ -19,6 +22,11 @@ export const contactCells: LinkCell[] = [
     href: "/resume.pdf",
     primary: true,
     event: events.resumeView,
+  },
+  {
+    label: siteConfig.ui.contact,
+    href: contactPath,
+    event: events.contactClick,
   },
   {
     label: "Email",

@@ -61,6 +61,8 @@ Swiss design system (12/8/4-column grid, token-locked colours, light and dark th
 3. Add the domain `boyanliu.me` (and `www.boyanliu.me` redirecting to it) and update DNS as Vercel instructs.
 4. Pull requests get preview deployments automatically.
 
+**Contact form** (`/contact`): messages are delivered by [Resend](https://resend.com) through a Server Action. Verify `boyanliu.me` in Resend (it adds SPF and DKIM records to DNS), then set `RESEND_API_KEY` and `CONTACT_FROM_EMAIL` (e.g. `Contact form <contact@boyanliu.me>`) in the Vercel project. Mail goes to `author.email` in `content/site.json`, with the visitor's address as `Reply-To`. Without both variables the form refuses to send and points the visitor at the address instead, so a missing key never looks like a delivered message. `CONTACT_DRY_RUN=1` runs the form without sending (used by the e2e suite) — never set it in production.
+
 **Analytics:** `features.analytics` in `content/site.json` loads Vercel Web Analytics; also turn on **Analytics → Web Analytics** in the Vercel project (free on Hobby: page views, referrers, countries, devices; 50k events a month, one month of history). Visits from the résumé short links show in the **Pages** panel under `/from-resume/…`. Click events for the Résumé, Email, LinkedIn and GitHub links are wired up but need a Pro plan: set `analytics.customEvents` to `true` after upgrading.
 
 ## Licence

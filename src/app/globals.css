@@ -397,6 +397,19 @@
   :is(.pill:hover, .pill:focus-visible) .pill__circle > span {
     transform: none;
   }
+  /* A submitting <PillButton> holds the open state until its action settles. */
+  .pill[aria-busy="true"] .pill__inner {
+    width: calc(100% - var(--pill-h) - 4px);
+  }
+  .pill[aria-busy="true"] .pill__circle {
+    scale: 1;
+  }
+  .pill[aria-busy="true"] .pill__circle > span {
+    transform: none;
+  }
+  .pill:disabled {
+    opacity: 0.75;
+  }
   .pill:focus-visible {
     outline: 2px solid var(--pill-bg);
     outline-offset: 3px;

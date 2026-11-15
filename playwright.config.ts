@@ -14,6 +14,8 @@ export default defineConfig({
   webServer: {
     // Serves the existing production build on loopback only. Run `pnpm build` first.
     command: `pnpm exec next start -H 127.0.0.1 -p ${PORT}`,
+    // The contact form runs its real action but posts no email. Never set this in production.
+    env: { CONTACT_DRY_RUN: "1" },
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,

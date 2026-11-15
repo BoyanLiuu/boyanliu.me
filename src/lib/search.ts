@@ -66,6 +66,7 @@ export const buildSearchIndex = ({
     { title: "Bookmarks", href: "/bookmarks" },
     { title: "Changelog", href: "/changelog" },
     { title: "About", href: "/about" },
+    { title: "Contact", href: "/contact" },
     { title: "Résumé", href: "/resume" },
   ].map((p) => ({ kind: "page" as const, ...p, keywords: [] })),
   ...topics.map((t) => ({
